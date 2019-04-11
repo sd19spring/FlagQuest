@@ -82,12 +82,18 @@ class Player_Controller():
         Added the following doctest to make sure the method could find the
         correct facing if only v_x.
         >>> test = Player_Controller(2)
-        >>> test.accel_x()
+        >>> test.accel_x('right')
         >>> test.facing()
         >>> print(test)
+        Player_Controller(angle = 0, v_x = 2, v_y = 0 acceleration = 2)
 
         Added the following doctest to make sure the method could find the
         correct facing if only v_y.
+        >>> test = Player_Controller(2)
+        >>> test.accel_y('up')
+        >>> test.facing()
+        >>> print(test)
+        Player_Controller(angle = 90, v_x = 0, v_y = 2 acceleration = 2)
 
         Added the following doctest to make sure the method could find the
         correct facing if there is v_x and v_y, and the direction is in the first
@@ -102,11 +108,27 @@ class Player_Controller():
         Added the following doctest to test if the direction is in the fourth
         quadrant.
         """
-        self.angle = degrees(atan(self.v_x/self.v_y)) # get the facing in degrees
+        try:
+            angle = int(math.degrees(math.atan(self.v_x/self.v_y))) # get the facing in degrees
+            print(angle)
+        except ZeroDivisionError:
+            angle = 0
+
+        if self.v_x < 0 and self.v_y > 0: # if in quandrant 2
+            print('quandrant 2')
+        elif self.v_x < 0 and self.v_y < 0: # if in quadrant 3
+            print('quandrant 3')
+        elif self.v_x > 0 and self.v_y < 0: # if in quandrant 4
+            print('quandrant 4')
+        else: # if in quandrant 1
+            self.angle = angle
+
+        if self.v_x < 0:
+            print('hi')
         # way to keep track of where it is undefined
         # way to keep track of which part it is on
         # if v_x is neg, it will be facing left
-        # if v_y is neg, it will be facing down
+        # if v_y is neg, it will be  facing down
 
 class Keyboard_Controller():
     """Defines a controller that takes input from the arrow keys, wasd, and ,aoe
@@ -114,4 +136,4 @@ class Keyboard_Controller():
     pass
 
 import doctest
-doctest.run_docstring_examples(Player_Controller.stop, globals())
+doctest.run_docstring_examples(Player_Controller.facing, globals())

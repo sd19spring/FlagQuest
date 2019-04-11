@@ -10,7 +10,7 @@ TO DO
 ## To Do
 Basic class implementation
 * Flag
-* Keyboard_Controller - Add operators
+* Keyboard_Controller - Fix facing chooser
 * Obstacle
 * Player_Actor
 * Color_Actor
