@@ -98,33 +98,58 @@ class Player_Controller():
         Added the following doctest to make sure the method could find the
         correct facing if there is v_x and v_y, and the direction is in the first
         quadrant.
+        >>> test = Player_Controller(2)
+        >>> test.accel_y('up')
+        >>> test.accel_x('right')
+        >>> test.accel_x('right')
+        >>> test.facing()
+        >>> print(test)
+        Player_Controller(angle = 63, v_x = 4, v_y = 2 acceleration = 2)
 
         Added the following doctest to test if the direction is in the second
         quadrant.
+        >>> test = Player_Controller(2)
+        >>> test.accel_y('up')
+        >>> test.accel_y('up')
+        >>> test.accel_x('left')
+        >>> test.facing()
+        >>> print(test)
+        Player_Controller(angle = 116, v_x = -2, v_y = 4 acceleration = 2)
 
         Added the following doctest to test if the direction is in the third
         quadrant.
+        >>> test = Player_Controller(2)
+        >>> test.accel_y('down')
+        >>> test.accel_y('down')
+        >>> test.accel_x('left')
+        >>> test.facing()
+        >>> print(test)
+        Player_Controller(angle = 206, v_x = -2, v_y = -4 acceleration = 2)
 
         Added the following doctest to test if the direction is in the fourth
         quadrant.
+        >>> test = Player_Controller(2)
+        >>> test.accel_y('down')
+        >>> test.accel_x('right')
+        >>> test.accel_x('right')
+        >>> test.facing()
+        >>> print(test)
+        Player_Controller(angle = 333, v_x = 4, v_y = -2 acceleration = 2)
         """
         try:
             angle = int(math.degrees(math.atan(self.v_x/self.v_y))) # get the facing in degrees
-            print(angle)
         except ZeroDivisionError:
             angle = 0
 
-        if self.v_x < 0 and self.v_y > 0: # if in quandrant 2
-            print('quandrant 2')
-        elif self.v_x < 0 and self.v_y < 0: # if in quadrant 3
-            print('quandrant 3')
-        elif self.v_x > 0 and self.v_y < 0: # if in quandrant 4
-            print('quandrant 4')
+        if self.v_x <= 0 and self.v_y > 0: # if in quandrant 2
+            self.angle = 90 - angle
+        elif self.v_x < 0 and self.v_y <= 0: # if in quadrant 3
+            self.angle = 180 + angle
+        elif self.v_x >= 0 and self.v_y < 0: # if in quandrant 4
+            self.angle = 270 - angle
         else: # if in quandrant 1
             self.angle = angle
 
-        if self.v_x < 0:
-            print('hi')
         # way to keep track of where it is undefined
         # way to keep track of which part it is on
         # if v_x is neg, it will be facing left
