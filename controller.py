@@ -13,14 +13,17 @@ class Player_Controller():
         self.a = acceleration # acceleration rate of the object
 
     def __str__(self):
-        """Print the Player_Controller info"""
-        return None
-        
+        """Print the Player_Controller info
+        >>> print(Player_Controller(2))
+        Player_Controller(angle = 0, v_x = 0, v_y = 0 acceleration = 2)"""
+        return 'Player_Controller(angle = '+str(self.angle)+', v_x = '+str(self.v_x)+', v_y = '+str(self.v_y)+' acceleration = '+str(self.a)+')'
+
     def accel_x(self):
         """Accelerate in the x direction
         >>> test = Player_Controller(2)
-        >>> test.accel_x"""
-        self.v_x += self.a
+        >>> test.accel_x
+        >>> print(test)"""
+        print(self.v_x) ==
 
     def accel_y(self):
         """Accelerate in the y direction"""
