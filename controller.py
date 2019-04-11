@@ -60,8 +60,25 @@ class Player_Controller():
 
     def facing(self):
         """Find the facing based on the current velocities
+
         Added the following doctest to make sure the method could find the
-        correct facing if
+        correct facing if only v_x.
+
+        Added the following doctest to make sure the method could find the
+        correct facing if only v_y.
+
+        Added the following doctest to make sure the method could find the
+        correct facing if there is v_x and v_y, and the direction is in the first
+        quadrant.
+
+        Added the following doctest to test if the direction is in the second
+        quadrant.
+
+        Added the following doctest to test if the direction is in the third
+        quadrant.
+
+        Added the following doctest to test if the direction is in the fourth
+        quadrant.
         """
         self.angle = degrees(atan(self.v_x/self.v_y)) # get the facing in degrees
         # way to keep track of where it is undefined
