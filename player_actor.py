@@ -27,6 +27,14 @@ class Player_actor(pygame.sprite.Sprite):
     def __str__(self):
         return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.position[0], self.position[1], self.facing, self.dimensions[0], self.dimensions[1])
 
+    def move(self):
+        self.x_pos += controller.v_x
+        self.y_pos += controller.v_y
+
+    def update(self):
+        self.move()
+        # add stuff to update facing from controller
+
 BLUE = (0, 0, 255)
 buddy = Player_actor(10,20,90,BLUE,width = 5, height = 7)
 print(buddy)
