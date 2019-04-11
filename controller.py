@@ -80,7 +80,7 @@ class Player_Controller():
         """Find the facing based on the current velocities
 
         Added the following doctest to make sure the method could find the
-        correct facing if only v_x.
+        correct facing if only v_x. Test along an axis.
         >>> test = Player_Controller(2)
         >>> test.accel_x('right')
         >>> test.facing()
@@ -88,12 +88,28 @@ class Player_Controller():
         Player_Controller(angle = 0, v_x = 2, v_y = 0 acceleration = 2)
 
         Added the following doctest to make sure the method could find the
-        correct facing if only v_y.
+        correct facing if only v_y. Test along an axis.
         >>> test = Player_Controller(2)
         >>> test.accel_y('up')
         >>> test.facing()
         >>> print(test)
         Player_Controller(angle = 90, v_x = 0, v_y = 2 acceleration = 2)
+
+        Added the following doctest to make sure the method could find the
+        correct facing if only -v_x. Test along an axis.
+        >>> test = Player_Controller(2)
+        >>> test.accel_x('left')
+        >>> test.facing()
+        >>> print(test)
+        Player_Controller(angle = 180, v_x = -2, v_y = 0 acceleration = 2)
+
+        Added the following doctest to make sure the method could find the
+        correct facing if only -v_y. Test along an axis.
+        >>> test = Player_Controller(2)
+        >>> test.accel_y('down')
+        >>> test.facing()
+        >>> print(test)
+        Player_Controller(angle = 270, v_x = 0, v_y = -2 acceleration = 2)
 
         Added the following doctest to make sure the method could find the
         correct facing if there is v_x and v_y, and the direction is in the first
@@ -104,7 +120,7 @@ class Player_Controller():
         >>> test.accel_x('right')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 63, v_x = 4, v_y = 2 acceleration = 2)
+        Player_Controller(angle = 26, v_x = 4, v_y = 2 acceleration = 2)
 
         Added the following doctest to test if the direction is in the second
         quadrant.
@@ -114,46 +130,43 @@ class Player_Controller():
         >>> test.accel_x('left')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 116, v_x = -2, v_y = 4 acceleration = 2)
+        Player_Controller(angle = 117, v_x = -2, v_y = 4 acceleration = 2)
 
         Added the following doctest to test if the direction is in the third
         quadrant.
         >>> test = Player_Controller(2)
         >>> test.accel_y('down')
-        >>> test.accel_y('down')
+        >>> test.accel_x('left')
         >>> test.accel_x('left')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 206, v_x = -2, v_y = -4 acceleration = 2)
+        Player_Controller(angle = 206, v_x = -4, v_y = -2 acceleration = 2)
 
         Added the following doctest to test if the direction is in the fourth
         quadrant.
         >>> test = Player_Controller(2)
         >>> test.accel_y('down')
-        >>> test.accel_x('right')
+        >>> test.accel_y('down')
         >>> test.accel_x('right')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 333, v_x = 4, v_y = -2 acceleration = 2)
+        Player_Controller(angle = 297, v_x = 2, v_y = -4 acceleration = 2)
         """
         try:
-            angle = int(math.degrees(math.atan(self.v_x/self.v_y))) # get the facing in degrees
+            angle = int(math.degrees(math.atan(self.v_y/self.v_x))) # get the facing in degrees
         except ZeroDivisionError:
             angle = 0
-
-        if self.v_x <= 0 and self.v_y > 0: # if in quandrant 2
-            self.angle = 90 - angle
-        elif self.v_x < 0 and self.v_y <= 0: # if in quadrant 3
+            
+        if self.v_x < 0: # if in quad 2 or 3
             self.angle = 180 + angle
-        elif self.v_x >= 0 and self.v_y < 0: # if in quandrant 4
-            self.angle = 270 - angle
+        elif self.v_x > 0 and self.v_y < 0: # if in quandrant 4
+            self.angle = 360 + angle
+        elif self.v_y > 0 and self.v_x == 0: # if along the axis between quad 1 and 2
+            self.angle = 90
+        elif self.v_y < 0 and self.v_x == 0: # if along the axis between quad 3 and 4
+            self.angle = 270
         else: # if in quandrant 1
             self.angle = angle
-
-        # way to keep track of where it is undefined
-        # way to keep track of which part it is on
-        # if v_x is neg, it will be facing left
-        # if v_y is neg, it will be  facing down
 
 class Keyboard_Controller():
     """Defines a controller that takes input from the arrow keys, wasd, and ,aoe
