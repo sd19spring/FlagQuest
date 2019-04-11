@@ -21,27 +21,45 @@ class Player_Controller():
         Player_Controller(angle = 0, v_x = 0, v_y = 0 acceleration = 2)"""
         return 'Player_Controller(angle = '+str(self.angle)+', v_x = '+str(self.v_x)+', v_y = '+str(self.v_y)+' acceleration = '+str(self.a)+')'
 
-    def accel_x(self):
+    def accel_x(self, dir):
         """Accelerate in the x direction
 
         Added the following doctest to make sure that accel_x could increase
-        the x velocity by the acceleration value.
+        the x velocity by the acceleration value when going right.
         >>> test = Player_Controller(2)
-        >>> test.accel_x()
+        >>> test.accel_x('right')
         >>> print(test)
-        Player_Controller(angle = 0, v_x = 2, v_y = 0 acceleration = 2)"""
-        self.v_x += self.a
+        Player_Controller(angle = 0, v_x = 2, v_y = 0 acceleration = 2)
 
-    def accel_y(self):
+        Added the following doctest to test going left.
+        >>> test = Player_Controller(2)
+        >>> test.accel_x('left')
+        >>> print(test)
+        Player_Controller(angle = 0, v_x = -2, v_y = 0 acceleration = 2)
+        """
+        if dir == 'left':
+            self.v_x -= self.a
+        elif dir == 'right':
+            self.v_x += self.a
+
+    def accel_y(self, dir):
         """Accelerate in the y direction
 
-        Added the following doctest to make sure that accel_y could increase
-        the y velocity by the acceleration value.
+        Added the following doctest to test going up.
         >>> test = Player_Controller(2)
-        >>> test.accel_y()
+        >>> test.accel_y('up')
         >>> print(test)
-        Player_Controller(angle = 0, v_x = 0, v_y = 2 acceleration = 2)"""
-        self.v_y += self.a
+        Player_Controller(angle = 0, v_x = 0, v_y = 2 acceleration = 2)
+
+        Added the following doctest to test going down.
+        >>> test = Player_Controller(2)
+        >>> test.accel_y('down')
+        >>> print(test)
+        Player_Controller(angle = 0, v_x = 0, v_y = -2 acceleration = 2)"""
+        if dir == 'up':
+            self.v_y += self.a
+        elif dir == 'down':
+            self.v_y -= self.a
 
     def stop(self):
         """Stop the player from moving
@@ -63,6 +81,10 @@ class Player_Controller():
 
         Added the following doctest to make sure the method could find the
         correct facing if only v_x.
+        >>> test = Player_Controller(2)
+        >>> test.accel_x()
+        >>> test.facing()
+        >>> print(test)
 
         Added the following doctest to make sure the method could find the
         correct facing if only v_y.
