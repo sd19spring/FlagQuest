@@ -10,7 +10,7 @@ TO DO
 ## To Do
 Basic class implementation
 * Flag
-* Keyboard_Controller
+* Keyboard_Controller - Add __str__, Keyboard_Controller
 * Obstacle
 * Player_Actor
 * Color_Actor

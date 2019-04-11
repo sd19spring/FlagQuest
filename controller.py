@@ -1,3 +1,4 @@
+import math
 class Player_Controller():
     """Defines a controller that takes user input to control the Player
     object.
@@ -11,8 +12,14 @@ class Player_Controller():
         self.v_y = 0 # y velocity
         self.a = acceleration # acceleration rate of the object
 
+    def __str__(self):
+        """Print the Player_Controller info"""
+        return None
+        
     def accel_x(self):
-        """Accelerate in the x direction"""
+        """Accelerate in the x direction
+        >>> test = Player_Controller(2)
+        >>> test.accel_x"""
         self.v_x += self.a
 
     def accel_y(self):
@@ -26,9 +33,12 @@ class Player_Controller():
 
     def facing(self):
         """Find the facing based on the current velocities"""
-        self.angle =
+        self.angle = degrees(atan(self.v_x/self.v_y)) # get the facing in degrees
 
 class Keyboard_Controller():
     """Defines a controller that takes input from the arrow keys, wasd, and ,aoe
     """
     pass
+
+import doctest
+doctest.run_docstring_examples(Player_Controller.accel_x, globals())
