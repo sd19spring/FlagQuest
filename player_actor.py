@@ -1,4 +1,5 @@
 import pygame
+import time
 
 class Player_actor(pygame.sprite.Sprite):
     """
@@ -15,7 +16,10 @@ class Player_actor(pygame.sprite.Sprite):
         """
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
 
-        self.position = x_pos, y_pos
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+        self.v_x = 0
+        self.v_y = 0
         self.facing = facing
         self.dimensions = width, height
 
@@ -27,14 +31,26 @@ class Player_actor(pygame.sprite.Sprite):
     def __str__(self):
         return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.position[0], self.position[1], self.facing, self.dimensions[0], self.dimensions[1])
 
+    def get_keypress(self):
+        key = pygame.key.get_pressed()
+        if key[pygame.K_UP] == 1:
+            self.v_y = 1
+        if key[pygame.K_DOWN] == 1:
+            self.v_y = -1
+        if key[pygame.K_RIGHT] == 1:
+            self.v_x = 1
+        if key[pygame.K_LEFT] == 1:
+            self.v_x = -1
+
+    def draw(self, surface):
+        surface.blit(self.image, self.position)
+
     def move(self):
-        self.x_pos += controller.v_x
-        self.y_pos += controller.v_y
+        self.x_pos += self.v_x
+        self.y_pos += self.v_y
+        self.position = self.x_pos, self.y_pos
 
-    def update(self):
-        self.move()
-        # add stuff to update facing from controller
-
-BLUE = (0, 0, 255)
-buddy = Player_actor(10,20,90,BLUE,width = 5, height = 7)
-print(buddy)
+if __name__ == "__main__":
+    BLUE = (0, 0, 255)
+    buddy = Player_actor(10,20,90,BLUE,width = 5, height = 7)
+    print(buddy)
