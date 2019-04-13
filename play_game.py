@@ -11,8 +11,8 @@ class View():
         self.screen.fill(filling)        # sets background color
         pygame.display.set_caption('Window Viewer')             # sets window caption
 
-    def draw_player(self):
-        pass
+    def draw_player(self, player_actor):
+        player_actor.draw(self.screen)
 
     def draw_color_actors(self):
         for i in range(len(self.model.color_objs)):
@@ -21,42 +21,36 @@ class View():
                                [self.model.color_objs[i].x,
                                self.model.color_objs[i].y],
                                10)
-        pass
 
     def draw_obstacles(self):
         pass
 
-    def update(self):
+    def update(self, player_actor):
+        # maybe the player_actor get_keypress() and move() should be in model instead... -David 4/13/19
+        player_actor.get_keypress()         # recieve keyboard input
+        player_actor.move(step_size=1)      # adjust character position based on arrowkey presses
+        self.draw_player(player_actor)
+
         self.draw_color_actors()
-
         pygame.display.update()
-
-
-#window = pygame.display.set_mode((640, 400))
-#window.fill((144, 238, 144))    # a painfully bright tone of green
-
-#BLUE = (0, 0, 255)
-#buddy = Player_actor(10,20,90,BLUE,width = 50, height = 70)
-
-#def update():
-#    buddy.get_keypress()
-#    buddy.move()
-#    buddy.draw(window)
-#    time.sleep(.01)
 
 def play_game(size):
     pygame.init()
 
     model = Model()
     view = View(size[0], size[1], (0, 0, 0), model)
+    BLUE = (0, 0, 255)
+    player = Player_actor(10,20,90,BLUE,width = 50, height = 70)
 
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        view.update()
-        time.sleep(0.1)
+        view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
+        view.update(player)         # updates the model based on any new inputs or in-game events
+        # print(player)     # this is just to show details of the player's movement
+        time.sleep(0.01)
 
 if __name__ == '__main__':
 
