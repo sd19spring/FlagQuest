@@ -156,7 +156,7 @@ class Player_Controller():
             angle = int(math.degrees(math.atan(self.v_y/self.v_x))) # get the facing in degrees
         except ZeroDivisionError:
             angle = 0
-            
+
         if self.v_x < 0: # if in quad 2 or 3
             self.angle = 180 + angle
         elif self.v_x > 0 and self.v_y < 0: # if in quandrant 4
@@ -168,9 +168,15 @@ class Player_Controller():
         else: # if in quandrant 1
             self.angle = angle
 
+    # max velocity instead of acceleration
+    # 45 degree facing?
+
 class Keyboard_Controller():
     """Defines a controller that takes input from the arrow keys, wasd, and ,aoe
     """
+    # rotation does
+    # up arrow to move forward
+    # side arrows to rotate?
     pass
 
 import doctest
