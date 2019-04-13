@@ -35,12 +35,16 @@ class Player_actor(pygame.sprite.Sprite):
         key = pygame.key.get_pressed()
         if key[pygame.K_UP] == 1:
             self.v_y = 1
+            # print('up')
         if key[pygame.K_DOWN] == 1:
             self.v_y = -1
+            # print('down')
         if key[pygame.K_RIGHT] == 1:
             self.v_x = 1
+            # print('right')
         if key[pygame.K_LEFT] == 1:
             self.v_x = -1
+            # print('left')
 
     def draw(self, surface):
         surface.blit(self.image, self.position)
@@ -53,4 +57,3 @@ class Player_actor(pygame.sprite.Sprite):
 if __name__ == "__main__":
     BLUE = (0, 0, 255)
     buddy = Player_actor(10,20,90,BLUE,width = 5, height = 7)
-    print(buddy)

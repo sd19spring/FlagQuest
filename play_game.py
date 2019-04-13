@@ -10,7 +10,6 @@ class View():
         self.screen = pygame.display.set_mode((width, height))  # sets screen dimensions
         self.screen.fill(filling)        # sets background color
         pygame.display.set_caption('Window Viewer')             # sets window caption
-        #pygame.display.flip()            # updates contents of entire display
 
     def draw_player(self):
         pass
@@ -56,12 +55,10 @@ def play_game(size):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
         view.update()
         time.sleep(0.1)
 
 if __name__ == '__main__':
-
 
     size = (640,400)
     play_game(size) # start running game
