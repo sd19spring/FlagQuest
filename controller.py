@@ -42,13 +42,13 @@ class Player_Controller():
         >>> test = Player_Controller(2)
         >>> test.accel('up')
         >>> print(test)
-        Player_Controller(angle = 0, v_x = 0, v_y = 2 max_velocity = 2)
+        Player_Controller(angle = 0, v_x = 0, v_y = -2 max_velocity = 2)
 
         Added the following doctest to test going down.
         >>> test = Player_Controller(2)
         >>> test.accel('down')
         >>> print(test)
-        Player_Controller(angle = 0, v_x = 0, v_y = -2 max_velocity = 2)
+        Player_Controller(angle = 0, v_x = 0, v_y = 2 max_velocity = 2)
         """
         if dir == 'left':
             self.v_x = -self.v_max
@@ -76,7 +76,7 @@ class Player_Controller():
         >>> test.accel('up')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 90, v_x = 0, v_y = 2 max_velocity = 2)
+        Player_Controller(angle = 90, v_x = 0, v_y = -2 max_velocity = 2)
 
         Added the following doctest to make sure the method could find the
         correct facing if only -v_x. Test along an axis.
@@ -92,7 +92,7 @@ class Player_Controller():
         >>> test.accel('down')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 270, v_x = 0, v_y = -2 max_velocity = 2)
+        Player_Controller(angle = 270, v_x = 0, v_y = 2 max_velocity = 2)
 
         Added the following doctest to make sure the method could find the
         correct facing if there is v_x and v_y, and the direction is in the first
@@ -102,7 +102,7 @@ class Player_Controller():
         >>> test.accel('right')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 45, v_x = 2, v_y = 2 max_velocity = 2)
+        Player_Controller(angle = 45, v_x = 2, v_y = -2 max_velocity = 2)
 
         Added the following doctest to test if the direction is in the second
         quadrant.
@@ -111,7 +111,7 @@ class Player_Controller():
         >>> test.accel('left')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 135, v_x = -2, v_y = 2 max_velocity = 2)
+        Player_Controller(angle = 135, v_x = -2, v_y = -2 max_velocity = 2)
 
         Added the following doctest to test if the direction is in the third
         quadrant.
@@ -120,7 +120,7 @@ class Player_Controller():
         >>> test.accel('left')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 225, v_x = -2, v_y = -2 max_velocity = 2)
+        Player_Controller(angle = 225, v_x = -2, v_y = 2 max_velocity = 2)
 
         Added the following doctest to test if the direction is in the fourth
         quadrant.
@@ -129,20 +129,21 @@ class Player_Controller():
         >>> test.accel('right')
         >>> test.facing()
         >>> print(test)
-        Player_Controller(angle = 315, v_x = 2, v_y = -2 max_velocity = 2)
+        Player_Controller(angle = 315, v_x = 2, v_y = 2 max_velocity = 2)
         """
+        v_y = -self.v_y
         try:
-            angle = int(math.degrees(math.atan(self.v_y/self.v_x))) # get the facing in degrees
+            angle = int(math.degrees(math.atan(v_y/self.v_x))) # get the facing in degrees
         except ZeroDivisionError:
             angle = 0
 
         if self.v_x < 0: # if in quad 2 or 3
             self.angle = 180 + angle
-        elif self.v_x > 0 and self.v_y < 0: # if in quandrant 4
+        elif self.v_x > 0 and v_y < 0: # if in quandrant 4
             self.angle = 360 + angle
-        elif self.v_y > 0 and self.v_x == 0: # if along the axis between quad 1 and 2
+        elif v_y > 0 and self.v_x == 0: # if along the axis between quad 1 and 2
             self.angle = 90
-        elif self.v_y < 0 and self.v_x == 0: # if along the axis between quad 3 and 4
+        elif v_y < 0 and self.v_x == 0: # if along the axis between quad 3 and 4
             self.angle = 270
         else: # if in quandrant 1
             self.angle = angle
@@ -175,17 +176,6 @@ class Keyboard_Controller(Player_Controller):
         else:
             self.v_x = 0
 
-    def released (self, key):
-        """Check which key is released"""
-        if key in self.move_up:
-            self.accel('down')
-        elif key in self.move_down:
-            self.accel('up')
-        elif key in self.move_left:
-            self.accel('right')
-        elif key in self.move_right:
-            self.accel('left')
-
 if __name__ == "__main__":
     import doctest
-    doctest.run_docstring_examples(Player_Controller.facing, globals())
+    doctest.run_docstring_examples(Keyboard_Controller.facing, globals())
