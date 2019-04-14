@@ -8,7 +8,7 @@ class Player_actor(pygame.sprite.Sprite):
     position
     handle movement
     """
-    def __init__(self, x_pos, y_pos, facing, filling, width, height):
+    def __init__(self, x_pos, y_pos, start_angle, filling, width, height):
         """
         initialize the player_actor character
         depends upon facing from controller
@@ -19,11 +19,9 @@ class Player_actor(pygame.sprite.Sprite):
 
         self.x_pos = x_pos
         self.y_pos = y_pos
-        self.v_x = 0
-        self.v_y = 0
-        self.facing = facing        # 4/13/19 facing has yet to be implimented
         self.dimensions = width, height
         self.cont = controller(2) # 2 is the max velocity
+        self.cont.angle = start_angle       # 4/13/19 facing has yet to be implimented
 
         self.image = pygame.Surface(self.dimensions)    # sets size of sprite's visual representation
         self.image.fill(filling)    # this just fills it with a color, later it will actually be an image
@@ -39,10 +37,7 @@ class Player_actor(pygame.sprite.Sprite):
         """
         key = pygame.key.get_pressed()
         self.cont.pressed(key)
-        self.v_y = self.cont.v_y
-        self.v_x = self.cont.v_x
-        self.facing = self.cont.facing()
-        print(self.cont)
+        self.cont.facing() # Updates the facing postition
 
     def draw(self, screen):
         """
@@ -51,8 +46,8 @@ class Player_actor(pygame.sprite.Sprite):
         screen.blit(self.image,self.position)   # places image of player_actor
 
     def move(self, step_size = 1):      # step size adjusts how many pixels the player_actor moves at a time
-        self.x_pos += self.v_x*step_size
-        self.y_pos += self.v_y*step_size
+        self.x_pos += self.cont.v_x*step_size
+        self.y_pos += self.cont.v_y*step_size
         self.position = self.x_pos, self.y_pos  # updates position to reflect the movement due to keyboard input
 
 if __name__ == "__main__":
