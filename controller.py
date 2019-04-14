@@ -1,4 +1,5 @@
 import math
+import pygame
 class Player_Controller():
     """Defines a controller that takes user input to control the Player
     object.
@@ -161,12 +162,39 @@ class Player_Controller():
         else: # if in quandrant 1
             self.angle = angle
 
-    # max velocity instead of acceleration
-    # 45 degree facing?
-
-class Keyboard_Controller():
+class Keyboard_Controller(Player_Controller):
     """Defines a controller that takes input from the arrow keys, wasd, and ,aoe
     """
+    def __init__(self):
+        """Iinitialize the player controller"""
+        super(Arrow_Keys_Controller, self).__init__() # uses the __init__ method from Controller()
+        self.move_up = [pygame.K_UP, pygame.K_w, pygame.K_COMMA]
+        self.move_down = [pygame.K_DOWN, pygame.K_s, pygame.K_o]
+        self.move_left = [pygame.K_LEFT, pygame.K_a]
+        self.move_right = [pygame.K_RIGHT, pygame.K_d, pygame.K_e]
+
+    def pressed (self, key):
+        """Check which key is pressed"""
+        if key in self.move_up:
+            self.accel('up')
+        elif key in self.move_down:
+            self.accel('down')
+        elif key in self.move_left:
+            self.accel('left')
+        elif key in self.move_right:
+            self.accel('right')
+
+    def released (self, key):
+        """Check which key is released"""
+        if key in self.move_up:
+            self.accel('down')
+        elif key in self.move_down:
+            self.accel('up')
+        elif key in self.move_left:
+            self.accel('right')
+        elif key in self.move_right:
+            self.accel('left')
+
     # rotation does
     # up arrow to move forward
     # side arrows to rotate?
