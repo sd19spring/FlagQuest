@@ -55,24 +55,9 @@ class Player_Controller():
         elif dir == 'right':
             self.v_x = self.v_max
         if dir == 'up':
-            self.v_y = self.v_max
-        elif dir == 'down':
             self.v_y = -self.v_max
-
-    def stop(self):
-        """Stop the player from moving
-
-        Added the following doctest to make sure the method could reset the
-        velelocities back to zero.
-        >>> test = Player_Controller(2)
-        >>> test.accel('up')
-        >>> test.accel('left')
-        >>> test.stop()
-        >>> print(test)
-        Player_Controller(angle = 0, v_x = 0, v_y = 0 max_velocity = 2)
-        """
-        self.v_x = 0
-        self.v_y = 0
+        elif dir == 'down':
+            self.v_y = self.v_max
 
     def facing(self):
         """Find the facing based on the current velocities
@@ -165,24 +150,30 @@ class Player_Controller():
 class Keyboard_Controller(Player_Controller):
     """Defines a controller that takes input from the arrow keys, wasd, and ,aoe
     """
-    def __init__(self):
+    def __init__(self, max_velocity):
         """Iinitialize the player controller"""
-        super(Arrow_Keys_Controller, self).__init__() # uses the __init__ method from Controller()
+        super(Keyboard_Controller, self).__init__(max_velocity) # uses the __init__ method from Controller()
         self.move_up = [pygame.K_UP, pygame.K_w, pygame.K_COMMA]
         self.move_down = [pygame.K_DOWN, pygame.K_s, pygame.K_o]
         self.move_left = [pygame.K_LEFT, pygame.K_a]
         self.move_right = [pygame.K_RIGHT, pygame.K_d, pygame.K_e]
 
+
     def pressed (self, key):
         """Check which key is pressed"""
-        if key in self.move_up:
+        if key[self.move_up[0]] == 1 or key[self.move_up[1]] == 1 or key[self.move_up[2]] == 1:
             self.accel('up')
-        elif key in self.move_down:
+        elif key[self.move_down[0]] == 1 or key[self.move_down[1]] == 1 or key[self.move_down[2]] == 1:
             self.accel('down')
-        elif key in self.move_left:
+        else:
+            self.v_y = 0
+
+        if key[self.move_left[0]] == 1 or key[self.move_left[1]] == 1 == 1:
             self.accel('left')
-        elif key in self.move_right:
+        elif key[self.move_right[0]] == 1 or key[self.move_right[1]] == 1 or key[self.move_right[2]] == 1:
             self.accel('right')
+        else:
+            self.v_x = 0
 
     def released (self, key):
         """Check which key is released"""
@@ -195,10 +186,6 @@ class Keyboard_Controller(Player_Controller):
         elif key in self.move_right:
             self.accel('left')
 
-    # rotation does
-    # up arrow to move forward
-    # side arrows to rotate?
-    pass
-
-import doctest
-doctest.run_docstring_examples(Player_Controller.facing, globals())
+if __name__ == "__main__":
+    import doctest
+    doctest.run_docstring_examples(Player_Controller.facing, globals())

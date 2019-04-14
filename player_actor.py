@@ -1,5 +1,6 @@
 import pygame
 import time
+from controller import Keyboard_Controller as controller
 
 class Player_actor(pygame.sprite.Sprite):
     """
@@ -22,6 +23,7 @@ class Player_actor(pygame.sprite.Sprite):
         self.v_y = 0
         self.facing = facing        # 4/13/19 facing has yet to be implimented
         self.dimensions = width, height
+        self.cont = controller(2) # 2 is the max velocity
 
         self.image = pygame.Surface(self.dimensions)    # sets size of sprite's visual representation
         self.image.fill(filling)    # this just fills it with a color, later it will actually be an image
@@ -36,20 +38,11 @@ class Player_actor(pygame.sprite.Sprite):
         adjusts the player_actor's velocity depending on which arrowkeys are pressed
         """
         key = pygame.key.get_pressed()
-
-        if key[pygame.K_UP] == 1:       # the up/v_y and down/v_y values seem inverted because up is down in pygame
-            self.v_y = -1
-        elif key[pygame.K_DOWN] == 1:
-            self.v_y = 1
-        else:
-            self.v_y = 0
-
-        if key[pygame.K_RIGHT] == 1:
-            self.v_x = 1
-        elif key[pygame.K_LEFT] == 1:
-            self.v_x = -1
-        else:
-            self.v_x = 0
+        self.cont.pressed(key)
+        self.v_y = self.cont.v_y
+        self.v_x = self.cont.v_x
+        self.facing = self.cont.facing()
+        print(self.cont)
 
     def draw(self, screen):
         """
