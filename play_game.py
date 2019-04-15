@@ -3,6 +3,7 @@ import time
 from player_actor import *
 from controller import *
 from make_model import Model
+from obstacles import *
 
 class View():
     def __init__(self, width, height, filling, model):
@@ -22,12 +23,13 @@ class View():
                                self.model.color_objs[i].y],
                                10)
 
-    def draw_obstacles(self):
-        pass
+    def draw_obstacles(self, obstacle):
+        obstacle.draw(self.screen)
 
-    def update(self, player_actor):
+    def update(self, player_actor, obstacle):
         self.draw_player(player_actor)
         self.draw_color_actors()
+        self.draw_obstacles(obstacle)
         pygame.display.update()
 
 def play_game(size):
@@ -37,6 +39,7 @@ def play_game(size):
     view = View(size[0], size[1], (0, 0, 0), model)
     BLUE = (0, 0, 255)
     player = Player_actor(10,20,90,BLUE,width = 50, height = 70)
+    mtn = Obstacle((50,50), (100,300), 'purple')
 
     running = True
     while running:
@@ -44,7 +47,7 @@ def play_game(size):
             if event.type == pygame.QUIT:
                 running = False
         view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
-        view.update(player)         # updates the model based on any new inputs or in-game events
+        view.update(player, mtn)         # updates the model based on any new inputs or in-game events
         # print(player)     # this is just to show details of the player's movement
         time.sleep(0.01)
 

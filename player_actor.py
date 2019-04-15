@@ -5,9 +5,7 @@ from controller import Keyboard_Controller as controller
 
 class Player_actor(pygame.sprite.Sprite):
     """
-    sprite
-    position
-    handle movement
+    allows you to make a player character who you control to move around the world
     """
     def __init__(self, x_pos, y_pos, start_angle, filling, width, height):
         """
