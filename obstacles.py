@@ -17,12 +17,12 @@ class Obstacle(pygame.sprite.Sprite):
         self.type = type
 
         self.image = pygame.Surface(grid_size)    # creates a simple rectangle for the Obstacle
-        self.image.fill((100,150,50))
+        self.image.fill((100,150,50))             # random green color, arbitary
         self.rect = self.image.get_rect()
         self.rect.center = (position)
 
     def __str__(self):
-        return "Obstacle, type %s at location (%d, %d)" % (self.type, self.position)
+        return "Obstacle, type %s at location (%r)" % (self.type, self.position)
 
     def draw(self, screen):
         screen.blit(self.image, self.position)
