@@ -26,11 +26,7 @@ class View():
         pass
 
     def update(self, player_actor):
-        # maybe the player_actor get_keypress() and move() should be in model instead... -David 4/13/19
-        player_actor.get_keypress()         # recieve keyboard input
-        player_actor.move(step_size=1)      # adjust character position based on arrowkey presses
         self.draw_player(player_actor)
-
         self.draw_color_actors()
         pygame.display.update()
 

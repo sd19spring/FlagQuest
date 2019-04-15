@@ -38,20 +38,22 @@ class Player_actor(pygame.sprite.Sprite):
         key = pygame.key.get_pressed()
         self.cont.pressed(key)
 
+    def move(self, step_size = 1):      # step size adjusts how many pixels the player_actor moves at a time
+        self.x_pos += self.cont.v_x*step_size
+        self.y_pos += self.cont.v_y*step_size
+        self.position = self.x_pos, self.y_pos  # updates position to reflect the movement due to keyboard input
+
     def update_image(self):
         """Update the image based on the facing of the player"""
-        self.cont.facing() # Updates the facing postition
+        self.get_keypress()         # recieve keyboard input
+        self.move(step_size=1)      # adjust character position based on arrowkey presses
+        self.cont.facing()          # Updates the facing postition
         self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
 
     def draw(self, screen):
         """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
         self.update_image()
         screen.blit(self.image, self.position)   # places image of player_actor
-
-    def move(self, step_size = 1):      # step size adjusts how many pixels the player_actor moves at a time
-        self.x_pos += self.cont.v_x*step_size
-        self.y_pos += self.cont.v_y*step_size
-        self.position = self.x_pos, self.y_pos  # updates position to reflect the movement due to keyboard input
 
 if __name__ == "__main__":
     BLUE = (0, 0, 255)
