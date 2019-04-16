@@ -1,9 +1,11 @@
 import pygame
+from pygame.locals import *
 import time
 from player_actor import *
 from controller import *
 from make_model import Model
 from obstacles import *
+from flag_class import Flag
 
 class View():
     def __init__(self, width, height, filling, model):
@@ -18,7 +20,8 @@ class View():
     def draw_color_actors(self):
         for i in range(len(self.model.color_objs)):
             pygame.draw.circle(self.screen,
-                               pygame.Color(self.model.colors[i][0], self.model.colors[i][1], self.model.colors[i][2]),
+                               pygame.Color(self.model.flag.colors[i][0],
+                               self.model.flag.colors[i][1], self.model.flag.colors[i][2]),
                                [self.model.color_objs[i].x,
                                self.model.color_objs[i].y],
                                10)
@@ -47,9 +50,17 @@ def play_game(size):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            #flag test - to be integrated
+            if event.type == KEYDOWN and event.key == K_SPACE:
+                view.model.flag.num_colors_up += 1
+
         view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
         view.update(player)         # updates the model based on any new inputs or in-game events
         # print(player)     # this is just to show details of the player's movement
+
+        #does not yet work, indicating images are loading incorrectly
+        view.model.flag.draw(view.screen) #flag test - to be integrated
+
         time.sleep(0.01)
 
 if __name__ == '__main__':
