@@ -7,7 +7,7 @@ class Player_actor(pygame.sprite.Sprite):
     """
     allows you to make a player character who you control to move around the world
     """
-    def __init__(self, x_pos, y_pos, start_angle, filling, width, height):
+    def __init__(self, x_pos, y_pos, start_angle, image, width, height):
         """
         initialize the player_actor character
         depends upon facing from controller
@@ -24,7 +24,7 @@ class Player_actor(pygame.sprite.Sprite):
 
         # self.image = pygame.Surface(self.dimensions)    # sets size of sprite's visual representation
         # self.image.fill('./images/player.jpg')    # this just fills it with a color, later it will actually be an image
-        self.image = pygame.image.load('./images/player2.png')
+        self.image = image
         self.image_orig = self.image # sets an original copy of the image to reference later
         # self.shape = self.image.get_rect()    # we don't need this rn (4/13/19), maybe it's important for the future though?
 
@@ -48,6 +48,6 @@ class Player_actor(pygame.sprite.Sprite):
         self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
 
 if __name__ == "__main__":
-    BLUE = (0, 0, 255)
-    buddy = Player_actor(10,20,90,BLUE,width = 5, height = 7)
+    player_image = pygame.image.load('./images/player2.png')
+    buddy = Player_actor(10,20,90,player_image,width = 5, height = 7)
     print(buddy)

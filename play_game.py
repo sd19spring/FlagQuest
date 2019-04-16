@@ -14,10 +14,11 @@ class View():
         self.screen.fill(filling)        # sets background color
         pygame.display.set_caption('Window Viewer')             # sets window caption
 
-    def draw_player(self, player_actor):
+    def draw_player(self):
         """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
-        player_actor.update_image()
-        self.screen.blit(player_actor.image, player_actor.position)   # places image of player_actor
+        player = self.model.player
+        player.update_image()
+        self.screen.blit(player.image, player.position)   # places image of player_actor
 
     def draw_color_actors(self):
         for i in range(len(self.model.color_objs)):
@@ -28,7 +29,7 @@ class View():
 
 
     def draw_obstacles(self):
-        for obstacle in self.model.obstacles:
+        for obstacle in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
             self.screen.blit(obstacle.image, obstacle.position)
 
     def draw_grid(self):
@@ -39,9 +40,8 @@ class View():
                                        [self.model.grid_cells[(i, j)].cell_coord[0], self.model.grid_cells[(i, j)].cell_coord[1]],
                                        5)
 
-
-    def update(self, player_actor):
-        self.draw_player(player_actor)
+    def update(self):
+        self.draw_player()
         self.draw_color_actors()
         self.draw_obstacles()
         self.draw_grid()
@@ -52,8 +52,6 @@ def play_game(size):
 
     model = Model()
     view = View(size[0], size[1], (0, 0, 0), model)
-    BLUE = (0, 0, 255)
-    player = Player_actor(10,20,90,BLUE,width = 50, height = 70)
     view.model.make_obstacles()     # this is here because we don't want to make new obstacles at each event loop
 
     running = True
@@ -66,7 +64,7 @@ def play_game(size):
                 view.model.flag.num_colors_up += 1
 
         view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
-        view.update(player)         # updates the model based on any new inputs or in-game events
+        view.update()         # updates the model based on any new inputs or in-game events
         # print(player)     # this is just to show details of the player's movement
 
         #does not yet work, indicating images are loading incorrectly

@@ -1,6 +1,7 @@
 from color_actor import Color_Actor
 from flag_class import Flag
 from obstacles import *
+from player_actor import *
 import random
 
 bisexual = {
@@ -27,6 +28,8 @@ class Model(object):
         self.make_grid()
         self.choose_flag()
         self.make_colors()
+        self.make_player()
+        self.make_obstacles()
 
     def choose_flag(self):
         num_flag = random.randint(0,1)
@@ -67,6 +70,9 @@ class Model(object):
                 cell_coord = (i*self.cell_size, j*self.cell_size)
                 self.grid_cells[(i,j)] = Cell(cell_coord, False, 'none')
 
+    def make_player(self):
+        player_image = pygame.image.load('./images/player2.png')
+        self.player = Player_actor(10,20,90,player_image,width = 50, height = 70)
 
 class Cell(object):
     def __init__(self, cell_coord, occupied, type):
