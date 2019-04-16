@@ -18,5 +18,7 @@ Basic class implementation
 * World_View
 * World_State --> this has been changed to Model
 * Modify model/world state to place objects on a grid
+* Code formatting - Integrate actors together? Take inputs all in play game? Game should call all others?
+
 
 ## Bugs
