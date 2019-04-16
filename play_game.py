@@ -65,5 +65,5 @@ def play_game(size):
 
 if __name__ == '__main__':
 
-    size = (640,400)
+    size = (800,800)
     play_game(size) # start running game

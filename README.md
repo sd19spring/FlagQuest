@@ -2,8 +2,8 @@
 A rogue like game where you collect the stripes to make various pride flags.
 
 ## Running the Program
-* fill out draw function for player
-* fill out draw function for obstacles
+* ~~fill out draw function for player~~
+* ~~fill out draw function for obstacles~~
 * fill out draw function for tracking color collection  
 
 ## Playing the Game
@@ -12,8 +12,8 @@ A rogue like game where you collect the stripes to make various pride flags.
 ## To Do
 Basic class implementation
 * ~~Flag~~
-* Obstacle
-* Player_Actor
+* ~~Obstacle~~
+* ~~Player_Actor~~
 * Color_Actor - needs a sprite integration
 * World_View
 * World_State --> this has been changed to Model
