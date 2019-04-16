@@ -25,6 +25,7 @@ class Player_actor(pygame.sprite.Sprite):
         self.image = image
         self.image_orig = self.image # sets an original copy of the image to reference later
 
+        self.size = (800,800)   # refers to screen size
 
     def __str__(self):
         return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.x_pos, self.y_pos, self.facing, self.dimensions[0], self.dimensions[1])
@@ -36,7 +37,20 @@ class Player_actor(pygame.sprite.Sprite):
     def move(self, step_size = 1):      # step size adjusts how many pixels the player_actor moves at a time
         self.x_pos += self.cont.v_x*step_size
         self.y_pos += self.cont.v_y*step_size
+
+        if self.x_pos > self.size[0]:   # if player goes past max x-dimension of screen, wrap to the min x-dimension of screen
+            self.x_pos = 0
+        if self.y_pos > self.size[1]:   # if player goes past max y-dimension of screen, wrap to the min y-dimension of screen
+            self.y_pos = 0
+
+        if self.x_pos < 0:              # if player goes past min x-dimension of screen, wrap to the max x-dimension of screen
+            self.x_pos = self.size[0]
+        if self.y_pos < 0:              # if player goes past min y-dimension of screen, wrap to the max y-dimension of screen
+            self.y_pos = self.size[1]
+
         self.position = self.x_pos, self.y_pos  # updates position to reflect the movement due to keyboard input
+
+
 
     def update_image(self):
         """Update the image based on the facing of the player"""
