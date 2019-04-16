@@ -56,10 +56,11 @@ class Model(object):
     def make_obstacles(self):
         obstacle_types = ['mountain','river','shrub','tree']    # these types distinguish which obstacles are affected by which flag stripes
         for i in range(10):     # 10 is arbitrary, we should replace with intentional number later
-            x_cell = random.randint(0, self.grid_size-1)
+            x_cell = random.randint(0, self.grid_size-1)        # randomizes location of obstacle
             y_cell = random.randint(0, self.grid_size-1)
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
-            type = random.choice(obstacle_types)
+            selected_obstacles = obstacle_types[0:len(self.flag.colors)]    # limits number of obstacle type options to the number of Flag colors
+            type = random.choice(selected_obstacles)
             self.obstacles.append(Obstacle((self.cell_size,self.cell_size),coord,type)) # change this to sprite Group later
 
     def make_grid(self):
