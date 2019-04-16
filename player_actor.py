@@ -11,7 +11,7 @@ class Player_actor(pygame.sprite.Sprite):
         """
         initialize the player_actor character
         depends upon facing from controller
-        filling is what the character visually looks like (for now it's just a color)
+        image is the graphic image that makes the player
         width and height are in regards to its size and shape
         """
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
@@ -22,11 +22,9 @@ class Player_actor(pygame.sprite.Sprite):
         self.cont = controller(2) # 2 is the max velocity
         self.cont.angle = start_angle       # 4/13/19 facing has yet to be implimented
 
-        # self.image = pygame.Surface(self.dimensions)    # sets size of sprite's visual representation
-        # self.image.fill('./images/player.jpg')    # this just fills it with a color, later it will actually be an image
         self.image = image
         self.image_orig = self.image # sets an original copy of the image to reference later
-        # self.shape = self.image.get_rect()    # we don't need this rn (4/13/19), maybe it's important for the future though?
+
 
     def __str__(self):
         return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.x_pos, self.y_pos, self.facing, self.dimensions[0], self.dimensions[1])
