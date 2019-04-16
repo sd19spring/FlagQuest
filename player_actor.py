@@ -24,7 +24,7 @@ class Player_actor(pygame.sprite.Sprite):
 
         # self.image = pygame.Surface(self.dimensions)    # sets size of sprite's visual representation
         # self.image.fill('./images/player.jpg')    # this just fills it with a color, later it will actually be an image
-        self.image = pygame.image.load('./images/player.jpg')
+        self.image = pygame.image.load('./images/player2.png')
         self.image_orig = self.image # sets an original copy of the image to reference later
         # self.shape = self.image.get_rect()    # we don't need this rn (4/13/19), maybe it's important for the future though?
 
@@ -33,8 +33,7 @@ class Player_actor(pygame.sprite.Sprite):
 
     def get_keypress(self):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
-        key = pygame.key.get_pressed()
-        self.cont.pressed(key)
+        self.cont.pressed(pygame.key.get_pressed())
 
     def move(self, step_size = 1):      # step size adjusts how many pixels the player_actor moves at a time
         self.x_pos += self.cont.v_x*step_size

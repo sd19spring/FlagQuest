@@ -13,7 +13,7 @@ A rogue like game where you collect the stripes to make various pride flags.
 Basic class implementation
 * ~~Flag~~
 * Obstacle
-* Player_Actor
+* Player_Actor - center needs to be the center of the image
 * Color_Actor - needs a sprite integration
 * World_View
 * World_State --> this has been changed to Model
