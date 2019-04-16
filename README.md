@@ -12,7 +12,6 @@ A rogue like game where you collect the stripes to make various pride flags.
 ## To Do
 Basic class implementation
 * ~~Flag~~
-* Keyboard_Controller - Fix doctests for accel
 * Obstacle
 * Player_Actor
 * Color_Actor - needs a sprite integration
