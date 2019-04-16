@@ -24,9 +24,6 @@ class Obstacle(pygame.sprite.Sprite):
     def __str__(self):
         return "Obstacle, type %s at location (%r)" % (self.type, self.position)
 
-    def draw(self, screen):
-        screen.blit(self.image, self.position)
-
 if __name__ == "__main__":
     mtn = Obstacle((50,50), (100,300), 'purple')
     print(mtn)

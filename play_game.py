@@ -15,7 +15,9 @@ class View():
         pygame.display.set_caption('Window Viewer')             # sets window caption
 
     def draw_player(self, player_actor):
-        player_actor.draw(self.screen)
+        """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
+        player_actor.update_image()
+        self.screen.blit(player_actor.image, player_actor.position)   # places image of player_actor
 
     def draw_color_actors(self):
         for i in range(len(self.model.color_objs)):
@@ -27,7 +29,7 @@ class View():
 
     def draw_obstacles(self):
         for obstacle in self.model.obstacles:
-            obstacle.draw(self.screen)
+            self.screen.blit(obstacle.image, obstacle.position)
 
     def draw_grid(self):
         for i in range(self.model.grid_size):

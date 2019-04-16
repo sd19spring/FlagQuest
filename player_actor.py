@@ -47,11 +47,6 @@ class Player_actor(pygame.sprite.Sprite):
         self.cont.facing()          # Updates the facing postition
         self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
 
-    def draw(self, screen):
-        """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
-        self.update_image()
-        screen.blit(self.image, self.position)   # places image of player_actor
-
 if __name__ == "__main__":
     BLUE = (0, 0, 255)
     buddy = Player_actor(10,20,90,BLUE,width = 5, height = 7)
