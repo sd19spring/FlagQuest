@@ -19,21 +19,30 @@ class View():
 
     def draw_color_actors(self):
         for i in range(len(self.model.color_objs)):
-            pygame.draw.circle(self.screen,
-                               pygame.Color(self.model.flag.colors[i][0],
-                               self.model.flag.colors[i][1], self.model.flag.colors[i][2]),
-                               [self.model.color_objs[i].x,
-                               self.model.color_objs[i].y],
-                               10)
+            pygame.draw.rect(self.screen,
+                             pygame.Color(self.model.flag.colors[i][0],
+                             self.model.flag.colors[i][1], self.model.flag.colors[i][2]),
+                             pygame.Rect(self.model.color_objs[i].x, self.model.color_objs[i].y, self.model.cell_size, self.model.cell_size))
+
 
     def draw_obstacles(self):
         for obstacle in self.model.obstacles:
             obstacle.draw(self.screen)
 
+    def draw_grid(self):
+        for i in range(self.model.grid_size):
+            for j in range(self.model.grid_size):
+                    pygame.draw.circle(self.screen,
+                                       pygame.Color(255, 255, 255),
+                                       [self.model.grid_cells[(i, j)].cell_coord[0], self.model.grid_cells[(i, j)].cell_coord[1]],
+                                       5)
+
+
     def update(self, player_actor):
         self.draw_player(player_actor)
         self.draw_color_actors()
         self.draw_obstacles()
+        self.draw_grid()
         pygame.display.update()
 
 def play_game(size):
