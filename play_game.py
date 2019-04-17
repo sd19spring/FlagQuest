@@ -52,7 +52,6 @@ def play_game(size):
 
     model = Model()
     view = View(size[0], size[1], (0, 0, 0), model)
-    view.model.make_obstacles()     # this is here because we don't want to make new obstacles at each event loop
 
     running = True
     while running:

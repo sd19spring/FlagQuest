@@ -54,14 +54,15 @@ class Model(object):
             self.color_objs.append(Color_Actor(self.flag.colors[i], coord[0], coord[1]))
 
     def make_obstacles(self):
-        obstacle_types = ['mountain','river','shrub','tree']    # these types distinguish which obstacles are affected by which flag stripes
+        obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
+        selected_obstacles = list(obstacle_types)[0:len(self.flag.colors)]    # limits number of obstacle type options to the number of Flag colors
         for i in range(10):     # 10 is arbitrary, we should replace with intentional number later
             x_cell = random.randint(0, self.grid_size-1)        # randomizes location of obstacle
             y_cell = random.randint(0, self.grid_size-1)
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
-            selected_obstacles = obstacle_types[0:len(self.flag.colors)]    # limits number of obstacle type options to the number of Flag colors
-            type = random.choice(selected_obstacles)
-            self.obstacles.append(Obstacle((self.cell_size,self.cell_size),coord,type)) # change this to sprite Group later
+            type = random.choice(selected_obstacles)            # randomly chooses this obstacle's type
+            color = obstacle_types[type]                        # finds the color associated with this obstacle's type
+            self.obstacles.append(Obstacle((self.cell_size,self.cell_size),coord,type,color)) # change this to sprite Group later
 
     def make_grid(self):
         self.grid_cells = {}

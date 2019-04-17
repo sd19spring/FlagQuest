@@ -4,7 +4,7 @@ class Obstacle(pygame.sprite.Sprite):
     """
     allows you to make an obstacle to block off possible paths of travel
     """
-    def __init__(self, grid_size, position, type):
+    def __init__(self, grid_size, position, type, color):
         """
         grid size refers to the dimensions of each grid square on the world map
         position refers to the x,y coordinates of the Obstacle
@@ -17,7 +17,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.type = type
 
         self.image = pygame.Surface(grid_size)    # creates a simple rectangle for the Obstacle
-        self.image.fill((100,150,50))             # random green color, arbitary
+        self.image.fill(color)          # color correspond's with the obstacle's "type"
         self.rect = self.image.get_rect()
         self.rect.center = (position)
 
@@ -25,5 +25,5 @@ class Obstacle(pygame.sprite.Sprite):
         return "Obstacle, type %s at location (%r)" % (self.type, self.position)
 
 if __name__ == "__main__":
-    mtn = Obstacle((50,50), (100,300), 'purple')
+    mtn = Obstacle((50,50), (100,300), 'river',(0,0,225))
     print(mtn)
