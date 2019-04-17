@@ -7,50 +7,50 @@ class Player_actor(pygame.sprite.Sprite):
     """
     allows you to make a player character who you control to move around the world
     """
-    def __init__(self, x_pos, y_pos, start_angle, image, width, height):
+    def __init__(self, x_pos, y_pos, image):
         """
         initialize the player_actor character
         depends upon facing from controller
+        x_pos and y_pos refer to the coordinates of the top-left corner of player
         image is the graphic image that makes the player
-        width and height are in regards to its size and shape
         """
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
 
-        self.x_pos = x_pos
-        self.y_pos = y_pos
-        self.dimensions = width, height
-        self.cont = controller(2) # 2 is the max velocity
-        self.cont.angle = start_angle       # 4/13/19 facing has yet to be implimented
-
         self.image = image
         self.image_orig = self.image # sets an original copy of the image to reference later
+        self.player_size = self.image.get_size()    # player_size is a tuple representing the image's dimensions
 
-        self.size = (800,800)   # refers to screen size
+        self.x_c = x_pos + self.player_size[0]/2    # uses x-component of image dimension to find the x-coordinate of the player's center
+        self.y_c = y_pos + self.player_size[1]/2    # uses y-component of image dimension to find the y-coordinate of the player's center
+
+        self.cont = controller(2) # 2 is the max velocity
+
+        self.screen_size = (800,800)   # refers to screen size
 
     def __str__(self):
-        return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.x_pos, self.y_pos, self.facing, self.dimensions[0], self.dimensions[1])
+        return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.x_c, self.y_c, self.facing, self.player_size[0], self.player_size[1])
 
     def get_keypress(self):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
         self.cont.pressed(pygame.key.get_pressed())
 
     def move(self, step_size = 1):      # step size adjusts how many pixels the player_actor moves at a time
-        self.x_pos += self.cont.v_x*step_size
-        self.y_pos += self.cont.v_y*step_size
+        self.x_c += self.cont.v_x*step_size
+        self.y_c += self.cont.v_y*step_size
 
-        if self.x_pos > self.size[0]:   # if player goes past max x-dimension of screen, wrap to the min x-dimension of screen
-            self.x_pos = 0
-        if self.y_pos > self.size[1]:   # if player goes past max y-dimension of screen, wrap to the min y-dimension of screen
-            self.y_pos = 0
+        if self.x_c > self.screen_size[0]:   # if player's center goes past max x-dimension of screen, wrap to the min x-dimension of screen
+            self.x_c = 0
+        if self.y_c > self.screen_size[1]:   # if player's center goes past max y-dimension of screen, wrap to the min y-dimension of screen
+            self.y_c = 0
 
-        if self.x_pos < 0:              # if player goes past min x-dimension of screen, wrap to the max x-dimension of screen
-            self.x_pos = self.size[0]
-        if self.y_pos < 0:              # if player goes past min y-dimension of screen, wrap to the max y-dimension of screen
-            self.y_pos = self.size[1]
+        if self.x_c < 0:              # if player's center goes past min x-dimension of screen, wrap to the max x-dimension of screen
+            self.x_c = self.screen_size[0]
+        if self.y_c < 0:              # if player's center goes past min y-dimension of screen, wrap to the max y-dimension of screen
+            self.y_c = self.screen_size[1]
 
-        self.position = self.x_pos, self.y_pos  # updates position to reflect the movement due to keyboard input
+        self.position_c = self.x_c, self.y_c  # updates position to reflect the movement due to keyboard input
 
-
+        self.position = (self.position_c[0] - self.player_size[0]/2, self.position_c[1] - self.player_size[1]/2)    # translates centered dimensions back to top-left corner dimensions
 
     def update_image(self):
         """Update the image based on the facing of the player"""
@@ -61,5 +61,5 @@ class Player_actor(pygame.sprite.Sprite):
 
 if __name__ == "__main__":
     player_image = pygame.image.load('./images/player2.png')
-    buddy = Player_actor(10,20,90,player_image,width = 5, height = 7)
+    buddy = Player_actor(10,20,player_image)
     print(buddy)
