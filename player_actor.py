@@ -16,13 +16,14 @@ class Player_actor(pygame.sprite.Sprite):
         """
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
 
+
         self.image = image
         self.image_orig = self.image # sets an original copy of the image to reference later
         self.player_size = self.image.get_size()    # player_size is a tuple representing the image's dimensions
-
-        self.x_c = x_pos + self.player_size[0]/2    # uses x-component of image dimension to find the x-coordinate of the player's center
-        self.y_c = y_pos + self.player_size[1]/2    # uses y-component of image dimension to find the y-coordinate of the player's center
-
+        self.position = (x_pos, y_pos)
+        self.x_c = self.position[0] + self.player_size[0]/2    # uses x-component of image dimension to find the x-coordinate of the player's center
+        self.y_c = self.position[1] + self.player_size[1]/2    # uses y-component of image dimension to find the y-coordinate of the player's center
+        # self._get_center()
         self.cont = controller(2) # 2 is the max velocity
 
         self.screen_size = (800,800)   # refers to screen size
@@ -40,16 +41,14 @@ class Player_actor(pygame.sprite.Sprite):
 
         if self.x_c > self.screen_size[0]:   # if player's center goes past max x-dimension of screen, wrap to the min x-dimension of screen
             self.x_c = 0
-        if self.y_c > self.screen_size[1]:   # if player's center goes past max y-dimension of screen, wrap to the min y-dimension of screen
+        elif self.y_c > self.screen_size[1]:   # if player's center goes past max y-dimension of screen, wrap to the min y-dimension of screen
             self.y_c = 0
-
-        if self.x_c < 0:              # if player's center goes past min x-dimension of screen, wrap to the max x-dimension of screen
+        elif self.x_c < 0:              # if player's center goes past min x-dimension of screen, wrap to the max x-dimension of screen
             self.x_c = self.screen_size[0]
-        if self.y_c < 0:              # if player's center goes past min y-dimension of screen, wrap to the max y-dimension of screen
+        elif self.y_c < 0:              # if player's center goes past min y-dimension of screen, wrap to the max y-dimension of screen
             self.y_c = self.screen_size[1]
 
         self.position_c = self.x_c, self.y_c  # updates position to reflect the movement due to keyboard input
-
         self.position = (self.position_c[0] - self.player_size[0]/2, self.position_c[1] - self.player_size[1]/2)    # translates centered dimensions back to top-left corner dimensions
 
     def update_image(self):
