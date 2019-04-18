@@ -5,7 +5,7 @@ from player_actor import *
 from controller import *
 from make_model import Model
 from obstacles import *
-from flag_class import Flag
+from flag import Flag
 
 class View():
     def __init__(self, screen_size, filling, model):

@@ -14,7 +14,7 @@ Basic class implementation
 * ~~Flag~~
 * ~~Obstacle~~
 * ~~Player_Actor~~
-* Color_Actor - needs a sprite integration
+* ~~Color_Actor - needs a sprite integration~~
 * World_View
 * World_State --> this has been changed to Model
 * Modify model/world state to place objects on a grid

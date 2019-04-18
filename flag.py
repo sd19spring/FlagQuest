@@ -33,8 +33,6 @@ class Flag:
         for i in list(range(len(self.image_pieces))):
             image_piece = self.image_pieces[i]
             current_size = image_piece.get_size()
-            print(image_piece.get_size())
             #change to reflect changing size of screen
             image_piece = pygame.transform.scale(image_piece, (100, (int(100*current_size[1]/current_size[0]))))
-            print(image_piece.get_size())
             self.image_pieces[i] = image_piece
