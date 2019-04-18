@@ -27,13 +27,11 @@ class Player_actor(pygame.sprite.Sprite):
     def __str__(self):
         return "Player centered at location %s with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.position_c, self.cont.angle, self.player_size[0], self.player_size[1])
 
-    def _get_draw_positions(self):
-        self.position = (self.position_c[0] - self.player_size[0]/2, self.position_c[1] - self.player_size[1]/2)    # translates centered dimensions back to top-left corner dimensions
+    def _get_draw_position(self):
         if self.cont.v_x != 0 and self.cont.v_y != 0: # If moving at an angle
-            self.draw_position = (self.position[0] - self.player_size[0]/4, self.position[1] - self.player_size[0]/4) # correct for offset when moving at angle
+            self.draw_position = (self.position_c[0] - 3*self.player_size[0]/4, self.position_c[1] - 3*self.player_size[0]/4) # translates centered dimensions to account for 45 degree movement
         else: # if standing still or moving at 90 degrees
-            self.draw_position = self.position
-
+            self.draw_position = (self.position_c[0] - self.player_size[0]/2, self.position_c[1] - self.player_size[1]/2)    # translates centered dimensions back to top-left corner dimensions
     def get_keypress(self):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
         self.cont.pressed(pygame.key.get_pressed())
