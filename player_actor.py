@@ -32,11 +32,20 @@ class Player_actor(pygame.sprite.Sprite):
         return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.x_c, self.y_c, self.facing, self.player_size[0], self.player_size[1])
 
     def _get_positions(self):
+        self.position_c = self.x_c, self.y_c  # updates position to reflect the movement due to keyboard input
+        self.position = (self.position_c[0] - self.player_size[0]/2, self.position_c[1] - self.player_size[1]/2)    # translates centered dimensions back to top-left corner dimensions
+        if self.cont.v_x == 0 and self.cont.v_y == 0: # if not moving
+            print('hi')
+            self.draw_position = self.position
+        elif self.cont.v_x != self.cont.v_y: # if moing at 90 degree implements
+            self.draw_position = self.position
+        elif self.cont.v_x > 0 and self.cont.v_y > 0: # If moving at an angle
+            self.draw_position = (self.position[0] + 100, self.position[1] + 100)
+
         # position
         # center position
         # update position (depends on how we are moving)
         # test extreme positions than dial in
-        pass
 
     def get_keypress(self):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
@@ -55,8 +64,7 @@ class Player_actor(pygame.sprite.Sprite):
         elif self.y_c < 0:              # if player's center goes past min y-dimension of screen, wrap to the max y-dimension of screen
             self.y_c = self.screen_size[1]
 
-        self.position_c = self.x_c, self.y_c  # updates position to reflect the movement due to keyboard input
-        self.position = (self.position_c[0] - self.player_size[0]/2, self.position_c[1] - self.player_size[1]/2)    # translates centered dimensions back to top-left corner dimensions
+        self._get_positions()
 
     def update_image(self):
         """Update the image based on the facing of the player"""
