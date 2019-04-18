@@ -34,16 +34,11 @@ class Player_actor(pygame.sprite.Sprite):
     def _get_positions(self):
         self.position_c = self.x_c, self.y_c  # updates position to reflect the movement due to keyboard input
         self.position = (self.position_c[0] - self.player_size[0]/2, self.position_c[1] - self.player_size[1]/2)    # translates centered dimensions back to top-left corner dimensions
-        print(self.position_c, self.position)
+        print(self.player_size)
         if self.cont.v_x != 0 and self.cont.v_y != 0: # If moving at an angle
-            self.draw_position = (self.position[0] - 25, self.position[1] - 25)
-            # darts down when going at an angle
+            self.draw_position = (self.position[0] - self.player_size[0]/4, self.position[1] - self.player_size[0]/4) # correct for offset when moving at angle
         else: # if standing still or moving at 90 degrees
             self.draw_position = self.position
-        # position
-        # center position
-        # update position (depends on how we are moving)
-        # test extreme positions than dial in
 
     def get_keypress(self):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
