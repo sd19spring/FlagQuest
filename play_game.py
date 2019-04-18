@@ -8,9 +8,9 @@ from obstacles import *
 from flag_class import Flag
 
 class View():
-    def __init__(self, width, height, filling, model):
+    def __init__(self, screen_size, filling, model):
         self.model = model
-        self.screen = pygame.display.set_mode((width, height))  # sets screen dimensions
+        self.screen = pygame.display.set_mode(screen_size)  # sets screen dimensions
         self.screen.fill(filling)        # sets background color
         pygame.display.set_caption('Window Viewer')             # sets window caption
 
@@ -21,6 +21,7 @@ class View():
         self.screen.blit(player.image, player.position_d)   # places image of player_actor
 
     def draw_color_actors(self):
+        """Draw the flag colors onto the display"""
         for i in range(len(self.model.color_objs)):
             pygame.draw.rect(self.screen,
                              pygame.Color(self.model.flag.colors[i][0],
@@ -29,10 +30,12 @@ class View():
 
 
     def draw_obstacles(self):
+        """Draw the obstacles on the display"""
         for obstacle in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
             self.screen.blit(obstacle.image, obstacle.position)
 
     def draw_grid(self):
+        """Draw the grid on the display"""
         for i in range(self.model.grid_size):
             for j in range(self.model.grid_size):
                     pygame.draw.circle(self.screen,
@@ -41,11 +44,13 @@ class View():
                                        5)
 
     def draw_flag(self):
+        """Draw the flag onto the display"""
         if self.model.flag.num_colors_up:
             for i in list(range(self.model.flag.num_colors_up)):
                 self.screen.blit(self.model.flag.image_pieces[i], self.model.flag.position)
 
     def update(self):
+        """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.draw_player()
         self.draw_color_actors()
         self.draw_obstacles()
@@ -57,7 +62,7 @@ def play_game(size):
     pygame.init()
 
     model = Model()
-    view = View(size[0], size[1], (0, 0, 0), model)
+    view = View(size, (0, 0, 0), model)
 
     running = True
     while running:
@@ -76,5 +81,4 @@ def play_game(size):
 
 if __name__ == '__main__':
 
-    size = (800,800)
-    play_game(size) # start running game
+    play_game((800,800)) # start running game
