@@ -31,6 +31,13 @@ class Player_actor(pygame.sprite.Sprite):
     def __str__(self):
         return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.x_c, self.y_c, self.facing, self.player_size[0], self.player_size[1])
 
+    def _get_positions(self):
+        # position
+        # center position
+        # update position (depends on how we are moving)
+        # test extreme positions than dial in
+        pass
+
     def get_keypress(self):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
         self.cont.pressed(pygame.key.get_pressed())
