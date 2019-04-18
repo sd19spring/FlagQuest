@@ -29,7 +29,7 @@ class Player_actor(pygame.sprite.Sprite):
         self.screen_size = (800,800)   # refers to screen size
 
     def __str__(self):
-        return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.x_c, self.y_c, self.facing, self.player_size[0], self.player_size[1])
+        return "Player centered at location (%d, %d) with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.x_c, self.y_c, self.cont.angle, self.player_size[0], self.player_size[1])
 
     def _get_positions(self):
         self.position_c = self.x_c, self.y_c  # updates position to reflect the movement due to keyboard input
