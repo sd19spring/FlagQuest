@@ -20,7 +20,6 @@ Basic class implementation
 * Modify model/world state to place objects on a grid
 * Code formatting - Integrate actors together? Take inputs all in play game? Game should call all others?
 * Sync naming schemes
-* fix rotating - change draw position
 
 
 ## Bugs

@@ -75,7 +75,7 @@ class Model(object):
 
     def make_player(self):
         player_image = pygame.image.load('./images/player2.png')
-        self.player = Player_actor(10,10,player_image)
+        self.player = Player_actor((10, 10),player_image, (self.cell_size*self.grid_size, self.cell_size*self.grid_size))
 
 class Cell(object):
     def __init__(self, cell_coord, occupied, type):
