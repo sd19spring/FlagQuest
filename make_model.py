@@ -1,5 +1,5 @@
 from color_actor import Color_Actor
-from flag_class import Flag
+from flag import Flag
 from obstacles import *
 from player_actor import *
 import random
@@ -15,7 +15,7 @@ trans = {
         'colors' : [(13, 204, 237), (248, 183, 211), (255, 255, 255)],
         'name' : 'Trans Pride Flag',
         'description': 'This is the trans flag',
-        'img_names':['tg blue.png', 'tg pink.png', 'tg white.png']
+        'img_names':['t_blue.png', 't_pink.png', 't_white.png']
 }
 
 flag_list = ['bi','trans']
@@ -33,6 +33,7 @@ class Model(object):
 
     def choose_flag(self):
         num_flag = random.randint(0,1)
+        num_flag = 1
         flag_name = flag_list[num_flag]
 
         if flag_name == 'trans':
@@ -40,9 +41,9 @@ class Model(object):
         if flag_name == 'bi':
             f_dict = bisexual
 
-        img_pieces = [pygame.image.load(image_name) for image_name in f_dict['img_names']]
+        # img_pieces = [pygame.image.load(image_name) for image_name in f_dict['img_names']]
         #print(img_pieces)
-        self.flag = Flag(f_dict['name'], image_pieces = img_pieces,
+        self.flag = Flag(f_dict['name'], image_names = f_dict['img_names'],
                         colors = f_dict['colors'], description = f_dict['description'])
 
     def make_colors(self):

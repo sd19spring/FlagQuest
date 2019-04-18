@@ -40,11 +40,17 @@ class View():
                                        [self.model.grid_cells[(i, j)].cell_coord[0], self.model.grid_cells[(i, j)].cell_coord[1]],
                                        5)
 
+    def draw_flag(self):
+        if self.model.flag.num_colors_up:
+            for i in list(range(self.model.flag.num_colors_up)):
+                self.screen.blit(self.model.flag.image_pieces[i], self.model.flag.position)
+
     def update(self):
         self.draw_player()
         self.draw_color_actors()
         self.draw_obstacles()
         self.draw_grid()
+        self.draw_flag()
         pygame.display.update()
 
 def play_game(size):
@@ -62,12 +68,9 @@ def play_game(size):
             if event.type == KEYDOWN and event.key == K_SPACE:
                 view.model.flag.num_colors_up += 1
 
+
         view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
         view.update()         # updates the model based on any new inputs or in-game events
-        # print(player)     # this is just to show details of the player's movement
-
-        #does not yet work, indicating images are loading incorrectly
-        view.model.flag.draw(view.screen) #flag test - to be integrated
 
         time.sleep(0.01)
 
