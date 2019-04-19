@@ -69,6 +69,7 @@ class Player_actor(pygame.sprite.Sprite):
         self.update_draw_position()
 
     def update_rect(self):
+        """Updates rect boundary, for use in collision detection"""
         self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
                     self.position_c[1] - self.player_size[1]/2,
                     self.player_size[0], self.player_size[1])
@@ -78,18 +79,14 @@ class Player_actor(pygame.sprite.Sprite):
         for obstacle in model.obstacles:
             print("obstacle at" + str(obstacle.rect))
         self.update_rect()
-        print("player at" + str(self.rect))
 
         return pygame.sprite.spritecollideany(self, model.obstacles)
         #not repeating collides with the same object not yet implemented, see below
 
     def check_color_collision(self, model):
         """Returns sprite collided with, of color objects, or None if no collisions.
-        Adds """
-        for color in model.color_objs:
-            print("color at" + str(color.rect))
+        Keeps track of what collisions have already happened, and does not repeat collisions"""
         self.update_rect()
-        print("player at" + str(self.rect))
 
         collision = pygame.sprite.spritecollideany(self, model.color_objs)
         if collision:
