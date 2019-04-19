@@ -79,18 +79,15 @@ class Player_actor(pygame.sprite.Sprite):
         for obstacle in model.obstacles:
             print("obstacle at" + str(obstacle.rect))
         self.update_rect()
-        print("player at" + str(self.rect))
 
         return pygame.sprite.spritecollideany(self, model.obstacles)
         #not repeating collides with the same object not yet implemented, see below
 
     def check_color_collision(self, model):
         """Returns sprite collided with, of color objects, or None if no collisions.
-        Adds """
+        Keeps track of what collisions have already happened, and does not repeat collisions"""
         for color in model.color_objs:
-            print("color at" + str(color.rect))
         self.update_rect()
-        print("player at" + str(self.rect))
 
         collision = pygame.sprite.spritecollideany(self, model.color_objs)
         if collision:
