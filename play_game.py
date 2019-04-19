@@ -63,6 +63,8 @@ def play_game(size):
 
     model = Model()
     view = View(size, (0, 0, 0), model)
+    print(model.cell_size)
+    print("HELLOOOOO")
 
     running = True
     while running:
@@ -71,7 +73,13 @@ def play_game(size):
                 running = False
             #flag test - to be integrated
             if event.type == KEYDOWN and event.key == K_SPACE:
-                view.model.flag.num_colors_up += 1
+                model.flag.num_colors_up += 1
+
+        #to be integrated probably -- it seems like we're trying to keep the main loop clean
+        color_collision = model.player.check_color_collision(model)
+        if color_collision:
+            print("COLLLIDDEDDDDD!")
+            model.flag.num_colors_up +=1
 
 
         view.screen.fill((0,0,0))           # cleans up the screen at each runthrough

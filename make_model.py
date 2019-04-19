@@ -52,7 +52,7 @@ class Model(object):
             x_cell = random.randint(0, self.grid_size-1)
             y_cell = random.randint(0, self.grid_size-1)
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
-            self.color_objs.append(Color_Actor(self.flag.colors[i], coord[0], coord[1]))
+            self.color_objs.append(Color_Actor(self.flag.colors[i], self, coord[0], coord[1]))
 
     def make_obstacles(self):
         obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
@@ -83,6 +83,6 @@ class Cell(object):
         self.occupied = occupied
         self.type = type
 
-
-model = Model()
-print(model.color_objs[0].x)
+if __name__ == "__main__":
+    model = Model()
+    print(model.color_objs[0].x)

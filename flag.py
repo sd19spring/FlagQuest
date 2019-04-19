@@ -1,6 +1,9 @@
 import pygame
 
 class Flag:
+    """Represents flag. Contains image pieces, mapped to colors, keeps track of
+    colors collected to display correct flag pieces."""
+    
     def __init__(self, name, full_image = None, image_names = None, colors = None, description = None):
         self.name = name
         self.colors = colors
@@ -23,13 +26,8 @@ class Flag:
         for index in list(range(len(self.colors))):
             self.image_piece_dict[self.colors[index]] = self.image_pieces[index]
 
-    def draw(self, screen):
-        #also to change when adding colors in different order
-        if self.num_colors_up:
-            for i in list(range(self.num_colors_up)):
-                screen.blit(self.image_pieces[i], self.position)
-
     def resize(self):
+        """Resizes image pieces to 100 width, conserves aspect ratio"""
         for i in list(range(len(self.image_pieces))):
             image_piece = self.image_pieces[i]
             current_size = image_piece.get_size()

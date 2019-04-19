@@ -23,6 +23,10 @@ class Player_actor(pygame.sprite.Sprite):
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
         self.cont = controller(2) # initialize controller with 2 max velocity
         self.screen_size = screen_size   # refers to screen size
+        self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
+                    self.position_c[1] - self.player_size[1]/2,
+                    self.player_size[0], self.player_size[1])
+        self.collided_with = []
 
     def __str__(self):
         return "Player centered at location %s with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.position_c, self.cont.angle, self.player_size[0], self.player_size[1])
@@ -63,6 +67,39 @@ class Player_actor(pygame.sprite.Sprite):
         self.cont.facing()          # Updates the facing postition
         self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
         self.update_draw_position()
+
+    def update_rect(self):
+        self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
+                    self.position_c[1] - self.player_size[1]/2,
+                    self.player_size[0], self.player_size[1])
+
+    def check_obstacle_collision(self, model):
+        """Returns sprite collided with, of obstacle objects, or None if no collisions."""
+        for obstacle in model.obstacles:
+            print("obstacle at" + str(obstacle.rect))
+        self.update_rect()
+        print("player at" + str(self.rect))
+
+        return pygame.sprite.spritecollideany(self, model.obstacles)
+        #not repeating collides with the same object not yet implemented, see below
+
+    def check_color_collision(self, model):
+        """Returns sprite collided with, of color objects, or None if no collisions.
+        Adds """
+        for color in model.color_objs:
+            print("color at" + str(color.rect))
+        self.update_rect()
+        print("player at" + str(self.rect))
+
+        collision = pygame.sprite.spritecollideany(self, model.color_objs)
+        if collision:
+            if collision not in self.collided_with:
+                self.collided_with.append(collision)
+                return collision
+        else:
+            return None
+
+
 if __name__ == "__main__":
     player_image = pygame.image.load('./images/player2.png')
     buddy = Player_actor((10,20),player_image,(800, 800))

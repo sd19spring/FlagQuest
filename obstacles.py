@@ -18,8 +18,11 @@ class Obstacle(pygame.sprite.Sprite):
 
         self.image = pygame.Surface(grid_size)    # creates a simple rectangle for the Obstacle
         self.image.fill(color)          # color correspond's with the obstacle's "type"
-        self.rect = self.image.get_rect()
+        self.rect = pygame.Rect(self.position[0], self.position[1], self.width, self.height)
         self.rect.center = (position)
+
+    # def update_rect(self):
+    #     self.rect = self.image.get_rect()
 
     def __str__(self):
         return "Obstacle, type %s at location (%r)" % (self.type, self.position)
