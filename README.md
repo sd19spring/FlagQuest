@@ -1,26 +1,43 @@
-# LGBT Pride Flag Meaning Games
-A rogue like game where you collect the stripes to make various pride flags.
+# LGBT Learning Journey
+LGBT Learning Journey is a rogue likegame created to spread
+awareness of lgbtq+ identities by integrating the elements
+of lgbtq+ flags into fun puzzles. As the game’s player, you
+wander through the dark woods, navigating around or overcoming
+obstacles to collect the different colors of your identity.
+As you collect each color, you’ll learn more about the
+history of the flag and the identity that it represents.
 
-## Running the Program
-* ~~fill out draw function for player~~
-* ~~fill out draw function for obstacles~~
-* fill out draw function for tracking color collection  
+## Authors
+This game was created, designed, and coded by Lauren Anfenson,
+David Freeman, Emma Mack, and Griffith Stites. Thank you to
+Gilbert Baker, Monica Helms, Michael Page, and all other
+creators of the various lgbtq+ flags that we based this game
+around. Thank you as well to all the people of the internet
+and Olin community who contributed their thoughts and examples
+for our learning.
 
-## Playing the Game
-* make sure controller works with player
+## Getting Started
+* Clone this repository
+* Install the requirements by navigating to the repository
+directory and using the command "sudo pip install -r requirements.txt"
+  * Alternatively, install the pygame dependency seperately
+  using pip install pygame
 
-## To Do
-Basic class implementation
-* ~~Flag~~
-* ~~Obstacle~~
-* ~~Player_Actor~~
-* ~~Color_Actor - needs a sprite integration~~
-* World_View
-* World_State --> this has been changed to Model
-* Modify model/world state to place objects on a grid
-* Code formatting - Integrate actors together? Take inputs all in play game? Game should call all others?
-* Sync naming schemes
-* add more docstrings
+## Usage
+* Run play_game.py using python
+  * This should generate a game window
+* Game play
+  * Use the arrow keys, WASD, or ,AOE to move around
+  * Gather different flag stripes to make the flag appear
 
+## License
+This project is licensed under the GNU General Public
+License v3.0 - see the [LICENSE.md](https://github.com/sd19spring/final-project-david-emma-griffith-lauren/blob/master/LICENSE)
 
-## Bugs
+## How to Contribute
+* Using your favorite text editor feel free to...
+  * Add game features
+  * Add flags
+  * Simplify code to make it more readable
+  * Make code more efficient
+* Submit a pull request to our repository with our edits
