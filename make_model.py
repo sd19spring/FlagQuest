@@ -4,6 +4,7 @@ from obstacles import *
 from player_actor import *
 import random
 
+# These dictionaries hold the info for each flag
 bisexual = {
             'colors' : [(215, 2, 112), (115, 79, 150), (0, 56, 168)],
             'name' : 'Bisexual Pride Flag',
@@ -21,6 +22,7 @@ trans = {
 flag_list = ['bi','trans']
 
 class Model(object):
+    """ Class that holds the state of the entire game """
     def __init__(self, cell_size = 40, grid_size = 20):
         self.obstacles = [] # change this to a sprite Group sometime
         self.cell_size = cell_size
@@ -32,6 +34,7 @@ class Model(object):
         self.make_obstacles()
 
     def choose_flag(self):
+        """ Randomly choose which flag to play the game with """
         num_flag = random.randint(0,1)
         num_flag = 1
         flag_name = flag_list[num_flag]
@@ -47,6 +50,7 @@ class Model(object):
                         colors = f_dict['colors'], description = f_dict['description'])
 
     def make_colors(self):
+        """ Instantiate Color_Actor objects for each color in the chosen flag """
         self.color_objs = []
         for i in range(len(self.flag.colors)):
             x_cell = random.randint(0, self.grid_size-1)
@@ -55,6 +59,7 @@ class Model(object):
             self.color_objs.append(Color_Actor(self.flag.colors[i], self, coord[0], coord[1]))
 
     def make_obstacles(self):
+        """ Generate obstacles in the grid """
         obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
         selected_obstacles = list(obstacle_types)[0:len(self.flag.colors)]    # limits number of obstacle type options to the number of Flag colors
         for i in range(10):     # 10 is arbitrary, we should replace with intentional number later
@@ -66,6 +71,7 @@ class Model(object):
             self.obstacles.append(Obstacle((self.cell_size,self.cell_size),coord,type,color)) # change this to sprite Group later
 
     def make_grid(self):
+        """ Instantiate grid cells for game map """
         self.grid_cells = {}
         cell_size = (self.cell_size,self.cell_size)
         for i in range(self.grid_size):
@@ -74,10 +80,12 @@ class Model(object):
                 self.grid_cells[(i,j)] = Cell(cell_coord, False, 'none')
 
     def make_player(self):
+        """ Instantiate Player object """
         player_image = pygame.image.load('./images/player2.png')
         self.player = Player_actor((10, 10),player_image, (self.cell_size*self.grid_size, self.cell_size*self.grid_size))
 
 class Cell(object):
+    """ This is an object for each grid cell. Unclear if this is going to be useful """
     def __init__(self, cell_coord, occupied, type):
         self.cell_coord = cell_coord
         self.occupied = occupied
