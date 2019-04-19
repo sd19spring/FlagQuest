@@ -40,8 +40,8 @@ class View():
 
     def draw_grid(self):
         """Draw the grid on the display"""
-        for i in range(self.model.grid_size):
-            for j in range(self.model.grid_size):
+        for i in range(self.model.grid_x_size):
+            for j in range(self.model.grid_y_size):
                     pygame.draw.circle(self.screen,
                                        pygame.Color(255, 255, 255),
                                        [self.model.grid_cells[(i, j)].cell_coord[0], self.model.grid_cells[(i, j)].cell_coord[1]],
@@ -93,4 +93,4 @@ def play_game(size):
 
 if __name__ == '__main__':
 
-    play_game((800,800)) # start running game
+    play_game((1200,800)) # start running game
