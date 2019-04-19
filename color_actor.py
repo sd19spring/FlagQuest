@@ -1,3 +1,8 @@
+"""
+The Color_Actor class contains the state and sprite
+of each color in the game map. Right now, instead of a
+sprite it appears as a colored grid cell
+"""
 import pygame
 
 class Color_Actor(pygame.sprite.Sprite):
@@ -6,6 +11,3 @@ class Color_Actor(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.rect = pygame.Rect(x, y, model.cell_size, model.cell_size)
-
-    # def update_rect(self, model):
-    #     self.rect = pygame.Rect(self.x, self.y, model.cell_size, model.cell_size)
