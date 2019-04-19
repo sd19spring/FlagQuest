@@ -53,12 +53,12 @@ class Player_actor(pygame.sprite.Sprite):
         self.position_c[1] += self.cont.v_y*step_size
         self.check_screen_wrap()
 
-    def update_draw_position(self):
+    def get_draw_position(self):
         """Finds the position to draw the player at. Based on if moving at a 45 or 90 degree angle"""
         if self.cont.v_x != 0 and self.cont.v_y != 0: # If moving at an angle
-            self.position_d = (self.position_c[0] - 3*self.player_size[0]/4, self.position_c[1] - 3*self.player_size[0]/4) # translates centered dimensions to account for 45 degree movement
+            return (self.position_c[0] - 3*self.player_size[0]/4, self.position_c[1] - 3*self.player_size[0]/4) # translates centered dimensions to account for 45 degree movement
         else: # if standing still or moving at 90 degrees
-            self.position_d = (self.position_c[0] - self.player_size[0]/2, self.position_c[1] - self.player_size[1]/2)    # translates centered dimensions back to top-left corner dimensions
+            return (self.position_c[0] - self.player_size[0]/2, self.position_c[1] - self.player_size[1]/2)    # translates centered dimensions back to top-left corner dimensions
 
     def update_position(self):
         """Update the image based on the facing of the player"""
@@ -66,8 +66,6 @@ class Player_actor(pygame.sprite.Sprite):
         self.move(step_size=1)      # adjust character position based on arrowkey presses
         self.cont.facing()          # Updates the facing postition
         self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
-        self.update_draw_position()
-
     def update_rect(self):
         """Updates rect boundary, for use in collision detection"""
         self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
