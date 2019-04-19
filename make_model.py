@@ -1,3 +1,9 @@
+"""
+This code contains the classes for making a model to hold the state
+of the game's objects (like player, each obstacle, the color actors, etc.) as
+well as a class to hold information for the state of each cell
+"""
+
 from color_actor import Color_Actor
 from flag import Flag
 from obstacles import *
