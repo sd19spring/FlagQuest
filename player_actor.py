@@ -69,6 +69,7 @@ class Player_actor(pygame.sprite.Sprite):
         self.update_draw_position()
 
     def update_rect(self):
+        """Updates rect boundary, for use in collision detection"""
         self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
                     self.position_c[1] - self.player_size[1]/2,
                     self.player_size[0], self.player_size[1])
