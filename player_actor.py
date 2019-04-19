@@ -86,7 +86,6 @@ class Player_actor(pygame.sprite.Sprite):
     def check_color_collision(self, model):
         """Returns sprite collided with, of color objects, or None if no collisions.
         Keeps track of what collisions have already happened, and does not repeat collisions"""
-        for color in model.color_objs:
         self.update_rect()
 
         collision = pygame.sprite.spritecollideany(self, model.color_objs)

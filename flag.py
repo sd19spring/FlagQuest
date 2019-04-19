@@ -16,7 +16,7 @@ class Flag:
         #Change to reflect changing size of screen
         self.position = (680,20)
 
-    def add_color(self, color):
+    def add_color(self, color = None):
         """Changes indicators so that correct flag pieces are displayed"""
         # TODO: change so that color added corresponds to color actor hit
         self.num_colors_up += 1
