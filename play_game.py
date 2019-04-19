@@ -8,7 +8,11 @@ from obstacles import *
 from flag import Flag
 
 class View():
+    """
+    Instantiates model and draws the state of every object on the game screen
+    """
     def __init__(self, screen_size, filling, model):
+        """ Initialize model and make game screen """
         self.model = model
         self.screen = pygame.display.set_mode(screen_size)  # sets screen dimensions
         self.screen.fill(filling)        # sets background color
