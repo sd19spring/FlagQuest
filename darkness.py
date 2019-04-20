@@ -22,7 +22,8 @@ class Darkness():
 
     def get_draw_position(self):
         """Finds the draw position for the darkness based on player position"""
-        pass
+        pos = self.player.position_c
+        return (pos[0]-600, pos[1]-600)
 
 
     # fill the screen

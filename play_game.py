@@ -55,7 +55,7 @@ class View():
     def draw_darkness(self):
         """Draw the darkness on the display"""
         pos = self.model.player.position_c
-        self.screen.blit(self.model.darkness.image, pos)   # places image of player_actor
+        self.screen.blit(self.model.darkness.image, self.model.darkness.get_draw_position())   # places image of player_actor
 
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
@@ -64,7 +64,7 @@ class View():
         self.draw_obstacles()
         self.draw_grid()
         self.draw_flag()
-        # self.draw_darkness()
+        self.draw_darkness()
         pygame.display.update()
 
 def play_game(size):
