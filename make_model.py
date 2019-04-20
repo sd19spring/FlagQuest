@@ -8,6 +8,7 @@ from color_actor import Color_Actor
 from flag import Flag
 from obstacles import *
 from player_actor import *
+from darkness import *
 import random
 
 # These dictionaries hold the info for each flag
@@ -38,6 +39,7 @@ class Model(object):
         self.make_colors()
         self.make_player()
         self.make_obstacles()
+        self.make_darkness()
 
     def choose_flag(self):
         """ Randomly choose which flag to play the game with """
@@ -89,6 +91,10 @@ class Model(object):
         """ Instantiate Player object """
         player_image = pygame.image.load('./images/player2.png')
         self.player = Player_actor((10, 10),player_image, (self.cell_size*self.grid_size, self.cell_size*self.grid_size))
+
+    def make_darkness(self):
+        """ Instantiate Darkness object"""
+        self.darkness = Darkness(self.player, (self.cell_size*self.grid_size, self.cell_size*self.grid_size), 90)
 
 class Cell(object):
     """ This is an object for each grid cell. Unclear if this is going to be useful """

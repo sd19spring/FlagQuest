@@ -20,9 +20,8 @@ class View():
 
     def draw_player(self):
         """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
-        player = self.model.player
-        player.update_position()
-        self.screen.blit(player.image, player.get_draw_position())   # places image of player_actor
+        self.model.player.update_position()
+        self.screen.blit(self.model.player.image, self.model.player.get_draw_position())   # places image of player_actor
 
     def draw_color_actors(self):
         """Draw the flag colors onto the display"""
@@ -53,6 +52,11 @@ class View():
             for i in list(range(self.model.flag.num_colors_up)):
                 self.screen.blit(self.model.flag.image_pieces[i], self.model.flag.position)
 
+    def draw_darkness(self):
+        """Draw the darkness on the display"""
+        pos = self.model.player.position_c
+        self.screen.blit(self.model.darkness.image, pos)   # places image of player_actor
+
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.draw_player()
@@ -60,6 +64,7 @@ class View():
         self.draw_obstacles()
         self.draw_grid()
         self.draw_flag()
+        # self.draw_darkness()
         pygame.display.update()
 
 def play_game(size):
