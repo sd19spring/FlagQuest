@@ -35,8 +35,9 @@ class Player_actor(pygame.sprite.Sprite):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
         self.cont.pressed(pygame.key.get_pressed())
 
-    def check_screen_wrap(self):
-        """Checks if player has left the screen"""
+    def screen_wrap(self):
+        """If player has left one edge of screen, they appear on the other edge
+            switch with screen_wall based on design preference"""
         if self.position_c[0] > self.screen_size[0]:   # if player's center goes past max x-dimension of screen, wrap to the min x-dimension of screen
             self.position_c[0] = 0
         elif self.position_c[1] > self.screen_size[1]:   # if player's center goes past max y-dimension of screen, wrap to the min y-dimension of screen
@@ -46,12 +47,27 @@ class Player_actor(pygame.sprite.Sprite):
         elif self.position_c[1] < 0:              # if player's center goes past min y-dimension of screen, wrap to the max y-dimension of screen
             self.position_c[1] = self.screen_size[1]
 
+    def screen_wall(self):
+        """Prevents the player from leaving any edge of the screen
+            switch with screen_wrap based on design preference
+
+            BUG: player can escape through the corners of screen!!
+            """
+        if self.position_c[0] >= self.screen_size[0]:   # if player's center goes past max x-dimension of screen, they cannot go further
+            self.position_c[0] = self.screen_size[0]
+        elif self.position_c[1] >= self.screen_size[1]:   # if player's center goes past max y-dimension of screen, they cannot go further
+            self.position_c[1] = self.screen_size[1]
+        elif self.position_c[0] <= 0:              # if player's center goes past min x-dimension of screen, they cannot go further
+            self.position_c[0] = 0
+        elif self.position_c[1] <= 0:              # if player's center goes past min y-dimension of screen, they cannot go further
+            self.position_c[1] = 0
+
 
     def move(self, step_size = 1):      # step size adjusts how many pixels the player_actor moves at a time
         """Moves the player."""
         self.position_c[0] += self.cont.v_x*step_size
         self.position_c[1] += self.cont.v_y*step_size
-        self.check_screen_wrap()
+        self.screen_wall()  # for this version, we implimented the screen_wall function, which prevents the player from exiting the on-screen map
 
     def get_draw_position(self):
         """Finds the position to draw the player at. Based on if moving at a 45 or 90 degree angle"""
