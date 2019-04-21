@@ -134,9 +134,9 @@ class Player_Controller():
         Player_Controller(angle = 315, v_x = 2, v_y = 2 max_velocity = 2)
         """
         v_x = self.v_x
-        v_y = -self.v_y
+        v_y = -self.v_y     # inverts to correspond to the visual coordinate plane
         # try:
-        #     angle = int(math.degrees(math.atan(v_y/self.v_x))) # get the facing in degrees
+        #     angle = int(math.degrees(math.atan(v_y/v_x))) # get the facing in degrees
         # except ZeroDivisionError:
         #     angle = 0
 
