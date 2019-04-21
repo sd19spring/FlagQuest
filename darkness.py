@@ -36,7 +36,7 @@ class Darkness():
             player_c = self.player.position_c
             # return (player_c[0]-self.draw_offset[0]-2*3*self.screen_size[0]/4, player_c[1]-self.draw_offset[1]-2*3*self.screen_size[1]/4,)
             # return (player_c[0]-self.position_c[0]-self.size[0]/4, player_c[1]-self.position_c[1])
-            return (player_c[0]-self.size[0]/2, player_c[1]-self.size[1]/2)
+            return (player_c[0]-self.size[0]/2-self.size[0]/5, player_c[1]-self.size[1]/2-self.size[1]/5)
     # fill the screen
 
     # angle/2 and based on facing of player
