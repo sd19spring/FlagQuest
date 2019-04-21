@@ -4,7 +4,7 @@ class Darkness():
     """
     creates a black cover up to cover the screen
     """
-    def __init__(self, player, screen_size, image = pygame.image.load('./images/flashlight.png')):
+    def __init__(self, player, screen_size, image = pygame.image.load('./images/flashlight2.png')):
         """
         Initialize the darkness
 
@@ -14,6 +14,8 @@ class Darkness():
         """
         self.player = player
         self.screen_size = screen_size
+
+        image = transform.scale(image, (screen_size[0]*2, screen_size[1]*2))
         self.image = image
         self.image_orig = image # original image to base rotation on
         self.draw_offset()
@@ -23,6 +25,7 @@ class Darkness():
 
     def rotate(self):
         """Rotates the darkness to match the player"""
+        angle = self.player.cont.angle
         self.image = transform.rotate(self.image_orig, self.player.cont.angle) # rotates the image
 
     def draw_offset(self):
