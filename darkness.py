@@ -13,12 +13,11 @@ class Darkness():
         image: image file of the darkness
         """
         self.player = player
-        self.screen_size = screen_size
+        self.size = (screen_size[0]*2, screen_size[1]*2)
 
-        image = transform.scale(image, (screen_size[0]*2, screen_size[1]*2))
+        image = transform.scale(image, self.size)
         self.image = image
         self.image_orig = image # original image to base rotation on
-        self.draw_offset()
 
     def __str__(self):
         return "Darkness origin at location %s." % (self.player.position_c)
@@ -28,16 +27,16 @@ class Darkness():
         angle = self.player.cont.angle
         self.image = transform.rotate(self.image_orig, self.player.cont.angle) # rotates the image
 
-    def draw_offset(self):
-        """Finds the draw offset based on the player center"""
-        image_dim = self.image.get_rect().size # get the image size
-        self.draw_offset = (image_dim[0]/2, image_dim[1]/2) # find the image center as an offset
-
     def draw_position(self):
         """Finds the draw position for the darkness based on player position"""
-        pos = self.player.position_c
-        return (pos[0]-self.draw_offset[0], pos[1]-self.draw_offset[1])
-
+        if self.player.cont.angle%90 == 0: # if on 90 degree increments
+            player_c = self.player.position_c
+            return (player_c[0]-self.size[0]/2, player_c[1]-self.size[1]/2)
+        else: # if on 45 degree increments
+            player_c = self.player.position_c
+            # return (player_c[0]-self.draw_offset[0]-2*3*self.screen_size[0]/4, player_c[1]-self.draw_offset[1]-2*3*self.screen_size[1]/4,)
+            # return (player_c[0]-self.position_c[0]-self.size[0]/4, player_c[1]-self.position_c[1])
+            return (player_c[0]-self.size[0]/2, player_c[1]-self.size[1]/2)
     # fill the screen
 
     # angle/2 and based on facing of player
