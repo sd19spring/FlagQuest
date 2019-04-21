@@ -8,21 +8,25 @@ from color_actor import Color_Actor
 from flag import Flag
 from obstacles import *
 from player_actor import *
+from darkness import *
 import random
+import os
 
 # These dictionaries hold the info for each flag
+dir_path = os.path.dirname(os.path.realpath(__file__))      # dir_path allows us to refer to the current folder of this file
+
 bisexual = {
             'colors' : [(215, 2, 112), (115, 79, 150), (0, 56, 168)],
             'name' : 'Bisexual Pride Flag',
             'description' : 'This is the bisexual flag',
-            'img_names':['biflag.jpg', 'biflag.jpg', 'biflag.jpg'] # need to have same number of images as colors
+            'img_names':[dir_path + '/images/bi/biflag.jpg', dir_path + '/images/bi/biflag.jpg', dir_path + '/images/bi/biflag.jpg'] # need to have same number of images as colors
 }
 
 trans = {
         'colors' : [(13, 204, 237), (248, 183, 211), (255, 255, 255)],
         'name' : 'Trans Pride Flag',
         'description': 'This is the trans flag',
-        'img_names':['t_blue.png', 't_pink.png', 't_white.png']
+        'img_names':[dir_path + '/images/trans/t_blue.png', dir_path + '/images/trans/t_pink.png', dir_path + '/images/trans/t_white.png']  # these paths are dependent on the current locations of the image files, and should be adjusted to allow for variability in the coder's set-up
 }
 
 flag_list = ['bi','trans']
@@ -39,6 +43,7 @@ class Model(object):
         self.make_colors()
         self.make_player()
         self.make_obstacles()
+        self.make_darkness()
 
     def choose_flag(self):
         """ Randomly choose which flag to play the game with """
@@ -89,7 +94,15 @@ class Model(object):
     def make_player(self):
         """ Instantiate Player object """
         player_image = pygame.image.load('./images/player2.png')
+<<<<<<< HEAD
         self.player = Player_actor((1000, 0),player_image, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_y_size))
+=======
+        self.player = Player_actor((400, 400),player_image, (self.cell_size*self.grid_size, self.cell_size*self.grid_size))
+
+    def make_darkness(self):
+        """ Instantiate Darkness object"""
+        self.darkness = Darkness(self.player, (self.cell_size*self.grid_size, self.cell_size*self.grid_size))
+>>>>>>> 3f93c4c49becf1f2670b4da6a057a69ff235c49b
 
 class Cell(object):
     """ This is an object for each grid cell. Unclear if this is going to be useful """
