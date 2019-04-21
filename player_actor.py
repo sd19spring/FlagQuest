@@ -82,6 +82,7 @@ class Player_actor(pygame.sprite.Sprite):
         self.move(step_size=1)      # adjust character position based on arrowkey presses
         self.cont.facing()          # Updates the facing postition
         self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
+
     def update_rect(self):
         """Updates rect boundary, for use in collision detection"""
         self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,

@@ -97,7 +97,7 @@ class Model(object):
 
     def make_darkness(self):
         """ Instantiate Darkness object"""
-        self.darkness = Darkness(self.player, (self.cell_size*self.grid_size, self.cell_size*self.grid_size), 90)
+        self.darkness = Darkness(self.player, (self.cell_size*self.grid_size, self.cell_size*self.grid_size))
 
 class Cell(object):
     """ This is an object for each grid cell. Unclear if this is going to be useful """
