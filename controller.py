@@ -7,7 +7,7 @@ class Player_Controller():
     def __init__(self, max_velocity):
         """Initialize the player controller
 
-        acceleration: the acceleration rate of the controller"""
+        max_velocity: the max_velocity of the controller"""
         self.angle = 0 # angle
         self.v_x = 0 # x velocity
         self.v_y = 0 # y velocity
@@ -178,4 +178,4 @@ class Keyboard_Controller(Player_Controller):
 
 if __name__ == "__main__":
     import doctest
-    doctest.run_docstring_examples(Keyboard_Controller.facing, globals())
+    doctest.testmod()
