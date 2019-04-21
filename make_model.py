@@ -94,15 +94,11 @@ class Model(object):
     def make_player(self):
         """ Instantiate Player object """
         player_image = pygame.image.load('./images/player2.png')
-<<<<<<< HEAD
-        self.player = Player_actor((1000, 0),player_image, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_y_size))
-=======
-        self.player = Player_actor((400, 400),player_image, (self.cell_size*self.grid_size, self.cell_size*self.grid_size))
+        self.player = Player_actor((400, 400),player_image, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_y_size))
 
     def make_darkness(self):
         """ Instantiate Darkness object"""
-        self.darkness = Darkness(self.player, (self.cell_size*self.grid_size, self.cell_size*self.grid_size))
->>>>>>> 3f93c4c49becf1f2670b4da6a057a69ff235c49b
+        self.darkness = Darkness(self.player, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_x_size))
 
 class Cell(object):
     """ This is an object for each grid cell. Unclear if this is going to be useful """
