@@ -1,5 +1,7 @@
 import math
 import pygame
+import time
+
 class Player_Controller():
     """Defines a controller that takes user input to control the Player
     object.
@@ -54,7 +56,7 @@ class Player_Controller():
             self.v_x = -self.v_max
         elif dir == 'right':
             self.v_x = self.v_max
-        if dir == 'up':
+        elif dir == 'up':
             self.v_y = -self.v_max
         elif dir == 'down':
             self.v_y = self.v_max
@@ -131,22 +133,41 @@ class Player_Controller():
         >>> print(test)
         Player_Controller(angle = 315, v_x = 2, v_y = 2 max_velocity = 2)
         """
+        v_x = self.v_x
         v_y = -self.v_y
-        try:
-            angle = int(math.degrees(math.atan(v_y/self.v_x))) # get the facing in degrees
-        except ZeroDivisionError:
-            angle = 0
+        # try:
+        #     angle = int(math.degrees(math.atan(v_y/self.v_x))) # get the facing in degrees
+        # except ZeroDivisionError:
+        #     angle = 0
 
-        if self.v_x < 0: # if in quad 2 or 3
-            self.angle = 180 + angle
-        elif self.v_x > 0 and v_y < 0: # if in quandrant 4
-            self.angle = 360 + angle
-        elif v_y > 0 and self.v_x == 0: # if along the axis between quad 1 and 2
+        # if v_x < 0: # if in quad 2 or 3
+        #     self.angle = 180 + angle
+        # elif v_x > 0 and v_y < 0: # if in quandrant 4
+        #     self.angle = 360 + angle
+        # elif v_y > 0 and v_x == 0: # if along the axis between quad 1 and 2
+        #     self.angle = 90
+        # elif v_y < 0 and v_x == 0: # if along the axis between quad 3 and 4
+        #     self.angle = 270
+        # elif v_x > 0: # if in quandrant 1
+        #     self.angle = angle
+
+        # breaks movement into 8 different angle positions
+        if v_x > 0 and v_y == 0:
+            self.angle = 0
+        if v_x > 0 and v_y > 0:
+            self.angle = 45
+        if v_x == 0 and v_y > 0:
             self.angle = 90
-        elif v_y < 0 and self.v_x == 0: # if along the axis between quad 3 and 4
+        if v_x < 0 and v_y > 0:
+            self.angle = 135
+        if v_x < 0 and v_y == 0:
+            self.angle = 180
+        if v_x < 0 and v_y < 0:
+            self.angle = 225
+        if v_x == 0 and v_y < 0:
             self.angle = 270
-        else: # if in quandrant 1
-            self.angle = angle
+        if v_x > 0 and v_y < 0:
+            self.angle = 315
 
 class Keyboard_Controller(Player_Controller):
     """Defines a controller that takes input from the arrow keys, wasd, and ,aoe
