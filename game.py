@@ -49,9 +49,9 @@ class View():
 
     def draw_flag(self):
         """Draw the flag onto the display"""
-        if self.model.flag.num_colors_up:
-            for i in list(range(self.model.flag.num_colors_up)):
-                self.screen.blit(self.model.flag.image_pieces[i], self.model.flag.position)
+        if self.model.flag.colors_up:
+            for image in self.model.flag.colors_up:
+                self.screen.blit(image, self.model.flag.position)
 
     def draw_darkness(self):
         """Draw the darkness on the display"""
@@ -79,11 +79,9 @@ def play_game(size):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
         color_collision = model.player.check_color_collision(model.color_objs)
         if color_collision:
-            model.flag.add_color()
-
+            model.flag.add_color(color_collision)
 
         view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
         view.update()         # updates the model based on any new inputs or in-game events

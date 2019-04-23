@@ -105,7 +105,6 @@ class Player_actor(pygame.sprite.Sprite):
         # angle_bumps is a dictionary that shows the reciprocal velocity to each possible facing
 
         if len(collision) > 0:
-            print('hit obstacle', self.position_c)
             if self.cont.v_x == 0 and self.cont.v_y == 0:       # if the player isn't moving, bump them out
                 self.position_c[0] += angle_bumps[self.cont.angle][0]*2
                 self.position_c[1] += angle_bumps[self.cont.angle][1]*2
