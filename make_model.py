@@ -88,6 +88,9 @@ class Model(object):
             color = obstacle_types[type]                        # finds the color associated with this obstacle's type
             self.obstacles.append(Obstacle((self.cell_size,self.cell_size),coord,type,color)) # change this to sprite Group later
 
+            self.grid_cells[(x_cell,y_cell)].occupied = True
+            self.grid_cells[(x_cell,y_cell)].type = 'obstacle'
+
     def make_grid(self):
         """ Instantiate grid cells for game map """
         self.grid_cells = {}
