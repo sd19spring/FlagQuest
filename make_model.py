@@ -19,14 +19,14 @@ bisexual = {
             'colors' : [(215, 2, 112), (115, 79, 150), (0, 56, 168)],
             'name' : 'Bisexual Pride Flag',
             'description' : 'This is the bisexual flag',
-            'img_names':[dir_path + '/images/bi/biflag.jpg', dir_path + '/images/bi/biflag.jpg', dir_path + '/images/bi/biflag.jpg'] # need to have same number of images as colors
+            'img_names':[dir_path + '/images/bi/1.jpg', dir_path + '/images/bi/2.jpg', dir_path + '/images/bi/3.jpg'] # need to have same number of images as colors
 }
 
 trans = {
         'colors' : [(13, 204, 237), (248, 183, 211), (255, 255, 255)],
         'name' : 'Trans Pride Flag',
         'description': 'This is the trans flag',
-        'img_names':[dir_path + '/images/trans/t_blue.png', dir_path + '/images/trans/t_pink.png', dir_path + '/images/trans/t_white.png']  # these paths are dependent on the current locations of the image files, and should be adjusted to allow for variability in the coder's set-up
+        'img_names':[dir_path + '/images/trans/1.png', dir_path + '/images/trans/1.png', dir_path + '/images/trans/1.png']  # these paths are dependent on the current locations of the image files, and should be adjusted to allow for variability in the coder's set-up
 }
 
 flag_list = ['bi','trans']
@@ -45,10 +45,12 @@ class Model(object):
         self.make_obstacles()
         self.make_darkness()
 
+    # def make_all_flags(self):
+    #     self.ace_flag = Flag('Asexual', image_names = )
+
     def choose_flag(self):
         """ Randomly choose which flag to play the game with """
         num_flag = random.randint(0,1)
-        num_flag = 1
         flag_name = flag_list[num_flag]
 
         if flag_name == 'trans':
