@@ -12,25 +12,6 @@ from darkness import *
 import random
 import os
 
-# These dictionaries hold the info for each flag
-dir_path = os.path.dirname(os.path.realpath(__file__))      # dir_path allows us to refer to the current folder of this file
-
-bisexual = {
-            'colors' : [(215, 2, 112), (115, 79, 150), (0, 56, 168)],
-            'name' : 'Bisexual Pride Flag',
-            'description' : 'This is the bisexual flag',
-            'img_names':[dir_path + '/images/bi/1.jpg', dir_path + '/images/bi/2.jpg', dir_path + '/images/bi/3.jpg'] # need to have same number of images as colors
-}
-
-trans = {
-        'colors' : [(13, 204, 237), (248, 183, 211), (255, 255, 255)],
-        'name' : 'Trans Pride Flag',
-        'description': 'This is the trans flag',
-        'img_names':[dir_path + '/images/trans/1.png', dir_path + '/images/trans/1.png', dir_path + '/images/trans/1.png']  # these paths are dependent on the current locations of the image files, and should be adjusted to allow for variability in the coder's set-up
-}
-
-flag_list = ['bi','trans']
-
 class Model(object):
     """ Class that holds the state of the entire game """
     def __init__(self, cell_size = 40, grid_x_size = 30, grid_y_size = 20):
@@ -39,29 +20,49 @@ class Model(object):
         self.grid_x_size = grid_x_size
         self.grid_y_size = grid_y_size
         self.make_grid()
+        self.make_all_flags()
         self.choose_flag()
         self.make_colors()
         self.make_player()
         self.make_obstacles()
         self.make_darkness()
 
-    # def make_all_flags(self):
-    #     self.ace_flag = Flag('Asexual', image_names = )
+    def make_all_flags(self):
+        """Create all flag objects to later choose from."""
+        #TODO: modify other functions so this is only called once per play
+        dir_path = os.path.dirname(os.path.realpath(__file__))      # dir_path allows us to refer to the current folder of this file
+
+        all_flag_dict = {"ace":[(0,0,0), (163,163,163), (255,255,255),(166,1,191)],
+                    "alt-lesbian":[(215,44,0),(239,116,39),(255,152,86),(255,255,255),(209,98,166),(183,85,146),(165,1,98)],
+                    "bi":[(215,2,112),(115,79,150),(0,56,168)],
+                    "gqueer":[(189,123,222),(255,255,255),(74,123,33)],
+                    "intersex":[(255,216,0),(121,2,170)],
+                    "l-lesbian":[(184,0,144),(202,103,164),(227,118,182),(255,255,255),(243,192,221),(215,96,100),(158,40,4)],
+                    "nb":[(255,244,51),(255,255,255),(155,89,208),(45,45,45)],
+                    "pan":[(255,33,142),(255,214,0),(33,176,254)],
+                    "poc":[(0,0,0),(115,86,38),(233,50,34),(239,144,52),(252,228,76),(73,155,47),(23,71,173),(179,67,213)],
+                    "pride":[(254,0,0),(255,166,3),(255,255,0),(0,129,2),(22,20,228),(128,0,126)],
+                    "trans":[(13, 204, 237),(248, 183, 211),(255, 255, 255)]}
+
+        self.all_flags = []
+
+        for name in all_flag_dict:
+            calc_image_names = []
+            for n in list(range(len(all_flag_dict[name]))):
+                if name == "trans":
+                    image_name = dir_path + '/images/' + name + "/" + str(n+1) + ".png"
+                else:
+                    image_name = dir_path + '/images/' + name + "/" + str(n+1) + ".jpg"
+                calc_image_names.append(image_name)
+            flag = Flag(name, colors = all_flag_dict[name], image_names = calc_image_names)
+            self.all_flags.append(flag)
 
     def choose_flag(self):
         """ Randomly choose which flag to play the game with """
-        num_flag = random.randint(0,1)
-        flag_name = flag_list[num_flag]
 
-        if flag_name == 'trans':
-            f_dict = trans
-        if flag_name == 'bi':
-            f_dict = bisexual
-
-        # img_pieces = [pygame.image.load(image_name) for image_name in f_dict['img_names']]
-        #print(img_pieces)
-        self.flag = Flag(f_dict['name'], image_names = f_dict['img_names'],
-                        colors = f_dict['colors'], description = f_dict['description'])
+        num_flag = random.randint(0,len(self.all_flags)-1)
+        self.flag = self.all_flags[num_flag]
+        print("You are playing with the " + self.flag.name + " flag")
 
     def make_colors(self):
         """ Instantiate Color_Actor objects for each color in the chosen flag """
