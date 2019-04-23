@@ -72,6 +72,9 @@ class Model(object):
             y_cell = random.randint(0, self.grid_y_size-1)
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
             self.color_objs.append(Color_Actor(self.flag.colors[i], self, coord[0], coord[1]))
+            self.grid_cells[(x_cell,y_cell)].occupied = True
+            self.grid_cells[(x_cell,y_cell)].type = 'color'
+
 
     def make_obstacles(self):
         """ Generate obstacles in the grid """
