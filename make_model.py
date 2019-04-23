@@ -33,7 +33,7 @@ flag_list = ['bi','trans']
 
 class Model(object):
     """ Class that holds the state of the entire game """
-    def __init__(self, cell_size = 40, grid_x_size = 31, grid_y_size = 17):
+    def __init__(self, cell_size = 40, grid_x_size = 30, grid_y_size = 20):
         self.obstacles = [] # change this to a sprite Group sometime
         self.cell_size = cell_size
         self.grid_x_size = grid_x_size
