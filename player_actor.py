@@ -88,7 +88,7 @@ class Player_actor(pygame.sprite.Sprite):
         """Update the image based on the facing of the player"""
         self.get_keypress()         # recieve keyboard input
         self.move()
-        self.check_obstacle_collision()
+        self.check_obstacle_collision()     # bumps player if they hit an obstacle
         self.cont.facing()          # Updates the facing postition
         self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
 
@@ -102,16 +102,15 @@ class Player_actor(pygame.sprite.Sprite):
         """Returns sprite collided with, of obstacle objects, or None if no collisions."""
         collision = pygame.sprite.spritecollide(self, self.obstacles, dokill = False)   # creates list of all obstacles that the player is colliding with
         angle_bumps = {0:(-1,0), 45:(-1,1), 90:(0,1), 135:(1,1), 180:(1,0), 225:(1,-1), 270:(0,-1), 315:(-1,-1)}
+        # angle_bumps is a dictionary that shows the reciprocal velocity to each possible facing
+
         if len(collision) > 0:
             print('hit obstacle', self.position_c)
-            if self.cont.v_x == 0 and self.cont.v_y == 0:
-                self.position_c[0] += angle_bumps[self.cont.angle][0]
-                self.position_c[1] += angle_bumps[self.cont.angle][1]
+            if self.cont.v_x == 0 and self.cont.v_y == 0:       # if the player isn't moving, bump them out
+                self.position_c[0] += angle_bumps[self.cont.angle][0]*2
+                self.position_c[1] += angle_bumps[self.cont.angle][1]*2
             else:
-                self.move_rev()     # bounces player back
-
-        # self.update_rect()
-        #not repeating collides with the same object not yet implemented, see below
+                self.move_rev()     # if player is moving and hits the obstacle, this bumps them back with the opposing velocity
 
     def check_color_collision(self, color_objs):
         """Returns sprite collided with, of color objects, or None if no collisions.
@@ -122,8 +121,7 @@ class Player_actor(pygame.sprite.Sprite):
         if collision:
             if collision not in self.collided_with:
                 self.collided_with.append(collision)
-                if __name__ != '__main__':
-                    return collision
+                return collision
 
 
 if __name__ == "__main__":
