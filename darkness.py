@@ -4,7 +4,8 @@ class Darkness():
     """
     creates a black cover up to cover the screen
     """
-    def __init__(self, player, screen_size, image = pygame.image.load('./images/flashlight2.png')):
+    def __init__(self, player, screen_size,
+    image = pygame.image.load('./images/flashlight2.png')):
         """
         Initialize the darkness
 
@@ -13,7 +14,7 @@ class Darkness():
         image: image file of the darkness
         """
         self.player = player
-        self.size = (screen_size[0]*2, screen_size[1]*2)
+        self.size = (int(screen_size[0]*1.5), int(screen_size[1]*1.5))
 
         image = transform.scale(image, self.size)
         self.image = image
