@@ -7,7 +7,7 @@ class Player_actor(pygame.sprite.Sprite):
     """
     allows you to make a player character who you control to move around the world
     """
-    def __init__(self, pos, image, screen_size, obstacles):
+    def __init__(self, pos, image, screen_size, obstacles, color_objs):
         """
         Initialize the player
 
@@ -29,6 +29,7 @@ class Player_actor(pygame.sprite.Sprite):
                     self.player_size[0], self.player_size[1])
         self.collided_with = []
         self.obstacles = obstacles
+        self.color_objs = color_objs
 
     def __str__(self):
         return "Player centered at location %s with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.position_c, self.cont.angle, self.player_size[0], self.player_size[1])
@@ -112,18 +113,17 @@ class Player_actor(pygame.sprite.Sprite):
         # self.update_rect()
         #not repeating collides with the same object not yet implemented, see below
 
-    def check_color_collision(self, model):
+    def check_color_collision(self, color_objs):
         """Returns sprite collided with, of color objects, or None if no collisions.
         Keeps track of what collisions have already happened, and does not repeat collisions"""
         self.update_rect()
 
-        collision = pygame.sprite.spritecollideany(self, model.color_objs)
+        collision = pygame.sprite.spritecollideany(self, color_objs)
         if collision:
             if collision not in self.collided_with:
                 self.collided_with.append(collision)
-                return collision
-        else:
-            return None
+                if __name__ != '__main__':
+                    return collision
 
 
 if __name__ == "__main__":

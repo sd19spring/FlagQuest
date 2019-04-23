@@ -79,7 +79,7 @@ def play_game(size):
             if event.type == pygame.QUIT:
                 running = False
 
-        color_collision = model.player.check_color_collision(model)
+        color_collision = model.player.check_color_collision(model.color_objs)
         if color_collision:
             model.flag.add_color()
 

@@ -7,6 +7,8 @@ import pygame
 
 class Color_Actor(pygame.sprite.Sprite):
     def __init__(self, color, model, x=0, y=0):
+        pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
+
         self.color = color
         self.x = x
         self.y = y
