@@ -7,13 +7,14 @@ class Player_actor(pygame.sprite.Sprite):
     """
     allows you to make a player character who you control to move around the world
     """
-    def __init__(self, pos, image, screen_size):
+    def __init__(self, pos, image, screen_size, obstacles):
         """
         Initialize the player
 
         pos: a tuple of the starting position of the player
         image: the image file for the player
         screen_size: a tuple of the screen dimensions
+        obstacles: brings in a list of all obstacles on map
         """
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
 
@@ -27,6 +28,7 @@ class Player_actor(pygame.sprite.Sprite):
                     self.position_c[1] - self.player_size[1]/2,
                     self.player_size[0], self.player_size[1])
         self.collided_with = []
+        self.obstacles = obstacles
 
     def __str__(self):
         return "Player centered at location %s with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.position_c, self.cont.angle, self.player_size[0], self.player_size[1])
@@ -69,6 +71,11 @@ class Player_actor(pygame.sprite.Sprite):
         self.position_c[1] += self.cont.v_y*step_size
         self.screen_wall()  # for this version, we implimented the screen_wall function, which prevents the player from exiting the on-screen map
 
+    def move_rev(self, step_size = 5):      # step size adjusts how many pixels the player_actor moves at a time
+        """bounces player backward when hit obstacle"""
+        self.position_c[0] -= self.cont.v_x*step_size
+        self.position_c[1] -= self.cont.v_y*step_size
+
     def get_draw_position(self):
         """Finds the position to draw the player at. Based on if moving at a 45 or 90 degree angle"""
         if self.cont.v_x != 0 and self.cont.v_y != 0: # If moving at an angle
@@ -79,7 +86,8 @@ class Player_actor(pygame.sprite.Sprite):
     def update_position(self):
         """Update the image based on the facing of the player"""
         self.get_keypress()         # recieve keyboard input
-        self.move(step_size=1)      # adjust character position based on arrowkey presses
+        self.move()
+        self.check_obstacle_collision()
         self.cont.facing()          # Updates the facing postition
         self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
 
@@ -89,13 +97,19 @@ class Player_actor(pygame.sprite.Sprite):
                     self.position_c[1] - self.player_size[1]/2,
                     self.player_size[0], self.player_size[1])
 
-    def check_obstacle_collision(self, model):
+    def check_obstacle_collision(self):
         """Returns sprite collided with, of obstacle objects, or None if no collisions."""
-        for obstacle in model.obstacles:
-            print("obstacle at" + str(obstacle.rect))
-        self.update_rect()
+        collision = pygame.sprite.spritecollide(self, self.obstacles, dokill = False)   # creates list of all obstacles that the player is colliding with
+        angle_bumps = {0:(-1,0), 45:(-1,1), 90:(0,1), 135:(1,1), 180:(1,0), 225:(1,-1), 270:(0,-1), 315:(-1,-1)}
+        if len(collision) > 0:
+            print('hit obstacle', self.position_c)
+            if self.cont.v_x == 0 and self.cont.v_y == 0:
+                self.position_c[0] += angle_bumps[self.cont.angle][0]
+                self.position_c[1] += angle_bumps[self.cont.angle][1]
+            else:
+                self.move_rev()     # bounces player back
 
-        return pygame.sprite.spritecollideany(self, model.obstacles)
+        # self.update_rect()
         #not repeating collides with the same object not yet implemented, see below
 
     def check_color_collision(self, model):
