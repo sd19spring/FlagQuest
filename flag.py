@@ -14,15 +14,17 @@ class Flag:
         self.colors_up = []
         self.num_colors_up = 0
         #Change to reflect changing size of screen
-        self.position = (680,20)
+        self.position = (1050,20)
 
     def add_color(self, color = None):
         """Changes indicators so that correct flag pieces are displayed"""
         # TODO: change so that color added corresponds to color actor hit
         self.num_colors_up += 1
+        # image_piece = self.image_piece_index[color]
+
 
     def setup_images(self, image_names):
-        """Loads image pieces and creates image:color dictionary"""
+        """Loads image pieces and creates color:image dictionary"""
         self.image_pieces = [pygame.image.load(image_name) for image_name in image_names]
         self.image_piece_dict = {}
         for index in list(range(len(self.colors))):
