@@ -36,6 +36,7 @@ class View():
         """Draw the obstacles on the display"""
         for obstacle in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
             self.screen.blit(obstacle.image, obstacle.position)
+            #pygame.draw.rect(self.screen, (255, 0, 0), obstacle.rect)
 
     def draw_grid(self):
         """Draw the grid on the display"""
@@ -63,7 +64,7 @@ class View():
         self.draw_color_actors()
         self.draw_obstacles()
         self.draw_grid()
-        self.draw_darkness()
+        #self.draw_darkness() # this slows everything down a TON
         self.draw_flag()
         pygame.display.update()
 

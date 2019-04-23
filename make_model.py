@@ -96,7 +96,7 @@ class Model(object):
 
     def make_player(self):
         """ Instantiate Player object """
-        player_image = pygame.image.load('./images/player2.png')
+        player_image = pygame.transform.scale(pygame.image.load('./character.png'), (40,40))
         self.player = Player_actor((400, 400),player_image, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_y_size),self.obstacles, self.color_objs)
 
     def make_darkness(self):
