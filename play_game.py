@@ -63,8 +63,8 @@ class View():
         self.draw_color_actors()
         self.draw_obstacles()
         self.draw_grid()
-        self.draw_flag()
         self.draw_darkness()
+        self.draw_flag()
         pygame.display.update()
 
 def play_game(size):
