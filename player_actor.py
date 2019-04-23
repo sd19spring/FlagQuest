@@ -22,7 +22,7 @@ class Player_actor(pygame.sprite.Sprite):
         self.image_orig = self.image # sets an original copy of the image to reference later
         self.player_size = self.image.get_size()    # player_size is a tuple representing the image's dimensions
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
-        self.cont = controller(2) # initialize controller with 2 max velocity
+        self.cont = controller(5) # initialize controller with 2 max velocity
         self.screen_size = screen_size   # refers to screen size
         self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
                     self.position_c[1] - self.player_size[1]/2,
