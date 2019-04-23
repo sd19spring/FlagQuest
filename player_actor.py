@@ -65,7 +65,7 @@ class Player_actor(pygame.sprite.Sprite):
             self.position_c[1] = 0
 
 
-    def move(self, step_size = 1):      # step size adjusts how many pixels the player_actor moves at a time
+    def move(self, step_size = 2):      # step size adjusts how many pixels the player_actor moves at a time
         """Moves the player."""
         self.position_c[0] += self.cont.v_x*step_size
         self.position_c[1] += self.cont.v_y*step_size

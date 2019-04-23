@@ -14,7 +14,7 @@ class Darkness():
         image: image file of the darkness
         """
         self.player = player
-        self.size = (int(screen_size[0]*1.5), int(screen_size[1]*1.5))
+        self.size = (int(screen_size[0]*2), int(screen_size[1]*2))
 
         image = transform.scale(image, self.size)
         self.image = image
