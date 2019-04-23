@@ -5,7 +5,7 @@ class Darkness():
     creates a black cover up to cover the screen
     """
     def __init__(self, player, screen_size,
-    image = pygame.image.load('./images/flashlight2.png')):
+    image = pygame.image.load('./images/flashlight6.png')):
         """
         Initialize the darkness
 
