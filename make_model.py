@@ -49,10 +49,7 @@ class Model(object):
         for name in all_flag_dict:
             calc_image_names = []
             for n in list(range(len(all_flag_dict[name]))):
-                if name == "trans":
-                    image_name = dir_path + '/images/' + name + "/" + str(n+1) + ".png"
-                else:
-                    image_name = dir_path + '/images/' + name + "/" + str(n+1) + ".jpg"
+                image_name = dir_path + '/images/' + name + "/" + str(n+1) + ".png"
                 calc_image_names.append(image_name)
             flag = Flag(name, colors = all_flag_dict[name], image_names = calc_image_names)
             self.all_flags.append(flag)

@@ -12,4 +12,5 @@ class Color_Actor(pygame.sprite.Sprite):
         self.color = color
         self.x = x
         self.y = y
+        self.position = (self.x, self.y)
         self.rect = pygame.Rect(x, y, model.cell_size, model.cell_size)
