@@ -1,7 +1,7 @@
 # LGBT Learning Journey
 LGBT Learning Journey is a rogue likegame created to spread
-awareness of lgbtq+ identities by integrating the elements
-of lgbtq+ flags into fun puzzles. As the game’s player, you
+awareness of LGBTQ+ identities by integrating the elements
+of LGBTQ+ flags into fun puzzles. As the game’s player, you
 wander through the dark woods, navigating around or overcoming
 obstacles to collect the different colors of your identity.
 As you collect each color, you’ll learn more about the
@@ -11,7 +11,7 @@ history of the flag and the identity that it represents.
 This game was created, designed, and coded by Lauren Anfenson,
 David Freeman, Emma Mack, and Griffith Stites. Thank you to
 Gilbert Baker, Monica Helms, Michael Page, and all other
-creators of the various lgbtq+ flags that we based this game
+creators of the various LGBTQ+ flags that we based this game
 around. Thank you as well to all the people of the internet
 and Olin community who contributed their thoughts and examples
 for our learning.
