@@ -1,5 +1,6 @@
+import image
 from flag import *
-import os
+from PIL import Image, ImageDraw
 
 class FinalScreen():
     """
@@ -36,12 +37,16 @@ class FinalScreen():
 
     def draw (self):
         """Draw the final screen"""
+        img = Image.new('RGB', (100, 30), color = (73, 109, 137))
+        # d = ImageDraw.Draw('./images/trans/1.png')
+        d = ImageDraw.Draw(img)
+        d.show()
         # images
         # text
         # background color
-        pass
 
 if __name__ == "__main__":
     screen_size = (800, 800)
     final = FinalScreen(screen_size, 'format')
     print(final)
+    final.draw()
