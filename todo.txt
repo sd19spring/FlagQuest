@@ -2,7 +2,7 @@ A to do list for the website.
 
 * Incorporate README page on the website (link to there
 instead of the repo)
-* Link to the project page
 * Finish writing for all necessary sections
 * Organize sections in a way that makes the most sense
 * Add photos, videos, and diagrams
+* Change repo title? - change website title
