@@ -1,6 +1,7 @@
 import pygame
 from pygame import transform
 import time
+import numpy
 from controller import Keyboard_Controller as controller
 
 class Player_actor(pygame.sprite.Sprite):
@@ -22,6 +23,7 @@ class Player_actor(pygame.sprite.Sprite):
         self.image_orig = self.image # sets an original copy of the image to reference later
         self.player_size = self.image.get_size()    # player_size is a tuple representing the image's dimensions
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
+        self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
         self.cont = controller(5) # initialize controller with 2 max velocity
         self.screen_size = screen_size   # refers to screen size
         self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
@@ -91,6 +93,8 @@ class Player_actor(pygame.sprite.Sprite):
         self.check_obstacle_collision()     # bumps player if they hit an obstacle
         self.cont.facing()          # Updates the facing postition
         self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
+        self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
+
 
     def update_rect(self):
         """Updates rect boundary, for use in collision detection"""

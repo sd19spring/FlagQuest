@@ -21,7 +21,9 @@ class View():
     def draw_player(self):
         """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
         self.model.player.update_position()
-        self.screen.blit(self.model.player.image, self.model.player.get_draw_position())   # places image of player_actor
+        print('hi')
+        self.screen.blit(self.model.player.image, self.model.player.get_draw_position())
+        #pygame.draw.rect(self.screen, pygame.Color(0, 255, 0), pygame.Rect(self.model.grid_cells[self.model.player.grid_cell].cell_coord[1], 40, 40)) # places image of player_actor
 
     def draw_color_actors(self):
         """Draw the flag colors onto the display"""
@@ -79,7 +81,7 @@ def play_game(size):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        breakpoint()    
+        breakpoint()
         color_collision = model.player.check_color_collision(model.color_objs)
 
         if color_collision:

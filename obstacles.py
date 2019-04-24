@@ -16,8 +16,8 @@ class Obstacle(pygame.sprite.Sprite):
         self.position = position
         self.type = type
 
-        self.image = pygame.Surface(grid_size)    # creates a simple rectangle for the Obstacle
-        self.image.fill(color)          # color correspond's with the obstacle's "type"
+        self.image = pygame.transform.scale(pygame.image.load('./spike.jpg'), (40,40))   # creates a simple rectangle for the Obstacle
+        #self.image.fill(color)          # color correspond's with the obstacle's "type"
         self.rect = pygame.Rect(self.position[0], self.position[1], self.width, self.height)
 
     def __str__(self):
