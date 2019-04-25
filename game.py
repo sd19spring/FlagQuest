@@ -22,7 +22,7 @@ class View():
         """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
         self.model.player.update_position()
         self.screen.blit(self.model.player.image, self.model.player.get_draw_position())   # places image of player_actor
-        print(self.model.player.grid_cell)
+        # print(self.model.player.grid_cell)
 
     def draw_color_actors(self):
         """Draw the flag colors onto the display"""
