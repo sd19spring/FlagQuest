@@ -12,7 +12,7 @@ class Flag:
         self.colors_up = []
         self.num_colors_up = 0
         #Change to reflect changing size of screen
-        self.position = (950,20)
+        self.position = (1500,20)
 
     def add_color(self, actor = None):
         """Changes indicators so that correct flag pieces are displayed"""

@@ -14,7 +14,7 @@ import os
 
 class Model(object):
     """ Class that holds the state of the entire game """
-    def __init__(self, cell_size = 40, grid_x_size = 30, grid_y_size = 20):
+    def __init__(self, cell_size = 40, grid_x_size = 46, grid_y_size = 23):
         self.obstacles = [] # change this to a sprite Group sometime
         self.cell_size = cell_size
         self.grid_x_size = grid_x_size
@@ -94,13 +94,13 @@ class Model(object):
         cell_size = (self.cell_size,self.cell_size)
         for i in range(self.grid_x_size):
             for j in range(self.grid_y_size):
-                cell_coord = (i*self.cell_size, 800-j*self.cell_size)
+                cell_coord = (i*self.cell_size, 160+j*self.cell_size)
                 self.grid_cells[(i,j)] = Cell(cell_coord, False, 'none')
 
     def make_player(self):
         """ Instantiate Player object """
         player_image = pygame.transform.scale(pygame.image.load('./character.png'), (40,40))
-        self.player = Player_actor((400, 400),player_image, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_y_size),self.obstacles, self.color_objs)
+        self.player = Player_actor((400, 400),player_image, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_y_size+160),self.obstacles, self.color_objs)
 
     def make_darkness(self):
         """ Instantiate Darkness object"""

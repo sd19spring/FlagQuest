@@ -91,4 +91,4 @@ def play_game(size):
 
 if __name__ == '__main__':
 
-    play_game((1200,800)) # start running game
+    play_game((1880,1080)) # start running game
