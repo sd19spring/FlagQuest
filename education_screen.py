@@ -43,17 +43,26 @@ class FinalScreen():
         # remove spaces in the name
     def draw_background():
         pass
-    def draw_flag():
-        pass
+    def draw_flag(self):
+        running = True
+        n = 1
+        flag = Image.new('RGB', self.screen_size, color = (255, 255, 255)) # create background
+        while running == True:
+            try:
+                flag.paste(Image.open('./images/'+ self.flag + '/' + str(n) + '.png')) # add the next numbered image file
+            except FileNotFoundError:
+                running = False
+            n += 1
+        self.flag_img = flag
 
     def draw (self):
         """Draw the final screen"""
         img = Image.new('RGB', self.screen_size, color = (255, 255, 255)) # create background
         text = ImageDraw.Draw(img)
         text.text((10,10), "Hello World", fill=(0,0,0))
-        flag = Image.open('./images/'+ self.flag + '/1.png')
-
-        img.paste(flag)
+        # flag = Image.open('./images/'+ self.flag + '/1.png')
+        self.draw_flag()
+        img.paste(self.flag_img)
         img.save('./flag_info/' + self.flag + '_final.png')# OPTIMIZE:
 
         # images
