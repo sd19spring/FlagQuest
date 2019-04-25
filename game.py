@@ -65,7 +65,7 @@ class View():
         self.draw_color_actors()
         self.draw_obstacles()
         self.draw_grid()
-        self.draw_darkness() # this slows everything down a TON
+        self.draw_darkness()
         self.draw_flag()
         pygame.display.update()
 

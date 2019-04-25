@@ -43,26 +43,30 @@ class FinalScreen():
         # remove spaces in the name
     def draw_background():
         pass
-    def draw_flag(self):
+        
+    def make_flag(self):
+        stripe = Image.open('./images/'+ self.flag + '/1.png') # get the first stripe
+        self.flag_img = Image.new("RGBA", stripe.size) # make the flag the right dimensions
+
         running = True
-        n = 1
-        flag = Image.new('RGB', self.screen_size, color = (255, 255, 255)) # create background
+        n = 2
         while running == True:
+            self.flag_img = Image.alpha_composite(self.flag_img, stripe)
             try:
-                flag.paste(Image.open('./images/'+ self.flag + '/' + str(n) + '.png')) # add the next numbered image file
+                stripe = Image.open('./images/'+ self.flag + '/' + str(n) + '.png')
             except FileNotFoundError:
-                running = False
+                running = Flase
             n += 1
-        self.flag_img = flag
 
     def draw (self):
         """Draw the final screen"""
-        img = Image.new('RGB', self.screen_size, color = (255, 255, 255)) # create background
+        img = Image.new('RGB', self.screen_size, color = (0, 255, 255)) # create background
         text = ImageDraw.Draw(img)
         text.text((10,10), "Hello World", fill=(0,0,0))
         # flag = Image.open('./images/'+ self.flag + '/1.png')
-        self.draw_flag()
-        img.paste(self.flag_img)
+        self.make_flag()
+        # img.paste(self.flag_img)
+        img = self.flag_img
         img.save('./flag_info/' + self.flag + '_final.png')# OPTIMIZE:
 
         # images
