@@ -1,6 +1,6 @@
 from flag import *
-import PIL
-from PIL import Image, ImageDraw
+# import PIL
+from PIL import Image, ImageDraw, ImageFont
 
 class FinalScreen():
     """
@@ -56,8 +56,7 @@ class FinalScreen():
         coord: tuple of the text center coordinates"""
         draw = ImageDraw.Draw(self.img)
         w, h = draw.textsize(text) # get the size of the text given the text size of the image
-        W, H = coord
-        return ((W-w)/2,(H-h)/2)
+        return ((coord[0]-w)/2,(coord[1]-h)/2)
 
     def draw (self):
         """Draw the final screen"""
@@ -66,7 +65,10 @@ class FinalScreen():
 
         title = ImageDraw.Draw(self.img)
         position = self.center(self.title, (self.screen_size[0], 30))
-        title.text(position, self.title, fill=(0,0,0))
+
+        fontsize = 40
+        font = ImageFont.truetype("Georgia.ttf", 15) # CHECK FONTS
+        title.text(position, self.title, font)
         self.img.save('./flag_info/' + self.flag + '_final.png')
 
         # text.text((1*self.screen_size[0]/2,10), self.text.title, fill=(0,0,0))
