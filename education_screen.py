@@ -1,6 +1,13 @@
-import image
 from flag import *
+import PIL
 from PIL import Image, ImageDraw
+class Text():
+    def draw_title():
+        pass
+    def draw_description():
+        pass
+    def draw_history():
+        pass
 
 class FinalScreen():
     """
@@ -34,19 +41,27 @@ class FinalScreen():
         print(self.colors)
         print(self.history)
         # remove spaces in the name
+    def draw_background():
+        pass
+    def draw_flag():
+        pass
 
     def draw (self):
         """Draw the final screen"""
-        img = Image.new('RGB', (100, 30), color = (73, 109, 137))
-        # d = ImageDraw.Draw('./images/trans/1.png')
-        d = ImageDraw.Draw(img)
-        d.show()
+        img = Image.new('RGB', self.screen_size, color = (255, 255, 255)) # create background
+        text = ImageDraw.Draw(img)
+        text.text((10,10), "Hello World", fill=(0,0,0))
+        flag = Image.open('./images/'+ self.flag + '/1.png')
+
+        img.paste(flag)
+        img.save('./flag_info/' + self.flag + '_final.png')# OPTIMIZE:
+
         # images
         # text
         # background color
 
 if __name__ == "__main__":
-    screen_size = (800, 800)
+    screen_size = (1200, 800)
     final = FinalScreen(screen_size, 'format')
     print(final)
     final.draw()
