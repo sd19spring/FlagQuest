@@ -65,7 +65,7 @@ class View():
         self.draw_color_actors()
         self.draw_obstacles()
         self.draw_grid()
-        self.draw_darkness() # this slows everything down a TON
+        self.draw_darkness()
         self.draw_flag()
         pygame.display.update()
 
@@ -91,4 +91,4 @@ def play_game(size):
 
 if __name__ == '__main__':
 
-    play_game((1200,800)) # start running game
+    play_game((1880,1080)) # start running game
