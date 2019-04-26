@@ -14,7 +14,7 @@ Show what our game does
 
 ## Usage
 For instructions on how to download, install, and get started with the game,
-view the [README](https://github.com/sd19spring/final-project-david-emma-griffith-lauren).
+view the [README](https://sd19spring.github.io/FlagQuest/usage).
 
 ## Code
 TODO
