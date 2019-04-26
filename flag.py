@@ -32,7 +32,7 @@ class Flag:
             image_piece = self.image_pieces[i]
             current_size = image_piece.get_size()
             #change to reflect changing size of screen
-            image_piece = pygame.transform.scale(image_piece, (200, (int(100*current_size[1]/current_size[0]))))
+            image_piece = pygame.transform.scale(image_piece, (200, (int(200*current_size[1]/current_size[0]))))
             self.image_pieces[i] = image_piece
 
         self.image_piece_dict = {}
