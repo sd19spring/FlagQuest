@@ -60,6 +60,8 @@ and Olin community who contributed their thoughts and examples
 for our learning. Special thanks to Dieter Brehm for letting us
 analyze his random world generation code for inspiration.
 
+We used a variety of online resources during the creation of our game, see more [here](../references.md).
+
 ## Authors
 This game was created, designed, and coded by Lauren Anfenson,
 David Freeman, Emma Mack, and Griffith Stites.
