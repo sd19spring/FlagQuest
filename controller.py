@@ -135,21 +135,6 @@ class Player_Controller():
         """
         v_x = self.v_x
         v_y = -self.v_y     # inverts to correspond to the visual coordinate plane
-        # try:
-        #     angle = int(math.degrees(math.atan(v_y/v_x))) # get the facing in degrees
-        # except ZeroDivisionError:
-        #     angle = 0
-
-        # if v_x < 0: # if in quad 2 or 3
-        #     self.angle = 180 + angle
-        # elif v_x > 0 and v_y < 0: # if in quandrant 4
-        #     self.angle = 360 + angle
-        # elif v_y > 0 and v_x == 0: # if along the axis between quad 1 and 2
-        #     self.angle = 90
-        # elif v_y < 0 and v_x == 0: # if along the axis between quad 3 and 4
-        #     self.angle = 270
-        # elif v_x > 0: # if in quandrant 1
-        #     self.angle = angle
 
         # breaks movement into 8 different angle positions
         if v_x > 0 and v_y == 0:
