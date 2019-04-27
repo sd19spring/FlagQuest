@@ -7,3 +7,4 @@ Thanks to the creators and contributors of these resources.
 * [glaad Trans FAQ](glaad.org/transgender/transfaq)
 * [glaad Trans Allies Guide](glaad.org/transgender/allies)
 * [Trans Student Educational Resources](http://transstudent.org/)
+* [Wikipedia Transgender History](https://en.wikipedia.org/wiki/Transgender_history)
