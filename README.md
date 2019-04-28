@@ -7,7 +7,7 @@ obstacles to collect the different colors of your identity.
 As you collect each color, you’ll learn more about the
 history of the flag and the identity that it represents.
 
-TODO
+![Gameplay GIF](gameplay.gif)
 
 Screenshots and photos
 Show what our game does
@@ -58,7 +58,7 @@ community properly.
 Thank you as well to all the people of the internet
 and Olin community who contributed their thoughts and examples
 for our learning. Special thanks to Dieter Brehm for letting us
-analyze his random world generation code for inspiration. Thanks 
+analyze his random world generation code for inspiration. Thanks
 to Arwen Sadler for letting us use their modified trans terminology
 paper (Originally from TSER).
 
