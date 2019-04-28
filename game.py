@@ -97,7 +97,8 @@ def play_game(size):
     pygame.init()
 
     model = Model()
-    view = View(size, (0, 0, 0), model)
+    fill_color = (0, 0, 0)
+    view = View(size, fill_color, model)
 
     running = True
     while running:
@@ -112,7 +113,8 @@ def play_game(size):
             if model.flag.complete() == True:
                 model.make_endscreen()
                 view.endgame = True
-        view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
+                fill_color=(255, 255, 255)
+        view.screen.fill(fill_color)           # cleans up the screen at each runthrough
         view.update()         # updates the model based on any new inputs or in-game events
         time.sleep(0.01)
 
