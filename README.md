@@ -20,13 +20,37 @@ view the [README](https://sd19spring.github.io/FlagQuest/usage).
 
 Our plan for level generation algorithm.
 
-'''python
-def get_open_squares(model):
-    poss_directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1,1), (-1,1), (1,-1), (-1,-1)]
-    for direction in poss_directions:
-        model.grid_cells[model.player.grid_cell]
-'''
+```python
+  def get_open_squares(model):
+      poss_directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1,1), (-1,1), (1,-1), (-1,-1)]
+      for direction in poss_directions:
+          model.grid_cells[model.player.grid_cell]
+```
+
 Level Generation method to find the open squares.
+
+```python
+  def get_open_squares(model):
+      poss_directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1,1), (-1,1), (1,-1), (-1,-1)]
+      for direction in poss_directions:
+          model.grid_cells[model.player.grid_cell]
+```
+
+```python
+  def rotate(self):
+        """Rotates the darkness to match the player"""
+        angle = self.player.cont.angle
+        self.image = self.rotations[angle]      # overlay image of darkness that points in same direction as player
+
+  def draw_position(self):
+      """Finds the draw position for the darkness based on player position"""
+      player_c = self.player.position_c
+      if self.player.cont.angle%90 == 0: # if on 90 degree increments
+          return (player_c[0]-self.size[0]/2, player_c[1]-self.size[1]/2)
+      else: # if on 45 degree increments
+          a = .21
+          return (player_c[0]-self.size[0]/2-self.size[0]*a, player_c[1]-self.size[1]/2-self.size[1]*a)
+```
 
 ## Project Evolution
 TODO
