@@ -40,7 +40,7 @@ Level Generation method to find the open squares.
   def rotate(self):
         """Rotates the darkness to match the player"""
         angle = self.player.cont.angle
-        self.image = self.rotations[angle]      # overlay image of darkness that points in same direction as player
+        self.image = self.rotations[angle]      # overlay image of darkness that points in same direction as
 
   def draw_position(self):
       """Finds the draw position for the darkness based on player position"""
@@ -51,6 +51,9 @@ Level Generation method to find the open squares.
           a = .21
           return (player_c[0]-self.size[0]/2-self.size[0]*a, player_c[1]-self.size[1]/2-self.size[1]*a)
 ```
+
+Code for rotating the darkness, which is what creates the flashlight effect.
+The draw position is based on the player center with considerations for the flashlight image size.
 
 ## Project Evolution
 TODO
