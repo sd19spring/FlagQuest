@@ -27,7 +27,6 @@ class Model(object):
         self.make_player()
         self.make_obstacles()
         self.make_darkness()
-        self.make_endscreen()
 
     def make_all_flags(self):
         """Create all flag objects to later choose from."""

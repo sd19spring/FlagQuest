@@ -35,7 +35,6 @@ class Book():
     def flip_page(self, direction):
         """Flip the page in the book if there is another page in that direction"""
         # if flipping left and not on the first page
-        print(self.current_page)
         if direction == 'left' and self.current_page > 0:
             self.current_page += -1
         # if flipping right and not on the last page

@@ -110,6 +110,7 @@ def play_game(size):
         if color_collision:
             model.flag.add_color(color_collision)
             if model.flag.complete() == True:
+                model.make_endscreen()
                 view.endgame = True
         view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
         view.update()         # updates the model based on any new inputs or in-game events
