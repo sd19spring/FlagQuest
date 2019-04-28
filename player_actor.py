@@ -24,11 +24,13 @@ class Player_actor(pygame.sprite.Sprite):
         self.player_size = self.image.get_size()    # player_size is a tuple representing the image's dimensions
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
         self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
-        self.cont = controller(15) # initialize controller with 2 max velocity
         self.screen_size = screen_size   # refers to screen size
         self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
                     self.position_c[1] - self.player_size[1]/2,
                     self.player_size[0], self.player_size[1])
+
+        self.cont = controller(max_velocity = 10)       # initialize velocity of player
+
         self.collided_with = []
         self.obstacles = obstacles
         self.color_objs = color_objs
@@ -68,18 +70,11 @@ class Player_actor(pygame.sprite.Sprite):
             self.position_c[1] = 0
 
 
-    def move(self, step_size = 1):      # step size adjusts how many pixels the player_actor moves at a time
+    def move(self):      # step size adjusts how many pixels the player_actor moves at a time
         """Moves the player."""
-        self.step_size = step_size
-        self.position_c[0] += self.cont.v_x*step_size
-        self.position_c[1] += self.cont.v_y*step_size
+        self.position_c[0] += self.cont.v_x
+        self.position_c[1] += self.cont.v_y
         self.screen_wall()  # for this version, we implimented the screen_wall function, which prevents the player from exiting the on-screen map
-
-# move_rev commented out with 4/26 update of check_obstacle_collision
-    # def move_rev(self, step_size = 5):      # step size adjusts how many pixels the player_actor moves at a time
-    #     """bounces player backward when hit obstacle"""
-    #     self.position_c[0] -= self.cont.v_x*step_size
-    #     self.position_c[1] -= self.cont.v_y*step_size
 
     def get_draw_position(self):
         """Finds the position to draw the player at. Based on if moving at a 45 or 90 degree angle"""
@@ -108,19 +103,12 @@ class Player_actor(pygame.sprite.Sprite):
         """Returns sprite collided with, of obstacle objects, or None if no collisions."""
         collision = pygame.sprite.spritecollide(self, self.obstacles, dokill = False)   # creates list of all obstacles that the player is colliding with
         angle_bumps = {0:(-1,0), 45:(-1,1), 90:(0,1), 135:(1,1), 180:(1,0), 225:(1,-1), 270:(0,-1), 315:(-1,-1)}
-        # angle_bumps is a dictionary with each possible facing listed with keys that represent facing's opposing direction
-        # for example, if you are facing 0 degrees (directly right), the opposing direction would be directly left (or (-1,0))
+
+        a = self.cont.v_max      # this multiplier scales the magnitude of collision-bumping to the magnitude of the player's movement
 
         if len(collision) > 0:      # if the sprite is colliding with any obstacles
-            self.position_c[0] += angle_bumps[self.cont.angle][0]*self.step_size*5      # moves the sprite in the opposite direction of their facing
-            self.position_c[1] += angle_bumps[self.cont.angle][1]*self.step_size*5      # this *5 multiplier was found with trial and error to reduce jittering
-
-# commented out with 4/26 update of check_obstacle_collision
-            # if self.cont.v_x == 0 and self.cont.v_y == 0:       # if the player isn't moving, bump them out
-            #     self.position_c[0] += angle_bumps[self.cont.angle][0]*2
-            #     self.position_c[1] += angle_bumps[self.cont.angle][1]*2
-            # else:
-            #     self.move_rev()     # if player is moving and hits the obstacle, this bumps them back with the opposing velocity
+            self.position_c[0] += angle_bumps[self.cont.angle][0]*a      # moves the sprite in the opposite direction of their facing
+            self.position_c[1] += angle_bumps[self.cont.angle][1]*a
 
     def check_color_collision(self, color_objs):
         """Returns sprite collided with, of color objects, or None if no collisions.
