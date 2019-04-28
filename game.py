@@ -43,11 +43,15 @@ class View():
 
     def draw_color_actors(self):
         """Draw the flag colors onto the display"""
-        for i in range(len(self.model.color_objs)):
-            pygame.draw.rect(self.screen,
-                             pygame.Color(self.model.flag.colors[i][0],
-                             self.model.flag.colors[i][1], self.model.flag.colors[i][2]),
-                             pygame.Rect(self.model.color_objs[i].x, self.model.color_objs[i].y, self.model.cell_size, self.model.cell_size))
+        # for i in range(len(self.model.color_objs)):
+            # if i.exists == True:
+            #     pygame.draw.rect(self.screen,
+            #                  pygame.Color(self.model.flag.colors[i][0],
+            #                  self.model.flag.colors[i][1], self.model.flag.colors[i][2]),
+            #                  pygame.Rect(self.model.color_objs[i].x, self.model.color_objs[i].y, self.model.cell_size, self.model.cell_size))
+        for piece in self.model.color_objs:
+            if piece.exists == True:
+                pygame.draw.rect(self.screen, piece.color, pygame.Rect(piece.x, piece.y, self.model.cell_size, self.model.cell_size))
 
 
     def draw_obstacles(self):
@@ -108,9 +112,10 @@ def play_game(size):
                 running = False
             elif event.type == KEYDOWN and view.endgame == True:
                 model.endscreen.pressed(event.key)
-        color_collision = model.player.check_color_collision(model.color_objs)
-        if color_collision:
-            model.flag.add_color(color_collision)
+        touched_piece = model.player.check_color_collision(model.color_objs)    # touched_piece is a piece of the flag that the player just collided with (if they even did)
+        if touched_piece:
+            touched_piece.exists = False          # makes the touched piece disappear
+            model.flag.add_color(touched_piece)
             if model.flag.complete() == True:
                 model.make_endscreen()
                 view.endgame = True
