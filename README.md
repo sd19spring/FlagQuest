@@ -9,19 +9,16 @@ history of the flag and the identity that it represents.
 
 ![Gameplay GIF](gameplay.gif)
 
-Screenshots and photos
-Show what our game does
-
 ## Usage
 For instructions on how to download, install, and get started with the game,
 view the [README](https://sd19spring.github.io/FlagQuest/usage).
 
 ## Code
-TODO
+![Architecture Diagram](architecture_diagram.png)
 
-Flowcharts and architectural, class, or sequence diagrams to explain how our
-code works. Consider including or linking to snippets of code to highlight a
-particular segment.
+![Architecture Diagram](level_generation_algorithm.png)
+
+Our plan for level generation algorithm.
 
 ## Project Evolution
 TODO
