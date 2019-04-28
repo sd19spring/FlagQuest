@@ -14,6 +14,7 @@ class View():
     def __init__(self, screen_size, filling, model):
         """ Initialize model and make game screen """
         self.model = model
+        self.endgame = False
         self.screen = pygame.display.set_mode(screen_size)  # sets screen dimensions
         self.screen.fill(filling)        # sets background color
         pygame.display.set_caption('Window Viewer')             # sets window caption
@@ -59,14 +60,22 @@ class View():
         self.model.darkness.rotate()
         self.screen.blit(self.model.darkness.image, self.model.darkness.draw_position())   # places image of player_actor
 
+    def draw_endscreen(self):
+        """Draw the endscreen on the display"""
+        # draw the current page in the book
+        self.screen.blit(self.model.endscreen.book.pages[self.model.endscreen.book.current_page].image, (0, 0))
+
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
-        self.draw_player()
-        self.draw_color_actors()
-        self.draw_obstacles()
-        self.draw_grid()
-        self.draw_darkness()
-        self.draw_flag()
+        if self.endgame == False:
+            self.draw_player()
+            self.draw_color_actors()
+            self.draw_obstacles()
+            self.draw_grid()
+            self.draw_darkness()
+            self.draw_flag()
+        else: # if it is the end, just draw the endscreen
+            self.draw_endscreen()
         pygame.display.update()
 
 def play_game(size):
@@ -83,10 +92,16 @@ def play_game(size):
         color_collision = model.player.check_color_collision(model.color_objs)
         if color_collision:
             model.flag.add_color(color_collision)
-
+        if model.flag.complete() == True:
+            # for event in pygame.event.get():
+            #     if event.type == pygame.QUIT:
+            #         running = False
+                # elif event.type == pygame.KEYDOWN: # if a key is pressed
+            model.endscreen.book.flip_page('right')
+            view.endgame = True
+            # model.endscreen.get_keypress()
         view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
         view.update()         # updates the model based on any new inputs or in-game events
-
         time.sleep(0.01)
 
 if __name__ == '__main__':
