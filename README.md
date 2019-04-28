@@ -56,9 +56,41 @@ Code for rotating the darkness, which is what creates the flashlight effect.
 The draw position is based on the player center with considerations for the flashlight image size.
 
 ## Project Evolution
-TODO
+Architecture Review 1
+* General idea validated
+* LGBT Representation
+  * People were excited for representation
+  * Talk to Rame
+  * Do not make large generalizations
+  * Careful about implementing real world challenges, do not want to trivialize them
+  * Get more members of the LGBT+ community to test the game
+* Education
+  * Knowing what the colors mean
+  * History of the flags and their purpose
+  * Who made the flags
+  * How to refer to people properly
+  * Collecting flag colors is like piecing together pieces of identity which is rewarding
+* Mechanics
+  * Colors are “keys” for the walls
+  * Collecting a color gives you a riddle or puzzle
+  * Limited visibility
 
-"Tell an illustrative story about the process of creating your software, showing how it improved over time. This may draw upon what you learned from the two peer technical reviews and from the code review. Consider the use of screenshots or other tools to demonstrate how your project evolved."
+Architecture Review 2
+* Aesthetics and Education
+  * Changed endgame to a book style
+    * Avoid too much information on a page
+    * Also do not want to cut information out
+    * Have resources to learn more
+  * Should do a top down view
+  * Characters should be as inclusive as possible
+* Code Design
+  * Suggestions on collision fixing (pixel perfect)
+  * How to implement level generation
+    * Generate three random points that you have to go through - this avoids having
+    a totally perfect or totally random path
+
+Other
+* Added darkness to create puzzle like challenge
 
 ## Software Impact
 A big aspect of this project was placing an emphasis on education and proper
