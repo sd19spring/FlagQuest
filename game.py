@@ -6,6 +6,21 @@ from controller import *
 from make_model import Model
 from obstacles import *
 from flag import Flag
+class Game():
+    """
+    Game model to create the world and check events
+    """
+    def check_events():
+        pass
+class Model():
+    """
+    Initializes all of the models for the world
+    """
+
+class View(Model):
+    """
+    Updates the view by drawing the state of every object on the game screen
+    """
 
 class View():
     """
