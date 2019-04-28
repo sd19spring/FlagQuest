@@ -9,3 +9,4 @@ Thanks to the creators and contributors of these resources.
 * [Trans Student Educational Resources](http://transstudent.org/)
 * [Wikipedia Transgender History](https://en.wikipedia.org/wiki/Transgender_history)
 * [Asexuality Archive](http://www.asexualityarchive.com/the-asexuality-flag/)
+* [LiveAbout "What It Means to Be Gender Non-Conforming"](https://www.liveabout.com/what-does-it-mean-to-be-gender-non-conforming-1415327)
