@@ -14,3 +14,4 @@ Thanks to the creators and contributors of these resources.
 * [Tumblr Lesbian Flag Proposals](https://allukazaoldyeck.tumblr.com/post/174615049778/allukazaoldyeck-as-someone-who-made-one-of-the)
 * [Lesbian Flag Poll Data Results](https://allukazaoldyeck.tumblr.com/post/174635579783/lesbian-flag-poll-data-results)
 * [Lesbian Flag Poll Conclusion](https://allukazaoldyeck.tumblr.com/post/174619653418/i-realize-the-irony-in-making-another-lesbian-flag)
+* [Wikipedia Lesbian Page](https://en.wikipedia.org/wiki/Lesbian)
