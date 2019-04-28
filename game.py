@@ -6,6 +6,7 @@ from controller import *
 from make_model import Model
 from obstacles import *
 from flag import Flag
+import level_generation
 # class Game():
 #     """
 #     Game model to create the world and check events
