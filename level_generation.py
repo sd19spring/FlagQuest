@@ -2,9 +2,30 @@
 
 import random
 
+class Frontier:
+    """Outwardly expanding edge of flood fill for search algorithm"""
+    def __init__(self, start, model):
+        self.members = [start]
+        self.current = start
+        self.grid_dict = {}
+        for cell in model.grid_cells:
+            grid_dict[cell.label] = cell
+    def remove(self, member):
+        self.members.remove(member)
+    def put(self, cell):
+        self.members.append(cell)
+    def next(self):
+        #pass in cell, not coords
+        next_list = []
+        left_coord = (self.current.label[0] - 1, self.current.label[1])
+        next_list.append(grid_dict[left_coord])
+        #rest of coords
+
 def place_colors(model):
     """ Instantiate Color_Actor objects for each color in the chosen flag """
     #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
+    #TODO: place lines of objects so as to have barriers.
+    #Also, place more so as to be more challenging.
     model.color_objs = []
     for i in range(len(model.flag.colors)):
         x_cell = random.randint(0, model.grid_x_size-1)
@@ -20,7 +41,7 @@ def get_open_squares(model):
         model.grid_cells[model.player.grid_cell]
 
 def get_valid_path(model, curr_pos, end_pos):
-    """Uses [[blah]] pathfinding algorithm to generate a playable but randomized path"""
+    """Uses simple breadth-first pathfinding algorithm to generate a playable but randomized path"""
 
     # if no path: return None
     pass
@@ -44,17 +65,17 @@ def place_obstacles(model):
 def generate_level(model):
 
     while retry:
-    curr_pos = model.player.position_c
-    place_colors(model)
-    path_order = random.shuffle(model.color_objs)
-    ind = 0
-    for color_obj in path_order:
-        path = get_valid_path(model, curr_pos, color_obj.position)
-        if not path:
-            break
+        curr_pos = model.player.position_c
         place_colors(model)
-        curr_pos = color_obj.positions
+        path_order = random.shuffle(model.color_objs)
+        ind = 0
+        for color_obj in path_order:
+            path = get_valid_path(model, curr_pos, color_obj.position)
+            if path:
+                retry = False
+            place_colors(model)
+            curr_pos = color_obj.positions
 
-    #check if final segment is playable
-    if get_valid_path:
-        retry = False
+        #check if final segment is playable
+        if get_valid_path:
+            retry = False

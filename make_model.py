@@ -97,7 +97,7 @@ class Model(object):
         for i in range(self.grid_x_size):
             for j in range(self.grid_y_size):
                 cell_coord = (i*self.cell_size, 160+j*self.cell_size)
-                self.grid_cells[(i,j)] = Cell(cell_coord, False, 'none')
+                self.grid_cells[(i,j)] = Cell(cell_coord, False, 'none', x=i, y=j)
 
     def make_player(self):
         """ Instantiate Player object """
@@ -114,10 +114,12 @@ class Model(object):
 
 class Cell(object):
     """ This is an object for each grid cell. Unclear if this is going to be useful """
-    def __init__(self, cell_coord, occupied, type):
+    def __init__(self, cell_coord, occupied, type, x=None, y=None):
         self.cell_coord = cell_coord
         self.occupied = occupied
         self.type = type
+        self.label = (x, y)
+
 
 if __name__ == "__main__":
     model = Model()
