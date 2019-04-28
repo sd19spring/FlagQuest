@@ -10,8 +10,6 @@ class Flag:
         self.setup_images(image_names)
         self.description = description
         self.colors_up = []
-        self.num_colors_up = 0
-        #Change to reflect changing size of screen
         self.position = (1500,20)
 
     def add_color(self, actor = None):
@@ -38,3 +36,10 @@ class Flag:
         self.image_piece_dict = {}
         for index in list(range(len(self.colors))):
             self.image_piece_dict[self.colors[index]] = self.image_pieces[index]
+
+    def complete(self):
+        """Check if the flag is complete
+
+        returns: boolean"""
+        # if the number of colors up is the total number of colors
+        return len(self.colors_up) == len(self.colors)
