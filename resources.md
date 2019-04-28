@@ -10,3 +10,7 @@ Thanks to the creators and contributors of these resources.
 * [Wikipedia Transgender History](https://en.wikipedia.org/wiki/Transgender_history)
 * [Asexuality Archive](http://www.asexualityarchive.com/the-asexuality-flag/)
 * [LiveAbout "What It Means to Be Gender Non-Conforming"](https://www.liveabout.com/what-does-it-mean-to-be-gender-non-conforming-1415327)
+* [Lesbian Flag Tumblr Post](https://sadlesbeandisaster.tumblr.com/post/174589716001/sadlesbeandisaster-sadlesbeandisaster-meanings)
+* [Tumblr Lesbian Flag Proposals](https://allukazaoldyeck.tumblr.com/post/174615049778/allukazaoldyeck-as-someone-who-made-one-of-the)
+* [Lesbian Flag Poll Data Results](https://allukazaoldyeck.tumblr.com/post/174635579783/lesbian-flag-poll-data-results)
+* [Lesbian Flag Poll Conclusion](https://allukazaoldyeck.tumblr.com/post/174619653418/i-realize-the-irony-in-making-another-lesbian-flag)
