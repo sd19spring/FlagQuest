@@ -18,13 +18,15 @@ view the [README](https://sd19spring.github.io/FlagQuest/usage).
 
 ![Architecture Diagram](level_generation_algorithm.png)
 
+Our plan for level generation algorithm.
+
 '''python
 def get_open_squares(model):
     poss_directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1,1), (-1,1), (1,-1), (-1,-1)]
     for direction in poss_directions:
         model.grid_cells[model.player.grid_cell]
 '''
-Our plan for level generation algorithm.
+Level Generation method to find the open squares.
 
 ## Project Evolution
 TODO
