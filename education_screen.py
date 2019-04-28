@@ -2,7 +2,7 @@ import pygame
 
 class Page():
     def __init__(self, image_loc, size, page_number):
-        self.image = pygame.transform.scale(pygame.image.load(image_loc), size))
+        self.image = pygame.transform.scale(pygame.image.load(image_loc), size)
         self.page_number = page_number
 
 class Book():
@@ -48,14 +48,17 @@ class EndScreen():
         self.screen_size = screen_size
         self.book = Book(self.flag, self.screen_size) # create a book to fill the screen
 
-    def get_keypress(self):
+    def pressed(self, key):
         self.move_left = [pygame.K_LEFT, pygame.K_a]
         self.move_right = [pygame.K_RIGHT, pygame.K_d, pygame.K_e]
-        key = pygame.key.get_pressed()
-        if key[self.move_left[0]] == 1 or key[self.move_left[1]] == 1 == 1:
+        if key in self.move_left:
             self.book.flip_page('left')
-        elif key[self.move_right[0]] == 1 or key[self.move_right[1]] == 1 or key[self.move_right[2]] == 1:
+        if key in self.move_right:
             self.book.flip_page('right')
+        # if key[self.move_left[0]] == 1 or key[self.move_left[1]] == 1 == 1:
+        #     self.book.flip_page('left')
+        # elif key[self.move_right[0]] == 1 or key[self.move_right[1]] == 1 or key[self.move_right[2]] == 1:
+        #     self.book.flip_page('right')
 
 if __name__ == '__main__':
     EndScreen('trans', (1920, 1080))

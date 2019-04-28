@@ -89,17 +89,13 @@ def play_game(size):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == KEYDOWN and view.endgame == True:
+                model.endscreen.pressed(event.key)
         color_collision = model.player.check_color_collision(model.color_objs)
         if color_collision:
             model.flag.add_color(color_collision)
-        if model.flag.complete() == True:
-            # for event in pygame.event.get():
-            #     if event.type == pygame.QUIT:
-            #         running = False
-                # elif event.type == pygame.KEYDOWN: # if a key is pressed
-            model.endscreen.book.flip_page('right')
-            view.endgame = True
-            # model.endscreen.get_keypress()
+            if model.flag.complete() == True:
+                view.endgame = True
         view.screen.fill((0,0,0))           # cleans up the screen at each runthrough
         view.update()         # updates the model based on any new inputs or in-game events
         time.sleep(0.01)
