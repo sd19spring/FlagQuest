@@ -58,7 +58,9 @@ community properly.
 Thank you as well to all the people of the internet
 and Olin community who contributed their thoughts and examples
 for our learning. Special thanks to Dieter Brehm for letting us
-analyze his random world generation code for inspiration.
+analyze his random world generation code for inspiration. Thanks 
+to Arwen Sadler for letting us use their modified trans terminology
+paper (Originally from TSER).
 
 We used a variety of online resources during the creation of our game, see more [here](https://sd19spring.github.io/FlagQuest/resources).
 
