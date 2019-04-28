@@ -9,6 +9,7 @@ from flag import Flag
 from obstacles import *
 from player_actor import *
 from darkness import *
+from education_screen import *
 import random
 import os
 
@@ -26,6 +27,7 @@ class Model(object):
         self.make_player()
         self.make_obstacles()
         self.make_darkness()
+        self.make_endscreen()
 
     def make_all_flags(self):
         """Create all flag objects to later choose from."""
@@ -57,7 +59,8 @@ class Model(object):
     def choose_flag(self):
         """ Randomly choose which flag to play the game with """
 
-        num_flag = random.randint(0,len(self.all_flags)-1)
+        # num_flag = random.randint(0,len(self.all_flags)-1)
+        num_flag = 10
         self.flag = self.all_flags[num_flag]
         print("You are playing with the " + self.flag.name + " flag")
 
@@ -105,6 +108,10 @@ class Model(object):
     def make_darkness(self):
         """ Instantiate Darkness object"""
         self.darkness = Darkness(self.player, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_x_size))
+
+    def make_endscreen(self):
+        """ Instantiate Endscreen object"""
+        self.endscreen = EndScreen(self.flag.name, (1920, 1080))
 
 class Cell(object):
     """ This is an object for each grid cell. Unclear if this is going to be useful """
