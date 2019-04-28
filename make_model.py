@@ -59,7 +59,7 @@ class Model(object):
         """ Randomly choose which flag to play the game with """
 
         # num_flag = random.randint(0,len(self.all_flags)-1)
-        num_flag = 2
+        num_flag = 1
         self.flag = self.all_flags[num_flag]
         print("You are playing with the " + self.flag.name + " flag")
 
