@@ -26,7 +26,7 @@ class Book():
         searching = True
         while searching:
             try:
-                page = Page('./images/books/trans/' + str(n) + '.png', self.size, n)
+                page = Page('./images/books/' + self.flag + '/' + str(n) + '.png', self.size, n)
             except pygame.error: # if reached the end
                 searching = False
             self.pages.append(page)
