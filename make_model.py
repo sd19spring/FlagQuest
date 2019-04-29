@@ -90,7 +90,6 @@ class Model(object):
             type = random.choice(selected_obstacles)            # randomly chooses this obstacle's type
 
             self.obstacles.append(Obstacle((self.cell_size,self.cell_size),coord,type)) # change this to sprite Group later
-            print(Obstacle((self.cell_size,self.cell_size),coord,type))
 
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'obstacle'
@@ -102,7 +101,7 @@ class Model(object):
         for i in range(self.grid_x_size):
             for j in range(self.grid_y_size):
                 cell_coord = (i*self.cell_size, 160+j*self.cell_size)
-                self.grid_cells[(i,j)] = Cell(cell_coord, False, 'none')
+                self.grid_cells[(i,j)] = Cell(cell_coord, False, 'none', (i,j))
 
     def make_player(self):
         """ Instantiate Player object """
@@ -118,11 +117,12 @@ class Model(object):
         self.endscreen = EndScreen(self.flag.name, (1920, 1080))
 
 class Cell(object):
-    """ This is an object for each grid cell. Unclear if this is going to be useful """
-    def __init__(self, cell_coord, occupied, type):
+    """ This is an object for each grid cell """
+    def __init__(self, cell_coord, occupied, type, label):
         self.cell_coord = cell_coord
         self.occupied = occupied
         self.type = type
+        self.label = label
 
 if __name__ == "__main__":
     model = Model()

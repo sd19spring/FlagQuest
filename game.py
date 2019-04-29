@@ -6,7 +6,7 @@ from controller import *
 from make_model import Model
 from obstacles import *
 from flag import Flag
-import level_generation
+from level_generation import *
 # class Game():
 #     """
 #     Game model to create the world and check events
@@ -104,6 +104,9 @@ def play_game(size):
     model = Model()
     fill_color = (0, 0, 0)
     view = View(size, fill_color, model)
+
+    #######TESTS
+    print(get_valid_path(model, model.grid_cells[(3,3)], model.grid_cells[(20,20)]))
 
     running = True
     while running:

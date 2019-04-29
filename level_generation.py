@@ -5,27 +5,83 @@ import random
 class Frontier:
     """Outwardly expanding edge of flood fill for search algorithm"""
     def __init__(self, start, model):
+        """Start is a cell, members are cells in frontier"""
         self.members = [start]
         self.current = start
-        self.grid_dict = {}
-        for cell in model.grid_cells:
-            grid_dict[cell.label] = cell
-    def remove(self, member):
-        self.members.remove(member)
+        self.grid_dict = model.grid_cells
+
     def put(self, cell):
         self.members.append(cell)
-    def next(self):
-        #pass in cell, not coords
+
+    def get_all_member_coords(self):
+        all_coords = []
+        for member in self.members:
+            all_coords.append(member.label)
+        return all_coords
+
+    def neighbors(self, cell):
+        """Finds all valid neighbors (cell objects) of given cell"""
         next_list = []
-        left_coord = (self.current.label[0] - 1, self.current.label[1])
-        next_list.append(grid_dict[left_coord])
-        #rest of coords
+        coord_list = []   #not currently used. For testing purposes
+        #poss_directions = [(1, 0), (1, 1), (0, 1), (-1, 1), (-1,0), (-1,-1), (0,-1), (1,-1)]
+        poss_directions = [(1, 0), (0, 1), (-1,0), (0,-1)]
+        for direction in poss_directions:
+            coord = (cell.label[0] + direction[0],
+                        cell.label[1] + direction[1])
+            if coord in self.grid_dict and coord not in self.get_all_member_coords() and not self.grid_dict[coord].occupied:
+                next_list.append(self.grid_dict[coord])
+                coord_list.append(coord)
+        return next_list
+
+
+def get_valid_path(model, start_cell, end_cell):
+    """Uses simple breadth-first pathfinding algorithm to generate path from one
+    cell to another.
+    Based on https://www.redblobgames.com/pathfinding/a-star/introduction.html"""
+
+
+    # sweep through all coordinates to get all paths to start
+    frontier = Frontier(start_cell, model)
+    came_from = {}
+    came_from[start_cell] = None
+
+    while end_cell not in frontier.members:     #goes until hits end cell
+        current = frontier.members[0]
+        for next in frontier.neighbors(current):
+            if next not in came_from:
+                frontier.put(next)
+                came_from[next] = current
+        del frontier.members[0]
+
+    # trace back through sweep to find path
+    current_check = end_cell
+    path = []
+    path_coords = []
+    while current_check != start_cell:
+       path.append(current_check)
+       current_check = came_from[current_check]
+       path_coords.append(current_check.label)
+
+    path.reverse()
+    path_coords.reverse()
+
+
+    return path, path_coords
+
+# current = goal
+# path = []
+# while current != start:
+#    path.append(current)
+#    current = came_from[current]
+# path.append(start) # optional
+# path.reverse() # optional
+
 
 def place_colors(model):
     """ Instantiate Color_Actor objects for each color in the chosen flag """
     #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
     #TODO: place lines of objects so as to have barriers.
-    #Also, place more so as to be more challenging.
+    #Also, place more so as to be more challenging. (Lauren)
     model.color_objs = []
     for i in range(len(model.flag.colors)):
         x_cell = random.randint(0, model.grid_x_size-1)
@@ -35,16 +91,6 @@ def place_colors(model):
         model.grid_cells[(x_cell,y_cell)].occupied = True
         model.grid_cells[(x_cell,y_cell)].type = 'color'
 
-def get_open_squares(model):
-    poss_directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1,1), (-1,1), (1,-1), (-1,-1)]
-    for direction in poss_directions:
-        model.grid_cells[model.player.grid_cell]
-
-def get_valid_path(model, curr_pos, end_pos):
-    """Uses simple breadth-first pathfinding algorithm to generate a playable but randomized path"""
-
-    # if no path: return None
-    pass
 
 def place_obstacles(model):
     """ Generate obstacles in the grid """
