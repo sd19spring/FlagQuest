@@ -43,12 +43,6 @@ class View():
 
     def draw_color_actors(self):
         """Draw the flag colors onto the display"""
-        # for i in range(len(self.model.color_objs)):
-            # if i.exists == True:
-            #     pygame.draw.rect(self.screen,
-            #                  pygame.Color(self.model.flag.colors[i][0],
-            #                  self.model.flag.colors[i][1], self.model.flag.colors[i][2]),
-            #                  pygame.Rect(self.model.color_objs[i].x, self.model.color_objs[i].y, self.model.cell_size, self.model.cell_size))
         for piece in self.model.color_objs:
             if piece.exists == True:
                 pygame.draw.rect(self.screen, piece.color, pygame.Rect(piece.x, piece.y, self.model.cell_size, self.model.cell_size))
@@ -56,9 +50,17 @@ class View():
 
     def draw_obstacles(self):
         """Draw the obstacles on the display"""
-        for obstacle in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
-            self.screen.blit(obstacle.image, obstacle.position)
-            #pygame.draw.rect(self.screen, (255, 0, 0), obstacle.rect)
+        # if group's name is the same as the name of a color that is in self.model.player.collided_with, pass
+
+        for group in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
+            group.draw(self.screen)
+
+    def erase_obstacle(self, type):
+        """Kill all obstacles of a given type"""
+        for group in self.model.obstacles:
+            if group.type == type:      # finds group that corresponds to color that was just touched
+                for sprite in group:
+                    sprite.kill()
 
     def draw_grid(self):
         """Draw the grid on the display"""
@@ -118,7 +120,8 @@ def play_game(size):
         touched_piece = model.player.check_color_collision(model.color_objs)    # touched_piece is a piece of the flag that the player just collided with (if they even did)
         if touched_piece:
             touched_piece.exists = False          # makes the touched piece disappear
-            model.flag.add_color(touched_piece)
+            model.flag.add_color(touched_piece)     # add stripe to the flag graphic
+            view.erase_obstacle(touched_piece.color)    # remove all associated obstalces
             if model.flag.complete() == True:
                 model.make_endscreen()
                 view.endgame = True

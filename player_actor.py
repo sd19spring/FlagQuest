@@ -101,14 +101,16 @@ class Player_actor(pygame.sprite.Sprite):
 
     def check_obstacle_collision(self):
         """Returns sprite collided with, of obstacle objects, or None if no collisions."""
-        collision = pygame.sprite.spritecollide(self, self.obstacles, dokill = False)   # creates list of all obstacles that the player is colliding with
         angle_bumps = {0:(-1,0), 45:(-1,1), 90:(0,1), 135:(1,1), 180:(1,0), 225:(1,-1), 270:(0,-1), 315:(-1,-1)}
 
         a = self.cont.v_max      # this multiplier scales the magnitude of collision-bumping to the magnitude of the player's movement
 
-        if len(collision) > 0:      # if the sprite is colliding with any obstacles
-            self.position_c[0] += angle_bumps[self.cont.angle][0]*a      # moves the sprite in the opposite direction of their facing
-            self.position_c[1] += angle_bumps[self.cont.angle][1]*a
+        for group in self.obstacles:
+            collision = pygame.sprite.spritecollide(self, group, dokill = False)   # creates list of all obstacles that the player is colliding with
+
+            if len(collision) > 0:      # if the sprite is colliding with any obstacles
+                self.position_c[0] += angle_bumps[self.cont.angle][0]*a      # moves the sprite in the opposite direction of their facing
+                self.position_c[1] += angle_bumps[self.cont.angle][1]*a
 
     def check_color_collision(self, color_objs):
         """Returns sprite collided with, of color objects, or None if no collisions.
@@ -119,6 +121,7 @@ class Player_actor(pygame.sprite.Sprite):
         if collision:
             if collision not in self.collided_with:
                 self.collided_with.append(collision)
+                print(collision)
                 return collision
 
 

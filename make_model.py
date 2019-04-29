@@ -16,7 +16,7 @@ import os
 class Model(object):
     """ Class that holds the state of the entire game """
     def __init__(self, cell_size = 40, grid_x_size = 46, grid_y_size = 23):
-        self.obstacles = [] # change this to a sprite Group sometime
+        self.obstacles = []              # instantiates a list of all obstacle sprite groups
         self.cell_size = cell_size
         self.grid_x_size = grid_x_size
         self.grid_y_size = grid_y_size
@@ -76,9 +76,9 @@ class Model(object):
 
     def make_obstacles(self):
         """ Generate obstacles in the grid """
-        selected_obstacles = self.flag.colors      # makes list of possible obstacle types based off of the flag's colors
+        obstacle_types = self.flag.colors      # makes list of possible obstacle types based off of the flag's colors
 
-        for i in range(100):     # 10 is arbitrary, we should replace with intentional number later
+        for i in range(200):     # 10 is arbitrary, we should replace with intentional number later
             x_cell = random.randint(0, self.grid_x_size-1)        # randomizes location of obstacle
             y_cell = random.randint(0, self.grid_y_size-1)
             while self.grid_cells[(x_cell, y_cell)].occupied == True:   # re-randomizes location if the location is occupied by a color_obj
@@ -86,9 +86,10 @@ class Model(object):
                 y_cell = random.randint(0, self.grid_y_size-1)
 
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
-            type = random.choice(selected_obstacles)            # randomly chooses this obstacle's type
+            type = random.choice(obstacle_types)            # randomly chooses this obstacle's type
+            obstacle = Obstacle((self.cell_size,self.cell_size),coord,type)
 
-            self.obstacles.append(Obstacle((self.cell_size,self.cell_size),coord,type)) # change this to sprite Group later
+            obstacle.make_groups(obstacle, type, self.obstacles)    # add obstacle to group based on what the obstacle's type is
 
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'obstacle'

@@ -22,6 +22,26 @@ class Obstacle(pygame.sprite.Sprite):
     def __str__(self):
         return "Obstacle, type %s at location (%r)" % (self.type, self.position)
 
+    def make_groups(self, obstacle, type, list):
+        """
+        this method is used to sort an obstacle into a group based off of its type
+        make_groupes creates a sprite group named after each obstacle type, then adds that group to the model's obstacles list
+        """
+        if type not in list:        # if there isn't already a group corresponding to this obstacle's type...
+            type = Obstacle_group(type)    # ... make a group for that particular type...
+            type.add(obstacle)        # ... add this obstacle to that group...
+            list.append(type)       # ... and add this group to the model's obstacles list
+        if type in list:
+            type.add(obstacle)        # if a corresponding group already exists, simply add this obstacle to the group
+
+class Obstacle_group(pygame.sprite.Group):
+    """
+    makes a group to hold all obstacles of the same type
+    """
+    def __init__(self, type):
+        pygame.sprite.Group.__init__(self)
+        self.type = type
+
 if __name__ == "__main__":
     mtn = Obstacle((50,50), (100,300), 'river',(0,0,225))
     print(mtn)
