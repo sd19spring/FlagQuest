@@ -16,3 +16,4 @@ Thanks to the creators and contributors of these resources.
 * [Lesbian Flag Poll Conclusion](https://allukazaoldyeck.tumblr.com/post/174619653418/i-realize-the-irony-in-making-another-lesbian-flag)
 * [Wikipedia Lesbian Page](https://en.wikipedia.org/wiki/Lesbian)
 * [Color Meaning in Pride Flag](https://www.bustle.com/articles/167177-what-do-the-colors-in-the-gay-pride-flag-stand-for-its-a-beautiful-and-inspiring)
+* [Wikipedia Rainbow Flag](https://en.wikipedia.org/wiki/Rainbow_flag_(LGBT_movement))
