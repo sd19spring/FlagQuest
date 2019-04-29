@@ -17,6 +17,7 @@ class Model(object):
     """ Class that holds the state of the entire game """
     def __init__(self, cell_size = 40, grid_x_size = 46, grid_y_size = 23):
         self.obstacles = []              # instantiates a list of all obstacle sprite groups
+        self.cleared_obstacles = []
         self.cell_size = cell_size
         self.grid_x_size = grid_x_size
         self.grid_y_size = grid_y_size
@@ -93,6 +94,26 @@ class Model(object):
 
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'obstacle'
+
+    def erase_obstacles(self, key = pygame.K_SPACE):
+        """
+        while spacebar is held, all obstacles corresponding to all collided_with colors are removed from self.model.obstacles, therefor erased from screen
+        if/when spacebar is released, all obstacles are added back to self.model.obstacles and reappear on the screen
+
+        erased obstacles do not block movement; it is as if the obstacles don't exist. once they re-appear, they act like normal obstacles again
+
+        this method erases obstacles corresponding with ALL colors in self.model.player.collided_with
+        """
+        if pygame.key.get_pressed()[key] == 1:
+            for color in self.player.collided_with:   # iterates through list of colors that have been collided with
+                for group in self.obstacles:        # iterates through all groups of obstacles
+                    if group.type == color.color:      # finds group that corresponds to color that was just touched
+                        self.obstacles.remove(group)
+                        self.cleared_obstacles.append(group)
+        else:
+            for group in self.cleared_obstacles:
+                self.cleared_obstacles.remove(group)
+                self.obstacles.append(group)
 
     def make_grid(self):
         """ Instantiate grid cells for game map """

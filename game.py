@@ -50,17 +50,9 @@ class View():
 
     def draw_obstacles(self):
         """Draw the obstacles on the display"""
-        # if group's name is the same as the name of a color that is in self.model.player.collided_with, pass
-
         for group in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
             group.draw(self.screen)
-
-    def erase_obstacle(self, type):
-        """Kill all obstacles of a given type"""
-        for group in self.model.obstacles:
-            if group.type == type:      # finds group that corresponds to color that was just touched
-                for sprite in group:
-                    sprite.kill()
+        self.model.erase_obstacles()        # runs method that allows player to erase colored obstacles by holding spacebar. change key argument to change the trigger key
 
     def draw_grid(self):
         """Draw the grid on the display"""
@@ -121,7 +113,6 @@ def play_game(size):
         if touched_piece:
             touched_piece.exists = False          # makes the touched piece disappear
             model.flag.add_color(touched_piece)     # add stripe to the flag graphic
-            view.erase_obstacle(touched_piece.color)    # remove all associated obstalces
             if model.flag.complete() == True:
                 model.make_endscreen()
                 view.endgame = True
