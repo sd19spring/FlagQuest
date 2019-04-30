@@ -31,14 +31,14 @@ class Game():
     def check_movement():
         pass
 
-    def check_collision():
+    def check_collision(self, touched_piece):
         if touched_piece:
             touched_piece.exists = False          # makes the touched piece disappear
-            game.model.flag.add_color(touched_piece)     # add stripe to the flag graphic
-            if game.model.flag.complete() == True:
-                game.model.make_endscreen()
-                game.view.endgame = True
-                game.fill_color=(255, 255, 255)
+            self.model.flag.add_color(touched_piece)     # add stripe to the flag graphic
+            if self.model.flag.complete() == True:
+                self.model.make_endscreen()
+                self.view.endgame = True
+                self.fill_color=(255, 255, 255)
 
     def endgame():
         pass
