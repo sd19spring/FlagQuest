@@ -92,8 +92,27 @@ def place_colors(model):
         model.grid_cells[(x_cell,y_cell)].type = 'color'
 
 
-def place_obstacles(model):
+def place_obstacles(model, path):
     """ Generate obstacles in the grid """
+    obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
+    selected_obstacles = list(obstacle_types)[0:len(model.flag.colors)]
+
+    directions = [] # any cell within three of current cell in path
+    for step in path:
+        for direc in directions:
+            if (step.cell_coord[0] + direc[0]) <= model.grid_size[0] and (step.cell_coord[1] + direc[1]) <= model.grid_size[1]:
+                if not step.occupied:
+                    if random.random() >= 0.5:
+                        type = random.choice(selected_obstacles)            # randomly chooses this obstacle's type
+                        color = obstacle_types[type]                        # finds the color associated with this obstacle's type
+                        model.obstacles.append(Obstacle((model.cell_size,model.cell_size),coord,type,color)) # change this to sprite Group later
+
+                        model.grid_cells[(x_cell,y_cell)].occupied = True
+                        model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
+
+
+
+
     #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
     obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
     selected_obstacles = list(obstacle_types)[0:len(model.flag.colors)]    # limits number of obstacle type options to the number of Flag colors
