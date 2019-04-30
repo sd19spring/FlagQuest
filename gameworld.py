@@ -24,6 +24,7 @@ class Model(object):
         self.cell_size = cell_size
         self.grid_x_size = grid_x_size
         self.grid_y_size = grid_y_size
+        self.endgame = False
         self.make_grid()
         self.make_all_flags()
         self.choose_flag()
@@ -147,7 +148,6 @@ class View():
     def __init__(self, screen_size, filling, model):
         """ Initialize model and make game screen """
         self.model = model
-        self.endgame = False
         self.screen = pygame.display.set_mode(screen_size)  # sets screen dimensions
         self.screen.fill(filling)        # sets background color
         pygame.display.set_caption('Window Viewer')             # sets window caption
@@ -198,7 +198,7 @@ class View():
 
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
-        if self.endgame == False:
+        if self.model.endgame == False:
             self.draw_player()
             self.draw_color_actors()
             self.draw_obstacles()
