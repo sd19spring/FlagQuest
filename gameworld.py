@@ -1,8 +1,8 @@
 import pygame
 import os
 import random
+import actors
 from flag import Flag
-from color_actor import Color_Actor
 from obstacles import *
 from player_actor import *
 from darkness import *
@@ -42,6 +42,8 @@ class Model(object):
     def make_all_flags(self):
         """Create all flag objects to later choose from."""
         #TODO: modify other functions so this is only called once per play
+        # MOVE TO FLAG? Should just get called with init.
+            # pass list of non eligable flags?
         dir_path = os.path.dirname(os.path.realpath(__file__))      # dir_path allows us to refer to the current folder of this file
 
         all_flag_dict = {"ace":[(0,0,0), (163,163,163), (255,255,255),(166,1,191)],
@@ -74,13 +76,13 @@ class Model(object):
         print("You are playing with the " + self.flag.name + " flag")
 
     def make_colors(self):
-        """ Instantiate Color_Actor objects for each color in the chosen flag """
+        """ Instantiate Color objects for each color in the chosen flag """
         self.color_objs = []
         for i in range(len(self.flag.colors)):
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
-            self.color_objs.append(Color_Actor(self.flag.colors[i], self, coord))
+            self.color_objs.append(actors.Color(self.flag.colors[i], self, coord))
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'color'
 
@@ -165,7 +167,7 @@ class View():
         self.screen.blit(self.model.player.image, self.model.player.get_draw_position())   # places image of player_actor
         # print(self.model.player.grid_cell)
 
-    def draw_color_actors(self):
+    def draw_colors(self):
         """Draw the flag colors onto the display"""
         for piece in self.model.color_objs:
             if piece.exists == True:
@@ -212,7 +214,7 @@ class View():
         self.screen.fill(self.fill_color) # can you fill with an image?
         if self.model.endgame == False:
             self.draw_player()
-            self.draw_color_actors()
+            self.draw_colors()
             self.draw_obstacles()
             self.draw_grid()
             self.draw_darkness()
