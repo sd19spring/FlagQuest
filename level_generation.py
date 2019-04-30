@@ -59,6 +59,7 @@ def get_valid_path(model, start_cell, end_cell):
     path = []
     path_coords = []  #Not currently in use. For debugging purposes
     while current_check != start_cell:
+       current_check.type = 'path'
        path.append(current_check)
        current_check = came_from[current_check]
        path_coords.append(current_check.label)
@@ -160,3 +161,57 @@ def generate_level(model):
         #check if final segment is playable
         if get_valid_path:
             retry = False
+
+class Test_Model():
+    __init__(self, cell_size=40, grid_size=(46,23)):
+        self.cell_size = cell_size
+        self.grid_size = grid_size
+        self.model = self.make_model()
+        self.path = self.make_path()
+
+    def make_model(self):
+        """" Instantiate grid cells for game map """
+        self.grid_cells = {}
+        cell_size = (self.cell_size,self.cell_size)
+        for i in range(self.grid_size[0]):
+            for j in range(self.grid_size[1]):
+                cell_coord = (i*self.cell_size, 160+j*self.cell_size)
+                self.grid_cells[(i,j)] = Cell(cell_coord, (i, j), False, 'none', (i,j))
+
+
+    def generate_level(model):
+
+        while retry:
+            curr_pos = model.player.position_c
+            place_colors(model)
+            path_order = random.shuffle(model.color_objs)
+            ind = 0
+            for color_obj in path_order:
+                path = get_valid_path(model, curr_pos, color_obj.position)
+                if path:
+                    retry = False
+                place_colors(model)
+                curr_pos = color_obj.positions
+
+            #check if final segment is playable
+            if get_valid_path:
+                retry = False
+
+class Test_View():
+    __init__(self, screen_size=(1880,1080), fill=(0,0,0), model):
+        self.screen = pygame.display.set_mode(screen_size)
+        self.fill = fill
+        self.model = model
+
+    def draw(self):
+        """Draw the obstacles on the display"""
+        for group in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
+            group.draw(self.screen)
+
+        for step in self.model.path:
+            pygame.draw.rect(self.screen,
+                             (255,255,255),
+                             pygame.Rect(step.cell_coord, self.model.cell_size, self.model.cell_size))
+
+if __name__ == "__main__":
+    model = Test_Model()
