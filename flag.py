@@ -8,7 +8,7 @@ class Flag:
     def __init__(self, name,):
         self.name = name
         self.get_colors()
-        self.setup_images(self.get_image_names())
+        self.get_images()
         self.colors_up = []
         self.position = (1500,20)
 
@@ -25,23 +25,18 @@ class Flag:
                     "trans":[(13, 204, 237),(248, 183, 211),(255, 255, 255)]}
         self.colors = all_flag_dict[self.name]
 
-    def get_image_names(self):
-        dir_path = os.path.dirname(os.path.realpath(__file__))      # dir_path allows us to refer to the current folder of this file
-        calc_image_names = []
-        for i in range(len(self.colors)):
-            image_name = dir_path + '/images/' + self.name + "/" + str(i+1) + ".png"
-            calc_image_names.append(image_name)
+    def image_paths(self):
+        dir = os.path.dirname(os.path.realpath(__file__)) # find the current folder
+        image_paths = []
+        for i in range(len(self.colors)): # run for the number of colors
+            path = dir + '/images/' + self.name + "/" + str(i+1) + ".png"
+            image_paths.append(path)
+        return image_paths
 
-        return calc_image_names
-
-    def add_color(self, actor = None):
-        """Changes indicators so that correct flag pieces are displayed"""
-        image_piece = self.image_piece_dict[actor.color]
-        self.colors_up.append(image_piece)
-
-    def setup_images(self, image_names):
+    def get_images(self):
         """Loads image pieces and creates color:image dictionary"""
-        self.image_pieces = [pygame.image.load(image_name) for image_name in image_names]
+        image_paths = self.image_paths()
+        self.image_pieces = [pygame.image.load(image_name) for image_name in image_paths]
 
         for i in range(len(self.image_pieces)):
             image_piece = self.image_pieces[i]
@@ -53,6 +48,11 @@ class Flag:
         self.image_piece_dict = {}
         for index in list(range(len(self.colors))):
             self.image_piece_dict[self.colors[index]] = self.image_pieces[index]
+
+    def add_color(self, actor = None):
+        """Changes indicators so that correct flag pieces are displayed"""
+        image_piece = self.image_piece_dict[actor.color]
+        self.colors_up.append(image_piece)
 
     def complete(self):
         """Check if the flag is complete

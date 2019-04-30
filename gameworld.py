@@ -38,23 +38,6 @@ class Model(object):
         self.make_obstacles()
         self.make_darkness()
 
-    # def make_all_flags(self):
-    #     """Create all flag objects to later choose from."""
-    #     #TODO: modify other functions so this is only called once per play
-    #     # MOVE TO FLAG? Should just get called with init.
-    #         # pass list of non eligable flags?
-    #     dir_path = os.path.dirname(os.path.realpath(__file__))      # dir_path allows us to refer to the current folder of this file
-    #
-    #     self.all_flags = []
-    #
-    #     for name in all_flag_dict:
-    #         calc_image_names = []
-    #         for n in list(range(len(all_flag_dict[name]))):
-    #             image_name = dir_path + '/images/' + name + "/" + str(n+1) + ".png"
-    #             calc_image_names.append(image_name)
-    #         flag = Flag(name, colors = all_flag_dict[name], image_names = calc_image_names)
-    #         self.all_flags.append(flag)
-
     def choose_flag(self):
         """ Randomly choose which flag to play the game with """
 
