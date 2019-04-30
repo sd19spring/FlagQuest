@@ -101,29 +101,47 @@ def place_colors(model):
         model.grid_cells[(x_cell,y_cell)].type = 'color'
 
 
-def place_obstacles(model):
+def place_obstacles(model, path):
     """ Generate obstacles in the grid """
     #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
     #TODO: place lines of objects so as to have barriers.
     #Also, place more so as to be more challenging. (Lauren)
+    obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}
+    selected_obstacles = list(obstacle_types)[0:len(model.flag.colors)]
+
+    directions = [(1,1), (1,-1), (-1,1), (-1,-1), (2,2), (2,-2), (-2,2), (-2,-2), ]
+
+    for step in path:
+        for direc in directions:
+            curr_cell = model.grid_cells[(step.grid_coord[0] + direc[0], step.grid_coord[1] + direc[1])]
+            if not curr_cell.occupied:
+                if not curr_cell.type == 'path':
+                    if random.random() >= 0.5:
+                        coord = curr_cell.cell_coord
+                        type = random.choice(selected_obstacles)            # randomly chooses this obstacle's type
+                        color = obstacle_types[type]                        # finds the color associated with this obstacle's type
+                        model.obstacles.append(Obstacle((model.cell_size,model.cell_size),coord,type,color)) # change this to sprite Group later
+
+                        model.grid_cells[(x_cell,y_cell)].occupied = True
+                        model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
 
     # for cells within three of current cell
     # if cell is not occupied
     # if type is not path
     # if random number is greater that 0.5
-    # create an object on that cell 
-    obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
-    selected_obstacles = list(obstacle_types)[0:len(model.flag.colors)]    # limits number of obstacle type options to the number of Flag colors
-    for i in range(10):     # 10 is arbitrary, we should replace with intentional number later
-        x_cell = random.randint(0, model.grid_x_size-1)        # randomizes location of obstacle
-        y_cell = random.randint(0, model.grid_y_size-1)
-        coord = model.grid_cells[(x_cell,y_cell)].cell_coord
-        type = random.choice(selected_obstacles)            # randomly chooses this obstacle's type
-        color = obstacle_types[type]                        # finds the color associated with this obstacle's type
-        model.obstacles.append(Obstacle((model.cell_size,model.cell_size),coord,type,color)) # change this to sprite Group later
-
-        model.grid_cells[(x_cell,y_cell)].occupied = True
-        model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
+    # create an object on that cell
+    # obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
+    # selected_obstacles = list(obstacle_types)[0:len(model.flag.colors)]    # limits number of obstacle type options to the number of Flag colors
+    # for i in range(10):     # 10 is arbitrary, we should replace with intentional number later
+    #     x_cell = random.randint(0, model.grid_x_size-1)        # randomizes location of obstacle
+    #     y_cell = random.randint(0, model.grid_y_size-1)
+    #     coord = model.grid_cells[(x_cell,y_cell)].cell_coord
+    #     type = random.choice(selected_obstacles)            # randomly chooses this obstacle's type
+    #     color = obstacle_types[type]                        # finds the color associated with this obstacle's type
+    #     model.obstacles.append(Obstacle((model.cell_size,model.cell_size),coord,type,color)) # change this to sprite Group later
+    #
+    #     model.grid_cells[(x_cell,y_cell)].occupied = True
+    #     model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
 
 def generate_level(model):
 
