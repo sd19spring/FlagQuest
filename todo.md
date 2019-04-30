@@ -7,6 +7,9 @@
 
 ### Organizational
 * screen.py?
+* Remove darkness.py original image
+* Combine actors to have size and image common file?
+* Default images for each?
 * Common image handling method
 * Common look of methods and classes
 * Change naming schemes?
