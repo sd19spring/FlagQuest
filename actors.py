@@ -33,8 +33,8 @@ class Actor():
         position: Tuple of the position of the actor in pixels
         """
         # pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
-        self.image = image
         self.size = size
+        self.image = pygame.transform.scale(image, self.size)
         self.position = position
         self.rect = self.image.get_rect(topleft = self.position)
 
@@ -58,12 +58,13 @@ class Color(Actor):
 # SCREEN EDGES SHOULD BE HANDLED ELSEWHERE
 # OBSTACLE COLLISION SHOULD BE HANDLED ELSEWHERE
 # COLOR COLLISION SHOULD BE HANDLED ELSEWHEER
-class Player(pygame.sprite.Sprite):
+class Player(Actor, pygame.sprite.Sprite):
     """
     The Player class contains methods specific
     to the playable character.
     """
-    def __init__(self, image, size, pos, screen_size, obstacles, color_objs):
+    def __init__(self, pos, screen_size, obstacles, color_objs, size = (40, 40),
+    image = pygame.image.load('./images/character.png')):
         """
         Initialize the player
 
@@ -72,9 +73,10 @@ class Player(pygame.sprite.Sprite):
         screen_size: a tuple of the screen dimensions
         obstacles: brings in a list of all obstacles on map
         """
+        super(Player, self).__init__(image, size, pos)
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
 
-        self.image = image
+        # self.image = image
         self.image_orig = self.image # sets an original copy of the image to reference later
         self.player_size = self.image.get_size()    # player_size is a tuple representing the image's dimensions
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
