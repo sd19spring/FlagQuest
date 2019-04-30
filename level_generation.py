@@ -106,6 +106,12 @@ def place_obstacles(model):
     #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
     #TODO: place lines of objects so as to have barriers.
     #Also, place more so as to be more challenging. (Lauren)
+
+    # for cells within three of current cell
+    # if cell is not occupied
+    # if type is not path
+    # if random number is greater that 0.5
+    # create an object on that cell 
     obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
     selected_obstacles = list(obstacle_types)[0:len(model.flag.colors)]    # limits number of obstacle type options to the number of Flag colors
     for i in range(10):     # 10 is arbitrary, we should replace with intentional number later
