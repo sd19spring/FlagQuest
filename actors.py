@@ -26,7 +26,7 @@ class Color(pygame.sprite.Sprite):
         """
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
         self.position = position
-        self.size = (model.cell_size, model.cell_size)
+        self.size = (model.cell_size)
         self.make_image(color)
         self.rect = self.image.get_rect(topleft = self.position)
 

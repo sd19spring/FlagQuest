@@ -7,6 +7,24 @@ from player_actor import *
 from darkness import *
 from education_screen import *
 
+# def random_coord(min_coord, max_coord):
+#     """Find a random coordinate.
+#
+#     draw_area: Tuple of the eligible screen area to draw in
+#
+#     returns: Tuple"""
+#     x_cell = random.randint(min_coord[0], max_coord[0])
+#     y_cell = random.randint(min_coord[1], max_coord[1])
+#     return (x_cell, y_cell)
+
+def pixels(coord):
+    """Get the pixel coordinates of a cell_coordinates.
+
+    coord: Tuple of the cell coordinates
+
+    returns: Tuple of the pixel coordinates"""
+
+
 class Cell(object):
     """ This is an object for each grid cell """
     def __init__(self, cell_coord, grid_coord, occupied, type, label):
@@ -18,50 +36,63 @@ class Cell(object):
 
 class Model(object):
     """ Class that holds the state of the entire game """
-    def __init__(self, cell_size = 40, grid_size = (46, 23)):
+    def __init__(self, cell_size = (40, 40), grid_size = (46, 23)):
         """
         Initialize the model.
 
-        cell_size: Dimension of each cell in pixels. Cells are square so only one number is passed
-        grid_size: Tuple of the dimensions of the grid in cells (x dimension, y dimension) """
+        cell_size: Tuple of the dimension of each cell in pixels
+        grid_size: Tuple of the dimensions of the grid in cells"""
 
-        self.obstacles = []              # instantiates a list of all obstacle sprite groups
-        self.cleared_obstacles = []
         self.cell_size = cell_size
-        self.grid_size = (grid_size)
+        self.grid_size = grid_size
         self.endgame = False
         self.make_grid()
         self.choose_flag()
         self.make_colors()
-        self.make_player()
         self.make_obstacles()
+        self.make_player()
         self.make_darkness()
 
-    def choose_flag(self):
-        """ Randomly choose which flag to play the game with """
+    def make_grid(self):
+        """Instantiate grid cells for game map.
 
-        # num_flag = random.randint(0,len(self.all_flags)-1)
-        # num_flag = 2
-        # self.flag = self.all_flags[num_flag]
+        Creates a dictionary with keys that are cell
+        coordinates with values that are cell objects"""
+        self.grid_cells = {}
+        cell_size = (self.cell_size) # cell size in pixels
+        for i in range(self.grid_size[0]): # for the x cells
+            for j in range(self.grid_size[1]): # for the y cells
+                cell_coord = (i*self.cell_size[0], 160+j*self.cell_size[1])
+                self.grid_cells[(i,j)] = Cell(cell_coord, (i, j), False, 'none', (i,j))
+
+    def choose_flag(self):
+        """Randomly choose which flag to play the game with."""
+        # TO DO
         name = 'trans'
         self.flag = Flag(name)
         print("You are playing with the " + self.flag.name + " flag")
 
     def make_colors(self):
-        """ Instantiate Color objects for each color in the chosen flag """
+        """Instantiate Color objects for each color in the chosen flag."""
         self.color_objs = []
         for color in self.flag.colors:
             # could we have a get random coord method?
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
-            coord = self.grid_cells[(x_cell,y_cell)].cell_coord
+            # coord = self.grid_cells[random_coord]
+            # coord = random_coord((0, 0), (self.grid_size))
+            # coord = self.grid_cells[(x_cell,y_cell)].cell_coord
+            coord = (x_cell, y_cell)
             self.color_objs.append(actors.Color(color, self, coord))
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'color'
 
 
     def make_obstacles(self):
-        """ Generate obstacles in the grid """
+        """Generate obstacles in the grid"""
+        self.obstacles = []              # instantiates a list of all obstacle sprite groups
+        self.cleared_obstacles = []
+
         obstacle_types = self.flag.colors      # makes list of possible obstacle types based off of the flag's colors
 
         for i in range(200):     # 10 is arbitrary, we should replace with intentional number later
@@ -73,7 +104,7 @@ class Model(object):
 
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
             type = random.choice(obstacle_types)            # randomly chooses this obstacle's type
-            obstacle = Obstacle((self.cell_size,self.cell_size),coord,type)
+            obstacle = Obstacle((self.cell_size),coord,type)
 
             obstacle.make_groups(obstacle, type, self.obstacles)    # add obstacle to group based on what the obstacle's type is
 
@@ -100,23 +131,16 @@ class Model(object):
                 self.cleared_obstacles.remove(group)
                 self.obstacles.append(group)
 
-    def make_grid(self):
-        """ Instantiate grid cells for game map """
-        self.grid_cells = {}
-        cell_size = (self.cell_size,self.cell_size)
-        for i in range(self.grid_size[0]):
-            for j in range(self.grid_size[1]):
-                cell_coord = (i*self.cell_size, 160+j*self.cell_size)
-                self.grid_cells[(i,j)] = Cell(cell_coord, (i, j), False, 'none', (i,j))
-
     def make_player(self):
         """ Instantiate Player object """
         player_image = pygame.transform.scale(pygame.image.load('./images/character.png'), (40,40))
-        self.player = Player_actor((400, 400),player_image, (self.cell_size*self.grid_size[0], self.cell_size*self.grid_size[1]+160),self.obstacles, self.color_objs)
+        coord = (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[1]+160)
+        self.player = Player_actor((400, 400), player_image, coord, self.obstacles, self.color_objs)
+        # should just pass WORLD
 
     def make_darkness(self):
         """ Instantiate Darkness object"""
-        self.darkness = Darkness(self.player, (self.cell_size*self.grid_size[0], self.cell_size*self.grid_size[0]))
+        self.darkness = Darkness(self.player, (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[0]))
 
     def make_endscreen(self):
         """ Instantiate Endscreen object"""
