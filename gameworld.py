@@ -80,7 +80,7 @@ class Model(object):
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
-            self.color_objs.append(Color_Actor(self.flag.colors[i], self, coord[0], coord[1]))
+            self.color_objs.append(Color_Actor(self.flag.colors[i], self, coord))
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'color'
 
@@ -169,7 +169,7 @@ class View():
         """Draw the flag colors onto the display"""
         for piece in self.model.color_objs:
             if piece.exists == True:
-                pygame.draw.rect(self.screen, piece.color, pygame.Rect(piece.x, piece.y, self.model.cell_size, self.model.cell_size))
+                pygame.draw.rect(self.screen, piece.color, pygame.Rect(piece.position[0], piece.position[1], self.model.cell_size, self.model.cell_size))
 
 
     def draw_obstacles(self):
@@ -223,4 +223,4 @@ class View():
 
 if __name__ == "__main__":
     model = Model()
-    print(model.color_objs[0].x)
+    print(model.color_objs[0].position[0])
