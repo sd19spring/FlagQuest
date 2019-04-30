@@ -1,17 +1,20 @@
-"""
-This code contains the classes for making a model to hold the state
-of the game's objects (like player, each obstacle, the color actors, etc.) as
-well as a class to hold information for the state of each cell
-"""
-
-from color_actor import Color_Actor
+import pygame
+import os
+import random
 from flag import Flag
+from color_actor import Color_Actor
 from obstacles import *
 from player_actor import *
 from darkness import *
 from education_screen import *
-import random
-import os
+
+class Cell(object):
+    """ This is an object for each grid cell """
+    def __init__(self, cell_coord, occupied, type, label):
+        self.cell_coord = cell_coord
+        self.occupied = occupied
+        self.type = type
+        self.label = label
 
 class Model(object):
     """ Class that holds the state of the entire game """
@@ -137,13 +140,74 @@ class Model(object):
         """ Instantiate Endscreen object"""
         self.endscreen = EndScreen(self.flag.name, (1920, 1080))
 
-class Cell(object):
-    """ This is an object for each grid cell """
-    def __init__(self, cell_coord, occupied, type, label):
-        self.cell_coord = cell_coord
-        self.occupied = occupied
-        self.type = type
-        self.label = label
+class View():
+    """
+    Instantiates model and draws the state of every object on the game screen
+    """
+    def __init__(self, screen_size, filling, model):
+        """ Initialize model and make game screen """
+        self.model = model
+        self.endgame = False
+        self.screen = pygame.display.set_mode(screen_size)  # sets screen dimensions
+        self.screen.fill(filling)        # sets background color
+        pygame.display.set_caption('Window Viewer')             # sets window caption
+
+    def draw_player(self):
+        """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
+        self.model.player.update_position()
+        self.screen.blit(self.model.player.image, self.model.player.get_draw_position())   # places image of player_actor
+        # print(self.model.player.grid_cell)
+
+    def draw_color_actors(self):
+        """Draw the flag colors onto the display"""
+        for piece in self.model.color_objs:
+            if piece.exists == True:
+                pygame.draw.rect(self.screen, piece.color, pygame.Rect(piece.x, piece.y, self.model.cell_size, self.model.cell_size))
+
+
+    def draw_obstacles(self):
+        """Draw the obstacles on the display"""
+        for group in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
+            group.draw(self.screen)
+        self.model.erase_obstacles()        # runs method that allows player to erase colored obstacles by holding spacebar. change key argument to change the trigger key
+
+    def draw_grid(self):
+        """Draw the grid on the display"""
+        for i in range(self.model.grid_x_size):
+            for j in range(self.model.grid_y_size):
+                    pygame.draw.circle(self.screen,
+                                       pygame.Color(255, 255, 255),
+                                       [self.model.grid_cells[(i, j)].cell_coord[0], self.model.grid_cells[(i, j)].cell_coord[1]],
+                                       5)
+
+    def draw_flag(self):
+        """Draw the flag onto the display"""
+        if self.model.flag.colors_up:
+            for image in self.model.flag.colors_up:
+                self.screen.blit(image, self.model.flag.position)
+
+    def draw_darkness(self):
+        """Draw the darkness on the display"""
+        self.model.darkness.rotate()
+        self.screen.blit(self.model.darkness.image, self.model.darkness.draw_position())   # places image of player_actor
+
+    def draw_endscreen(self):
+        """Draw the endscreen on the display"""
+        # draw the current page in the book
+        self.screen.blit(self.model.endscreen.book.pages[self.model.endscreen.book.current_page].image, (0, 0))
+
+    def update(self):
+        """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
+        if self.endgame == False:
+            self.draw_player()
+            self.draw_color_actors()
+            self.draw_obstacles()
+            self.draw_grid()
+            self.draw_darkness()
+            self.draw_flag()
+        else: # if it is the end, just draw the endscreen
+            self.draw_endscreen()
+        pygame.display.update()
 
 if __name__ == "__main__":
     model = Model()

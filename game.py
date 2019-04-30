@@ -1,9 +1,9 @@
 import pygame
-from pygame.locals import *
 import time
+import gameworld
+from pygame.locals import *
 from player_actor import *
 from controller import *
-from make_model import Model
 from obstacles import *
 from flag import Flag
 from level_generation import *
@@ -13,91 +13,13 @@ from level_generation import *
 #     """
 #     def check_events():
 #         pass
-# class Model():
-#     """
-#     Initializes all of the models for the world
-#     """
-#
-# class View(Model):
-#     """
-#     Updates the view by drawing the state of every object on the game screen
-#     """
-
-class View():
-    """
-    Instantiates model and draws the state of every object on the game screen
-    """
-    def __init__(self, screen_size, filling, model):
-        """ Initialize model and make game screen """
-        self.model = model
-        self.endgame = False
-        self.screen = pygame.display.set_mode(screen_size)  # sets screen dimensions
-        self.screen.fill(filling)        # sets background color
-        pygame.display.set_caption('Window Viewer')             # sets window caption
-
-    def draw_player(self):
-        """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
-        self.model.player.update_position()
-        self.screen.blit(self.model.player.image, self.model.player.get_draw_position())   # places image of player_actor
-        # print(self.model.player.grid_cell)
-
-    def draw_color_actors(self):
-        """Draw the flag colors onto the display"""
-        for piece in self.model.color_objs:
-            if piece.exists == True:
-                pygame.draw.rect(self.screen, piece.color, pygame.Rect(piece.x, piece.y, self.model.cell_size, self.model.cell_size))
-
-
-    def draw_obstacles(self):
-        """Draw the obstacles on the display"""
-        for group in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
-            group.draw(self.screen)
-        self.model.erase_obstacles()        # runs method that allows player to erase colored obstacles by holding spacebar. change key argument to change the trigger key
-
-    def draw_grid(self):
-        """Draw the grid on the display"""
-        for i in range(self.model.grid_x_size):
-            for j in range(self.model.grid_y_size):
-                    pygame.draw.circle(self.screen,
-                                       pygame.Color(255, 255, 255),
-                                       [self.model.grid_cells[(i, j)].cell_coord[0], self.model.grid_cells[(i, j)].cell_coord[1]],
-                                       5)
-
-    def draw_flag(self):
-        """Draw the flag onto the display"""
-        if self.model.flag.colors_up:
-            for image in self.model.flag.colors_up:
-                self.screen.blit(image, self.model.flag.position)
-
-    def draw_darkness(self):
-        """Draw the darkness on the display"""
-        self.model.darkness.rotate()
-        self.screen.blit(self.model.darkness.image, self.model.darkness.draw_position())   # places image of player_actor
-
-    def draw_endscreen(self):
-        """Draw the endscreen on the display"""
-        # draw the current page in the book
-        self.screen.blit(self.model.endscreen.book.pages[self.model.endscreen.book.current_page].image, (0, 0))
-
-    def update(self):
-        """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
-        if self.endgame == False:
-            self.draw_player()
-            self.draw_color_actors()
-            self.draw_obstacles()
-            self.draw_grid()
-            self.draw_darkness()
-            self.draw_flag()
-        else: # if it is the end, just draw the endscreen
-            self.draw_endscreen()
-        pygame.display.update()
 
 def play_game(size):
     pygame.init()
 
-    model = Model()
+    model = gameworld.Model()
     fill_color = (0, 0, 0)
-    view = View(size, fill_color, model)
+    view = gameworld.View(size, fill_color, model)
 
     #######TESTS
     print(get_valid_path(model, model.grid_cells[(3,3)], model.grid_cells[(20,20)]))
