@@ -194,7 +194,7 @@ class View():
             self.draw_colors()
             self.draw_obstacles()
             self.draw_grid() # TEMPORARY
-            self.draw_darkness()
+            # self.draw_darkness()
             self.draw_flag()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()

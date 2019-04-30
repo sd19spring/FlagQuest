@@ -4,7 +4,10 @@ class Flag:
     """Represents flag. Contains image pieces, mapped to colors, keeps track of
     colors collected to display correct flag pieces."""
 
-    def __init__(self, name,):
+    def __init__(self, name):
+        """Create the flag.
+
+        name: String of the flag name"""
         self.name = name
         self.get_colors()
         self.get_images()
@@ -12,6 +15,8 @@ class Flag:
         self.position = (1500,20)
 
     def get_colors(self):
+        """Finds the colors for the appropriate flag in terms of
+        a list of tuples containing RGB color codes."""
         self.colors = {
             "ace":[(0,0,0), (163,163,163), (255,255,255),(166,1,191)],
             "alt-lesbian":[(215,44,0),(239,116,39),(255,152,86),(255,255,255),(209,98,166),(183,85,146),(165,1,98)],
@@ -26,6 +31,9 @@ class Flag:
             }[self.name]
 
     def image_paths(self):
+        """Finds the image path names.
+
+        Returns: list of strings"""
         image_paths = []
         for i in range(len(self.colors)): # run for the number of colors
             path = 'images/' + self.name + "/" + str(i+1) + ".png"
@@ -33,28 +41,25 @@ class Flag:
         return image_paths
 
     def get_images(self):
-        """Loads image pieces and creates color:image dictionary"""
-        image_paths = self.image_paths()
-        self.image_pieces = [pygame.image.load(image_name) for image_name in image_paths]
+        """Loads images for the flag into a dictionary
+        to associate the approapriate color with the
+        appropriate image"""
+        image_paths = self.image_paths() # get the image path
+        # load the appropriate image for each image name
+        images = [pygame.image.load(image_name) for image_name in image_paths]
 
-        for i in range(len(self.image_pieces)):
-            image_piece = self.image_pieces[i]
-            current_size = image_piece.get_size()
-            #change to reflect changing size of screen
-            image_piece = pygame.transform.scale(image_piece, (200, (int(200*current_size[1]/current_size[0]))))
-            self.image_pieces[i] = image_piece
-
-        self.image_piece_dict = {}
-        for index in list(range(len(self.colors))):
-            self.image_piece_dict[self.colors[index]] = self.image_pieces[index]
+        self.images_dict = {}
+        # run for the number of colors on the flag
+        for i in range(len(self.colors)):
+            self.images_dict[self.colors[i]] = images[i]
 
     def add_color(self, actor = None):
-        """Changes indicators so that correct flag pieces are displayed"""
-        image_piece = self.image_piece_dict[actor.color]
-        self.colors_up.append(image_piece)
+        """Adds the appropriate image to the colors_up list."""
+        image = self.images_dict[actor.color]
+        self.colors_up.append(image)
 
     def complete(self):
-        """Check if the flag is complete
+        """Check if the flag is complete.
 
         returns: boolean"""
         # if the number of colors up is the total number of colors
