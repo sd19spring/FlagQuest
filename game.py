@@ -26,7 +26,7 @@ class Game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
-            # add function to check keypresses
+            # add function to check for movement
             elif event.type == KEYDOWN and self.model.endgame == True:
                 self.model.endscreen.pressed(event.key)
             if event.type == KEYDOWN and event.key == pygame.K_ESCAPE: # if escape is pressed

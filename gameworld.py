@@ -78,11 +78,11 @@ class Model(object):
     def make_colors(self):
         """ Instantiate Color objects for each color in the chosen flag """
         self.color_objs = []
-        for i in range(len(self.flag.colors)):
+        for color in self.flag.colors:
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
-            self.color_objs.append(actors.Color(self.flag.colors[i], self, coord))
+            self.color_objs.append(actors.Color(color, self, coord))
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'color'
 
@@ -213,10 +213,14 @@ class View():
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.screen.fill(self.fill_color) # can you fill with an image?
         if self.model.endgame == False:
+            # self.draw() ??
+                # for actor in actors:
+                    # draw
+            # self.update_pos() ??
             self.draw_player()
             self.draw_colors()
             self.draw_obstacles()
-            self.draw_grid()
+            self.draw_grid() # TEMPORARY
             self.draw_darkness()
             self.draw_flag()
         else: # if it is the end, just draw the endscreen

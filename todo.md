@@ -7,6 +7,8 @@
 
 ### Organizational
 * screen.py?
+* Less functions in make model, it is pretty self explanatory
+* Make all actors use the same coord system?
 * Combine actors to have size and image common file?
 * Default images for each?
 * Common image handling method

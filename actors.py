@@ -16,11 +16,14 @@ class Color(pygame.sprite.Sprite):
         """Initialize the Color_Actor object
 
         color: Tuple of the RGB color code
-        model:
+        model: Model object for the world
+        position: cell coordinates of the color
         """
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
-        print(color)
         self.color = color
         self.position = position
         self.rect = pygame.Rect(self.position[0], self.position[1], model.cell_size, model.cell_size)
         self.exists = True      # used in make_model to make actor disappear if collided with
+
+    def make_image(self, color):
+        """Makes the image for the flag stripe from a given color"""
