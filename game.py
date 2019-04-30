@@ -26,8 +26,11 @@ class Game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+            # add function to check keypresses
             elif event.type == KEYDOWN and self.model.endgame == True:
                 self.model.endscreen.pressed(event.key)
+            if event.type == KEYDOWN and event.key == pygame.K_ESCAPE: # if escape is pressed
+                pygame.display.set_mode((1880, 1080), pygame.RESIZABLE)
 
     def check_movement():
         pass
@@ -40,7 +43,7 @@ class Game():
             self.model.flag.add_color(touched_piece)     # add stripe to the flag graphic
             if self.model.flag.complete() == True:
                 self.model.make_endscreen()
-                self.view.endgame = True
+                self.model.endgame = True
                 self.fill_color=(255, 255, 255)
 
     def endgame():
