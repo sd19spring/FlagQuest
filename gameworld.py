@@ -24,7 +24,7 @@ class Model(object):
 
         cell_size: TO DO
         grid_size: Tuple of the dimensions of the cell (x dimension, y dimension) """
-        
+
         self.obstacles = []              # instantiates a list of all obstacle sprite groups
         self.cleared_obstacles = []
         self.cell_size = cell_size
