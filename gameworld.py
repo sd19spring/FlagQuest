@@ -149,7 +149,8 @@ class View():
         """ Initialize model and make game screen """
         self.model = model
         self.screen = pygame.display.set_mode(screen_size)  # sets screen dimensions
-        self.screen.fill(filling)        # sets background color
+        self.fill_color = filling
+        self.screen.fill(self.fill_color)        # sets background color
         pygame.display.set_caption('Window Viewer')             # sets window caption
 
     def draw_player(self):
@@ -196,8 +197,13 @@ class View():
         # draw the current page in the book
         self.screen.blit(self.model.endscreen.book.pages[self.model.endscreen.book.current_page].image, (0, 0))
 
+    def draw_background(self):
+        # plan to add the fill section here
+        pass
+
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
+        self.screen.fill(self.fill_color) # can you fill with an image?
         if self.model.endgame == False:
             self.draw_player()
             self.draw_color_actors()

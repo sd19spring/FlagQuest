@@ -19,19 +19,22 @@ class Game():
         self.fill_color = fill
         self.model = gameworld.Model()
         self.view = view = gameworld.View(size, self.fill_color, self.model)
+        self.running = True
 
     def check_events(self):
         """Check the events"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
-            elif event.type == KEYDOWN and self.view.endgame == True:
+                self.running = False
+            elif event.type == KEYDOWN and self.model.endgame == True:
                 self.model.endscreen.pressed(event.key)
 
     def check_movement():
         pass
 
-    def check_collision(self, touched_piece):
+    def check_collision(self):
+        # touched_piece is a piece of the flag that the player just collided with (if they even did)
+        touched_piece = self.model.player.check_color_collision(self.model.color_objs)
         if touched_piece:
             touched_piece.exists = False          # makes the touched piece disappear
             self.model.flag.add_color(touched_piece)     # add stripe to the flag graphic
@@ -53,13 +56,10 @@ def play_game():
     #######TESTS
     # print(get_valid_path(game.model, game.model.grid_cells[(3,3)], game.model.grid_cells[(20,20)]))
     game = Game()
-    running = True
-    while running:
+    while game.running:
         game.check_events()
-        touched_piece = game.model.player.check_color_collision(game.model.color_objs)    # touched_piece is a piece of the flag that the player just collided with (if they even did)
-
-        game.view.screen.fill(game.fill_color)           # cleans up the screen at each runthrough
-        game.view.update()         # updates the model based on any new inputs or in-game events
+        game.check_collision()
+        game.view.update()
         time.sleep(0.01)
 
 if __name__ == '__main__':
