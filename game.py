@@ -49,12 +49,8 @@ class Game():
 def play_game():
     # pygame.init() # necessary?
 
-    # model = gameworld.Model()
-    # fill_color = (0, 0, 0)
-    # view = gameworld.View(size, fill_color, model)
-
-    #######TESTS
     # print(get_valid_path(game.model, game.model.grid_cells[(3,3)], game.model.grid_cells[(20,20)]))
+
     game = Game()
     while game.running:
         game.check_events()

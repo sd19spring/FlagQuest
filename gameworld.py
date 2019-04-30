@@ -18,12 +18,17 @@ class Cell(object):
 
 class Model(object):
     """ Class that holds the state of the entire game """
-    def __init__(self, cell_size = 40, grid_x_size = 46, grid_y_size = 23):
+    def __init__(self, cell_size = 40, grid_size = (46, 23)):
+        """
+        Initialize the model.
+
+        cell_size: TO DO
+        grid_size: Tuple of the dimensions of the cell (x dimension, y dimension) """
+        
         self.obstacles = []              # instantiates a list of all obstacle sprite groups
         self.cleared_obstacles = []
         self.cell_size = cell_size
-        self.grid_x_size = grid_x_size
-        self.grid_y_size = grid_y_size
+        self.grid_size = (grid_size)
         self.endgame = False
         self.make_grid()
         self.make_all_flags()
@@ -71,8 +76,8 @@ class Model(object):
         """ Instantiate Color_Actor objects for each color in the chosen flag """
         self.color_objs = []
         for i in range(len(self.flag.colors)):
-            x_cell = random.randint(0, self.grid_x_size-1)
-            y_cell = random.randint(0, self.grid_y_size-1)
+            x_cell = random.randint(0, self.grid_size[0]-1)
+            y_cell = random.randint(0, self.grid_size[1]-1)
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
             self.color_objs.append(Color_Actor(self.flag.colors[i], self, coord[0], coord[1]))
             self.grid_cells[(x_cell,y_cell)].occupied = True
@@ -84,11 +89,11 @@ class Model(object):
         obstacle_types = self.flag.colors      # makes list of possible obstacle types based off of the flag's colors
 
         for i in range(200):     # 10 is arbitrary, we should replace with intentional number later
-            x_cell = random.randint(0, self.grid_x_size-1)        # randomizes location of obstacle
-            y_cell = random.randint(0, self.grid_y_size-1)
+            x_cell = random.randint(0, self.grid_size[0]-1)        # randomizes location of obstacle
+            y_cell = random.randint(0, self.grid_size[1]-1)
             while self.grid_cells[(x_cell, y_cell)].occupied == True:   # re-randomizes location if the location is occupied by a color_obj
-                x_cell = random.randint(0, self.grid_x_size-1)
-                y_cell = random.randint(0, self.grid_y_size-1)
+                x_cell = random.randint(0, self.grid_size[0]-1)
+                y_cell = random.randint(0, self.grid_size[1]-1)
 
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
             type = random.choice(obstacle_types)            # randomly chooses this obstacle's type
@@ -123,19 +128,19 @@ class Model(object):
         """ Instantiate grid cells for game map """
         self.grid_cells = {}
         cell_size = (self.cell_size,self.cell_size)
-        for i in range(self.grid_x_size):
-            for j in range(self.grid_y_size):
+        for i in range(self.grid_size[0]):
+            for j in range(self.grid_size[1]):
                 cell_coord = (i*self.cell_size, 160+j*self.cell_size)
                 self.grid_cells[(i,j)] = Cell(cell_coord, False, 'none', (i,j))
 
     def make_player(self):
         """ Instantiate Player object """
         player_image = pygame.transform.scale(pygame.image.load('./character.png'), (40,40))
-        self.player = Player_actor((400, 400),player_image, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_y_size+160),self.obstacles, self.color_objs)
+        self.player = Player_actor((400, 400),player_image, (self.cell_size*self.grid_size[0], self.cell_size*self.grid_size[1]+160),self.obstacles, self.color_objs)
 
     def make_darkness(self):
         """ Instantiate Darkness object"""
-        self.darkness = Darkness(self.player, (self.cell_size*self.grid_x_size, self.cell_size*self.grid_x_size))
+        self.darkness = Darkness(self.player, (self.cell_size*self.grid_size[0], self.cell_size*self.grid_size[0]))
 
     def make_endscreen(self):
         """ Instantiate Endscreen object"""
@@ -174,8 +179,8 @@ class View():
 
     def draw_grid(self):
         """Draw the grid on the display"""
-        for i in range(self.model.grid_x_size):
-            for j in range(self.model.grid_y_size):
+        for i in range(self.model.grid_size[0]):
+            for j in range(self.model.grid_size[1]):
                     pygame.draw.circle(self.screen,
                                        pygame.Color(255, 255, 255),
                                        [self.model.grid_cells[(i, j)].cell_coord[0], self.model.grid_cells[(i, j)].cell_coord[1]],
