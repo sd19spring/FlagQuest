@@ -10,8 +10,9 @@ from education_screen import *
 
 class Cell(object):
     """ This is an object for each grid cell """
-    def __init__(self, cell_coord, occupied, type, label):
-        self.cell_coord = cell_coord
+    def __init__(self, cell_coord, grid_coord, occupied, type, label):
+        self.cell_coord = cell_coord # coordinates of upper left corner of cell in pixels, tuple
+        self.grid_coord = grid_coord # coordinates of cell in terms of position in grid, tuple
         self.occupied = occupied
         self.type = type
         self.label = label
@@ -22,8 +23,8 @@ class Model(object):
         """
         Initialize the model.
 
-        cell_size: TO DO
-        grid_size: Tuple of the dimensions of the cell (x dimension, y dimension) """
+        cell_size: Dimension of each cell in pixels. Cells are square so only one number is passed
+        grid_size: Tuple of the dimensions of the grid in cells (x dimension, y dimension) """
 
         self.obstacles = []              # instantiates a list of all obstacle sprite groups
         self.cleared_obstacles = []
@@ -131,7 +132,7 @@ class Model(object):
         for i in range(self.grid_size[0]):
             for j in range(self.grid_size[1]):
                 cell_coord = (i*self.cell_size, 160+j*self.cell_size)
-                self.grid_cells[(i,j)] = Cell(cell_coord, False, 'none', (i,j))
+                self.grid_cells[(i,j)] = Cell(cell_coord, (i, j), False, 'none', (i,j))
 
     def make_player(self):
         """ Instantiate Player object """
