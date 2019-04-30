@@ -79,6 +79,7 @@ class Model(object):
         """ Instantiate Color objects for each color in the chosen flag """
         self.color_objs = []
         for color in self.flag.colors:
+            # could we have a get random coord method?
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
@@ -164,15 +165,18 @@ class View():
     def draw_player(self):
         """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
         self.model.player.update_position()
+        # position = get draw position
         self.screen.blit(self.model.player.image, self.model.player.get_draw_position())   # places image of player_actor
         # print(self.model.player.grid_cell)
 
     def draw_colors(self):
         """Draw the flag colors onto the display"""
+        # for piece in self.model.color_objs:
+        #     if piece.exists == True: # CAN WE
+        #         pygame.draw.rect(self.screen, piece.color, pygame.Rect(piece.position[0], piece.position[1], self.model.cell_size, self.model.cell_size))
         for piece in self.model.color_objs:
             if piece.exists == True:
-                pygame.draw.rect(self.screen, piece.color, pygame.Rect(piece.position[0], piece.position[1], self.model.cell_size, self.model.cell_size))
-
+                self.screen.blit(piece.image, piece.position)
 
     def draw_obstacles(self):
         """Draw the obstacles on the display"""

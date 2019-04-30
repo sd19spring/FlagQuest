@@ -4,11 +4,10 @@ class Flag:
     """Represents flag. Contains image pieces, mapped to colors, keeps track of
     colors collected to display correct flag pieces."""
 
-    def __init__(self, name, image_names = None, colors = None, description = None):
+    def __init__(self, name, image_names = None, colors = None):
         self.name = name
         self.colors = colors
         self.setup_images(image_names)
-        self.description = description
         self.colors_up = []
         self.position = (1500,20)
 
