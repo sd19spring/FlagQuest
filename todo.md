@@ -6,6 +6,7 @@
 * Endscreen code should not be a hardcoded resolution
 
 ### Organizational
+* screen.py?
 * Common image handling method
 * Common look of methods and classes
 * Change naming schemes?
