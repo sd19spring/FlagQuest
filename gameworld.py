@@ -171,9 +171,6 @@ class View():
 
     def draw_colors(self):
         """Draw the flag colors onto the display"""
-        # for piece in self.model.color_objs:
-        #     if piece.exists == True: # CAN WE
-        #         pygame.draw.rect(self.screen, piece.color, pygame.Rect(piece.position[0], piece.position[1], self.model.cell_size, self.model.cell_size))
         for piece in self.model.color_objs:
             if piece.exists == True:
                 self.screen.blit(piece.image, piece.position)

@@ -25,16 +25,16 @@ class Color(pygame.sprite.Sprite):
         position: cell coordinates of the color
         """
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
-        self.color = color
         self.position = position
         self.size = (model.cell_size, model.cell_size)
-        self.rect = pygame.Rect(self.position[0], self.position[1], model.cell_size, model.cell_size)
+        self.make_image(color)
+        self.rect = self.image.get_rect(topleft = self.position)
+
         self.exists = True      # used in make_model to make actor disappear if collided with
-        self.make_image(self.color)
+        self.color = color
         # CAN WE REMOVE THE COLOR ONCE IT IS PICKED UP?
 
     def make_image(self, color):
         """Makes the image for the flag stripe from a given color"""
-        # self.image = pygame.draw.rect(self.position, self.color, self.size)
         self.image = pygame.Surface(self.size)
-        self.image.fill(self.color)
+        self.image.fill(color)
