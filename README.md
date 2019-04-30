@@ -1,5 +1,5 @@
 # Flag Quest
-Flag Quest is a rogue likegame created to spread
+Flag Quest is a rogue like game created to spread
 awareness of LGBTQ+ identities by integrating the elements
 of LGBTQ+ flags into fun puzzles. As the game’s player, you
 wander through the dark woods, navigating around or overcoming
