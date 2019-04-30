@@ -1,7 +1,7 @@
 # To Do
 
 ### Education Screens
-* Change "press any key to continue" to "press space to continue" or "press space to continue your Flag Quest"
+* Change "press space to exit"
 * Add rest of education screens
 * Endscreen code should not be a hardcoded resolution
 
@@ -14,8 +14,12 @@
 * Add more comments
 * Questions
   * Why is cell size and grid_size separate?
+    * grid size is this of the windows in cells
+    * cell size is the pixel dimensions of each square
   * Move choose flag to another place?
+* Remove unnecessary flashlights
 
 
 ### General
 * Explain how to change the player image
+* Press space to begin the game

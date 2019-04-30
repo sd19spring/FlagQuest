@@ -154,7 +154,7 @@ class View():
     def __init__(self, screen_size, filling, model):
         """ Initialize model and make game screen """
         self.model = model
-        self.screen = pygame.display.set_mode(screen_size)  # sets screen dimensions
+        self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN)  # sets screen dimensions
         self.fill_color = filling
         self.screen.fill(self.fill_color)        # sets background color
         pygame.display.set_caption('Window Viewer')             # sets window caption
