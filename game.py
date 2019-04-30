@@ -46,6 +46,9 @@ class Game():
                 self.model.endgame = True
                 self.fill_color=(255, 255, 255)
 
+    # def choose_flag(self, n = RANDOMNUMBEr):
+    #     """Choose a flag"""
+
     def endgame():
         pass
 

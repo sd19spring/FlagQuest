@@ -1,15 +1,38 @@
 import pygame
+import os
 
 class Flag:
     """Represents flag. Contains image pieces, mapped to colors, keeps track of
     colors collected to display correct flag pieces."""
 
-    def __init__(self, name, image_names = None, colors = None):
+    def __init__(self, name,):
         self.name = name
-        self.colors = colors
-        self.setup_images(image_names)
+        self.get_colors()
+        self.setup_images(self.get_image_names())
         self.colors_up = []
         self.position = (1500,20)
+
+    def get_colors(self):
+        all_flag_dict = {"ace":[(0,0,0), (163,163,163), (255,255,255),(166,1,191)],
+                    "alt-lesbian":[(215,44,0),(239,116,39),(255,152,86),(255,255,255),(209,98,166),(183,85,146),(165,1,98)],
+                    "bi":[(215,2,112),(115,79,150),(0,56,168)],
+                    "intersex":[(255,216,0),(121,2,170)],
+                    "l-lesbian":[(184,0,144),(202,103,164),(227,118,182),(255,255,255),(243,192,221),(215,96,100),(158,40,4)],
+                    "nb":[(255,244,51),(255,255,255),(155,89,208),(45,45,45)],
+                    "pan":[(255,33,142),(255,214,0),(33,176,254)],
+                    "poc":[(0,0,0),(115,86,38),(233,50,34),(239,144,52),(252,228,76),(73,155,47),(23,71,173),(179,67,213)],
+                    "pride":[(254,0,0),(255,166,3),(255,255,0),(0,129,2),(22,20,228),(128,0,126)],
+                    "trans":[(13, 204, 237),(248, 183, 211),(255, 255, 255)]}
+        self.colors = all_flag_dict[self.name]
+
+    def get_image_names(self):
+        dir_path = os.path.dirname(os.path.realpath(__file__))      # dir_path allows us to refer to the current folder of this file
+        calc_image_names = []
+        for i in range(len(self.colors)):
+            image_name = dir_path + '/images/' + self.name + "/" + str(i+1) + ".png"
+            calc_image_names.append(image_name)
+
+        return calc_image_names
 
     def add_color(self, actor = None):
         """Changes indicators so that correct flag pieces are displayed"""

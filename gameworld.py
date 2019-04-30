@@ -32,47 +32,37 @@ class Model(object):
         self.grid_size = (grid_size)
         self.endgame = False
         self.make_grid()
-        self.make_all_flags()
         self.choose_flag()
         self.make_colors()
         self.make_player()
         self.make_obstacles()
         self.make_darkness()
 
-    def make_all_flags(self):
-        """Create all flag objects to later choose from."""
-        #TODO: modify other functions so this is only called once per play
-        # MOVE TO FLAG? Should just get called with init.
-            # pass list of non eligable flags?
-        dir_path = os.path.dirname(os.path.realpath(__file__))      # dir_path allows us to refer to the current folder of this file
-
-        all_flag_dict = {"ace":[(0,0,0), (163,163,163), (255,255,255),(166,1,191)],
-                    "alt-lesbian":[(215,44,0),(239,116,39),(255,152,86),(255,255,255),(209,98,166),(183,85,146),(165,1,98)],
-                    "bi":[(215,2,112),(115,79,150),(0,56,168)],
-                    "intersex":[(255,216,0),(121,2,170)],
-                    "l-lesbian":[(184,0,144),(202,103,164),(227,118,182),(255,255,255),(243,192,221),(215,96,100),(158,40,4)],
-                    "nb":[(255,244,51),(255,255,255),(155,89,208),(45,45,45)],
-                    "pan":[(255,33,142),(255,214,0),(33,176,254)],
-                    "poc":[(0,0,0),(115,86,38),(233,50,34),(239,144,52),(252,228,76),(73,155,47),(23,71,173),(179,67,213)],
-                    "pride":[(254,0,0),(255,166,3),(255,255,0),(0,129,2),(22,20,228),(128,0,126)],
-                    "trans":[(13, 204, 237),(248, 183, 211),(255, 255, 255)]}
-
-        self.all_flags = []
-
-        for name in all_flag_dict:
-            calc_image_names = []
-            for n in list(range(len(all_flag_dict[name]))):
-                image_name = dir_path + '/images/' + name + "/" + str(n+1) + ".png"
-                calc_image_names.append(image_name)
-            flag = Flag(name, colors = all_flag_dict[name], image_names = calc_image_names)
-            self.all_flags.append(flag)
+    # def make_all_flags(self):
+    #     """Create all flag objects to later choose from."""
+    #     #TODO: modify other functions so this is only called once per play
+    #     # MOVE TO FLAG? Should just get called with init.
+    #         # pass list of non eligable flags?
+    #     dir_path = os.path.dirname(os.path.realpath(__file__))      # dir_path allows us to refer to the current folder of this file
+    #
+    #     self.all_flags = []
+    #
+    #     for name in all_flag_dict:
+    #         calc_image_names = []
+    #         for n in list(range(len(all_flag_dict[name]))):
+    #             image_name = dir_path + '/images/' + name + "/" + str(n+1) + ".png"
+    #             calc_image_names.append(image_name)
+    #         flag = Flag(name, colors = all_flag_dict[name], image_names = calc_image_names)
+    #         self.all_flags.append(flag)
 
     def choose_flag(self):
         """ Randomly choose which flag to play the game with """
 
         # num_flag = random.randint(0,len(self.all_flags)-1)
-        num_flag = 2
-        self.flag = self.all_flags[num_flag]
+        # num_flag = 2
+        # self.flag = self.all_flags[num_flag]
+        name = 'trans'
+        self.flag = Flag(name)
         print("You are playing with the " + self.flag.name + " flag")
 
     def make_colors(self):
@@ -172,7 +162,7 @@ class View():
     def draw_colors(self):
         """Draw the flag colors onto the display"""
         for piece in self.model.color_objs:
-            if piece.exists == True:
+            if piece.exists:
                 self.screen.blit(piece.image, piece.position)
 
     def draw_obstacles(self):
