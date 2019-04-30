@@ -3,7 +3,6 @@ import random
 import actors
 from flag import Flag
 from obstacles import *
-from player_actor import *
 from darkness import *
 from education_screen import *
 
@@ -135,7 +134,7 @@ class Model(object):
         """ Instantiate Player object """
         player_image = pygame.transform.scale(pygame.image.load('./images/character.png'), (40,40))
         coord = (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[1]+160)
-        self.player = Player_actor((400, 400), player_image, coord, self.obstacles, self.color_objs)
+        self.player = actors.Player(player_image, (400, 400), (40, 40), coord, self.obstacles, self.color_objs)
         # should just pass WORLD
 
     def make_darkness(self):

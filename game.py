@@ -2,7 +2,6 @@ import pygame
 import time
 import gameworld
 from pygame.locals import *
-from player_actor import *
 from controller import *
 from obstacles import *
 from flag import Flag
