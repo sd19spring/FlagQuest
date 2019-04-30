@@ -40,7 +40,7 @@ class Game():
             self.model.flag.add_color(touched_piece)     # add stripe to the flag graphic
             if self.model.flag.complete() == True:
                 self.model.make_endscreen()
-                self.view.endgame = True
+                self.model.endgame = True
                 self.fill_color=(255, 255, 255)
 
     def endgame():
