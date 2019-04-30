@@ -147,15 +147,14 @@ def place_obstacles(model, path):
     #     model.grid_cells[(x_cell,y_cell)].occupied = True
     #     model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
 
-def generate_level(model):
-    """Places
+ddef generate_level(model):
+    """Places"""
     end_cell = get_random_cell(model)
     while retry:
         curr_pos = model.player.position_c
         place_color(model)
         path_order = random.shuffle(model.color_objs)
         for color_obj in path_order:
-<<<<<<< HEAD
             path = get_zigzag_path(model, curr_pos, color_obj.position)
 
             #NOT SURE IF THIS WILL WORK -- BREAKING CORRECT LOOP. COULD BE SOURCE OF PROBLEM
@@ -166,16 +165,6 @@ def generate_level(model):
             curr_pos = color_obj.position
 
         retry = False
-=======
-            path = get_valid_path(model, curr_pos, color_obj.position)
-            if path:
-                retry = False
-            place_colors(model)
-            curr_pos = color_obj.positions
-
-        #check if final segment is playable
-        if get_valid_path:
-            retry = False
 
 class Test_Model():
     __init__(self, cell_size=40, grid_size=(46,23)):
@@ -230,4 +219,3 @@ class Test_View():
 
 if __name__ == "__main__":
     model = Test_Model()
->>>>>>> 664b83f8cec575117b23f4f1e807c74076338080
