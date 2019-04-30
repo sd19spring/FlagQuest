@@ -1,5 +1,4 @@
 import pygame
-import os
 import random
 import actors
 from flag import Flag

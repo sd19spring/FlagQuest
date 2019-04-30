@@ -1,5 +1,4 @@
 import pygame
-import os
 
 class Flag:
     """Represents flag. Contains image pieces, mapped to colors, keeps track of
@@ -27,10 +26,9 @@ class Flag:
             }[self.name]
 
     def image_paths(self):
-        dir = os.path.dirname(os.path.realpath(__file__)) # find the current folder
         image_paths = []
         for i in range(len(self.colors)): # run for the number of colors
-            path = dir + '/images/' + self.name + "/" + str(i+1) + ".png"
+            path = 'images/' + self.name + "/" + str(i+1) + ".png"
             image_paths.append(path)
         return image_paths
 
