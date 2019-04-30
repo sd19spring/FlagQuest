@@ -37,7 +37,8 @@ class Frontier:
 def get_valid_path(model, start_cell, end_cell):
     """Uses simple breadth-first pathfinding algorithm to generate path from one
     cell to another.
-    Based on https://www.redblobgames.com/pathfinding/a-star/introduction.html"""
+    Based on https://www.redblobgames.com/pathfinding/a-star/introduction.html
+    Includes start cell but not end cell."""
 
 
     # sweep through all coordinates to get all paths to start
@@ -56,7 +57,7 @@ def get_valid_path(model, start_cell, end_cell):
     # trace back through sweep to find path
     current_check = end_cell
     path = []
-    path_coords = []
+    path_coords = []  #Not currently in use. For debugging purposes
     while current_check != start_cell:
        path.append(current_check)
        current_check = came_from[current_check]
@@ -65,23 +66,31 @@ def get_valid_path(model, start_cell, end_cell):
     path.reverse()
     path_coords.reverse()
 
+    return path
 
-    return path, path_coords
+def get_zigzag_path(model, start_cell, end_cell, num_stops):
+    """Returns valid path with specified number of random stops along the way
+    Includes start and end cells. (but if that turned out to be bad later, easy
+    to change. Remove end cell here, remove start cell in get_valid_path)"""
 
-# current = goal
-# path = []
-# while current != start:
-#    path.append(current)
-#    current = came_from[current]
-# path.append(start) # optional
-# path.reverse() # optional
+    cells = [start_cell]
+    for stop in list(range(num_stops)):
+        random_coord = (random.randint(1,45),random.randint(1,22))
+        cells.append(model.grid_cells[random_coord])
+    cells.append(end_cell)
 
+    path = []
+    for i in list(range(num_stops+1)):
+        segment = get_valid_path(model, cells[i], cells[i+1])
+        path.append(segment)
+    path.append(end_cell)
+
+    return path
 
 def place_colors(model):
     """ Instantiate Color_Actor objects for each color in the chosen flag """
     #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
-    #TODO: place lines of objects so as to have barriers.
-    #Also, place more so as to be more challenging. (Lauren)
+
     model.color_objs = []
     for i in range(len(model.flag.colors)):
         x_cell = random.randint(0, model.grid_x_size-1)
@@ -92,28 +101,11 @@ def place_colors(model):
         model.grid_cells[(x_cell,y_cell)].type = 'color'
 
 
-def place_obstacles(model, path):
+def place_obstacles(model):
     """ Generate obstacles in the grid """
-    obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
-    selected_obstacles = list(obstacle_types)[0:len(model.flag.colors)]
-
-    directions = [] # any cell within three of current cell in path
-    for step in path:
-        for direc in directions:
-            if (step.cell_coord[0] + direc[0]) <= model.grid_size[0] and (step.cell_coord[1] + direc[1]) <= model.grid_size[1]:
-                if not step.occupied:
-                    if random.random() >= 0.5:
-                        type = random.choice(selected_obstacles)            # randomly chooses this obstacle's type
-                        color = obstacle_types[type]                        # finds the color associated with this obstacle's type
-                        model.obstacles.append(Obstacle((model.cell_size,model.cell_size),coord,type,color)) # change this to sprite Group later
-
-                        model.grid_cells[(x_cell,y_cell)].occupied = True
-                        model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
-
-
-
-
     #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
+    #TODO: place lines of objects so as to have barriers.
+    #Also, place more so as to be more challenging. (Lauren)
     obstacle_types = {'mountain':(128, 128, 128),'mushroom':(200, 0, 0),'shrub':(0, 128, 0),'tree':(163, 105, 17)}    # these types distinguish which obstacles are affected by which flag stripes
     selected_obstacles = list(obstacle_types)[0:len(model.flag.colors)]    # limits number of obstacle type options to the number of Flag colors
     for i in range(10):     # 10 is arbitrary, we should replace with intentional number later

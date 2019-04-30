@@ -49,9 +49,11 @@ class Game():
 def play_game():
     # pygame.init() # necessary?
 
-    # print(get_valid_path(game.model, game.model.grid_cells[(3,3)], game.model.grid_cells[(20,20)]))
 
     game = Game()
+    # print(get_zigzag_path(game.model, game.model.grid_cells[(3,3)], game.model.grid_cells[(20,20)], 2))
+
+
     while game.running:
         game.check_events()
         game.check_collision()
