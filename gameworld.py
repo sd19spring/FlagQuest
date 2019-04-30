@@ -81,9 +81,9 @@ class Model(object):
             y_cell = random.randint(0, self.grid_size[1]-1)
             # coord = self.grid_cells[random_coord]
             # coord = random_coord((0, 0), (self.grid_size))
-            # coord = self.grid_cells[(x_cell,y_cell)].cell_coord
-            coord = (x_cell, y_cell)
-            self.color_objs.append(actors.Color(color, self, coord))
+            coord = self.grid_cells[(x_cell,y_cell)].cell_coord
+            # coord = (x_cell, y_cell)
+            self.color_objs.append(actors.Color(color, self.cell_size, coord))
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'color'
 
