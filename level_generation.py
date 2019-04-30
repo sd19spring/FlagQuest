@@ -105,7 +105,7 @@ def place_colors(model):
         model.grid_cells[(x_cell,y_cell)].type = 'color'
 
 
-def place_obstacles(model, path):
+def place_obstacles(model, path, color_num):
     """ Generate obstacles in the grid """
     #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
     #TODO: place lines of objects so as to have barriers.
@@ -128,6 +128,15 @@ def place_obstacles(model, path):
 
                         model.grid_cells[(x_cell,y_cell)].occupied = True
                         model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
+        if not color_num == 1:
+            if random.random() >= 0.5:
+                coord = curr_cell.cell_coord  
+                type = random.randint(1,color_num)         # randomly chooses this obstacle's type
+                color = obstacle_types[type]                        # finds the color associated with this obstacle's type
+                model.obstacles.append(Obstacle((model.cell_size,model.cell_size),coord,type,color)) # change this to sprite Group later
+
+                model.grid_cells[(x_cell,y_cell)].occupied = True
+                model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
 
     # for cells within three of current cell
     # if cell is not occupied
@@ -147,7 +156,7 @@ def place_obstacles(model, path):
     #     model.grid_cells[(x_cell,y_cell)].occupied = True
     #     model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
 
-ddef generate_level(model):
+def generate_level(model):
     """Places"""
     end_cell = get_random_cell(model)
     while retry:
