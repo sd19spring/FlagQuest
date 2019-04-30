@@ -130,7 +130,7 @@ def place_obstacles(model, path, color_num):
                         model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
         if not color_num == 1:
             if random.random() >= 0.5:
-                coord = curr_cell.cell_coord  
+                coord = curr_cell.cell_coord
                 type = random.randint(1,color_num)         # randomly chooses this obstacle's type
                 color = obstacle_types[type]                        # finds the color associated with this obstacle's type
                 model.obstacles.append(Obstacle((model.cell_size,model.cell_size),coord,type,color)) # change this to sprite Group later
@@ -176,7 +176,7 @@ def generate_level(model):
         retry = False
 
 class Test_Model():
-    __init__(self, cell_size=40, grid_size=(46,23)):
+    def __init__(self, cell_size=40, grid_size=(46,23)):
         self.cell_size = cell_size
         self.grid_size = grid_size
         self.model = self.make_model()
@@ -211,7 +211,7 @@ class Test_Model():
                 retry = False
 
 class Test_View():
-    __init__(self, screen_size=(1880,1080), fill=(0,0,0), model):
+    def __init__(self, model, screen_size=(1880,1080), fill=(0,0,0)):
         self.screen = pygame.display.set_mode(screen_size)
         self.fill = fill
         self.model = model
