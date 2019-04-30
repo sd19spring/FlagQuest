@@ -75,8 +75,7 @@ def get_zigzag_path(model, start_cell, end_cell, num_stops):
 
     cells = [start_cell]
     for stop in list(range(num_stops)):
-        random_coord = (random.randint(1,45),random.randint(1,22))
-        cells.append(model.grid_cells[random_coord])
+        cells.append(get_random_cell(model))
     cells.append(end_cell)
 
     path = []
@@ -86,6 +85,10 @@ def get_zigzag_path(model, start_cell, end_cell, num_stops):
     path.append(end_cell)
 
     return path
+
+def get_random_cell(model):
+    random_coord = (random.randint(1,45),random.randint(1,22))
+    return model.grid_cells[random_coord]
 
 def place_colors(model):
     """ Instantiate Color_Actor objects for each color in the chosen flag """
@@ -120,19 +123,20 @@ def place_obstacles(model):
         model.grid_cells[(x_cell,y_cell)].type = 'obstacle'
 
 def generate_level(model):
-
+    """Places
+    end_cell = get_random_cell(model)
     while retry:
         curr_pos = model.player.position_c
-        place_colors(model)
+        place_color(model)
         path_order = random.shuffle(model.color_objs)
-        ind = 0
         for color_obj in path_order:
-            path = get_valid_path(model, curr_pos, color_obj.position)
-            if path:
-                retry = False
-            place_colors(model)
-            curr_pos = color_obj.positions
+            path = get_zigzag_path(model, curr_pos, color_obj.position)
 
-        #check if final segment is playable
-        if get_valid_path:
-            retry = False
+            #NOT SURE IF THIS WILL WORK -- BREAKING CORRECT LOOP. COULD BE SOURCE OF PROBLEM
+            if not path:
+                break
+            place_obstacles(model, path)
+            place_color(model)
+            curr_pos = color_obj.position
+
+        retry = False
