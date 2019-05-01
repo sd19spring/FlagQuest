@@ -48,9 +48,18 @@ class Model(object):
 
     def choose_flag(self):
         """Randomly choose which flag to play the game with."""
-        # TO DO
-        name = 'trans'
-        self.flag = Flag(name)
+        self.flag = Flag({
+            1:"ace",
+            2:"alt-lesbian",
+            3:"bi",
+            4:"intersex",
+            5:"l-lesbian",
+            6:"nb",
+            7:"pan",
+            8:"poc",
+            9:"pride",
+            10:"trans"
+            }[random.randint(1, 10)])
         print("You are playing with the " + self.flag.name + " flag")
 
     def make_colors(self):
