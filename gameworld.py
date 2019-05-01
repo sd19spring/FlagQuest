@@ -6,14 +6,6 @@ from obstacles import *
 from darkness import *
 from education_screen import *
 
-# def pixels(coord):
-#     """Get the pixel coordinates of a cell_coordinates.
-#
-#     coord: Tuple of the cell coordinates
-#
-#     returns: Tuple of the pixel coordinates"""
-
-
 class Cell(object):
     """ This is an object for each grid cell """
     def __init__(self, cell_coord, grid_coord):
@@ -43,7 +35,6 @@ class Model(object):
         self.make_obstacles()
         self.make_player()
         self.make_darkness()
-        # border offset
 
     def make_grid(self):
         """Instantiate grid cells for game map.
@@ -193,18 +184,10 @@ class View():
         # draw the current page in the book
         self.screen.blit(self.model.endscreen.book.pages[self.model.endscreen.book.current_page].image, (0, 0))
 
-    def draw_background(self):
-        # plan to add the fill section here
-        pass
-
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.screen.fill(self.fill_color) # can you fill with an image?
         if self.model.endgame == False:
-            # self.draw() ??
-                # for actor in actors:
-                    # draw
-            # self.update_pos() ??
             self.draw_player()
             self.draw_colors()
             self.draw_obstacles()
@@ -214,7 +197,3 @@ class View():
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
         pygame.display.update()
-
-if __name__ == "__main__":
-    model = Model()
-    print(model.color_objs[0].position[0])
