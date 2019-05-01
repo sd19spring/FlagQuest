@@ -20,13 +20,6 @@ class Game():
         self.view = view = gameworld.View(size, self.fill_color, self.model)
         self.running = True
 
-    def update(self):
-        """Updates the game for one tick"""
-            game.check_events()
-            game.check_collision()
-            game.view.update()
-            time.sleep(0.01)
-            
     def check_events(self):
         """Check the events"""
         for event in pygame.event.get():
@@ -48,6 +41,13 @@ class Game():
                 self.model.make_endscreen()
                 self.model.endgame = True
                 self.fill_color=(255, 255, 255)
+
+    def update(self):
+        """Updates the game for one tick"""
+        self.check_events()
+        self.check_collision()
+        self.view.update()
+        time.sleep(0.01)
 
 def play_game():
 
