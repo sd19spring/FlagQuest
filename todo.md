@@ -10,7 +10,6 @@
 * Make all actors use the same coord system?
 * Combine actors to have size and image common format?
 * Default images for each?
-* Obstacles.py
 
 ### General
 * Explain how to change the player image

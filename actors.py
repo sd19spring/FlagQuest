@@ -113,7 +113,6 @@ class Player(Actor):
         obstacles: brings in a list of all obstacles on map
         """
         super(Player, self).__init__(image, size)
-        # pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
         self.get_rotations()
 
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
@@ -199,7 +198,7 @@ class Player(Actor):
                 self.collided_with.append(collision)
                 return collision
 
-class Obstacle(pygame.sprite.Sprite):
+class Obstacle(Actor, pygame.sprite.Sprite):
     """
     Obstacle class to block off possible paths of travel
     """
@@ -211,14 +210,10 @@ class Obstacle(pygame.sprite.Sprite):
         Type: Tuple of an RGB color code to correspond the obstacle
         with a certain color
         """
+        super(Obstacle, self).__init__(image, cell_size, position)
         pygame.sprite.Sprite.__init__(self)
 
-        self.size = cell_size
-        self.position = position
         self.type = type
-
-        self.image = pygame.transform.scale(image, self.size)
-        self.rect = pygame.Rect(self.position, self.size)
 
     def __str__(self):
         return "Obstacle, type %s at location (%r)" % (self.type, self.position)
