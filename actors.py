@@ -36,6 +36,11 @@ class Actor():
         self.size = size
         self.image = pygame.transform.scale(image, self.size)
         self.position = position
+        self.get_rect()
+
+
+    def get_rect(self):
+        """Get the rectangle for the Actor"""
         self.rect = self.image.get_rect(topleft = self.position)
 
 class Color(Actor):
@@ -56,7 +61,7 @@ class Color(Actor):
         self.color = color
 
 # SCREEN EDGES SHOULD BE HANDLED ELSEWHERE
-# OBSTACLE COLLISION SHOULD BE HANDLED ELSEWHERE
+# OBSTACLE COLLISION SHOULD BE HANDLED LSEWHERE
 # COLOR COLLISION SHOULD BE HANDLED ELSEWHEER
 class Player(Actor, pygame.sprite.Sprite):
     """
@@ -82,9 +87,9 @@ class Player(Actor, pygame.sprite.Sprite):
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
         self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
         self.screen_size = screen_size   # refers to screen size
-        self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
-                    self.position_c[1] - self.player_size[1]/2,
-                    self.player_size[0], self.player_size[1])
+        # self.rect = pygame.Rect(self.position_c[0] - self.player_size[0]/2,
+        #             self.position_c[1] - self.player_size[1]/2,
+        #             self.player_size[0], self.player_size[1])
 
         self.cont = controller(max_velocity = 10)       # initialize velocity of player
 
@@ -180,3 +185,5 @@ class Player(Actor, pygame.sprite.Sprite):
                 self.collided_with.append(collision)
                 print(collision)
                 return collision
+
+#class Darkness(Actor)
