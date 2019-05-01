@@ -217,9 +217,37 @@ class Collision():
     def update(self):
         """Check the collisions for one tick and return if
         there is a collision and what type"""
-        # self.check_obstacle_collision()
+        self.check_obstacle_collision()
         # self.check_color_collision()
         self.check_screen_edge()
+
+    def check_obstacle_collision(self):
+        """Returns sprite collided with, of obstacle objects,
+        or None if no collisions."""
+        angle_bumps = {0:(-1,0), 45:(-1,1), 90:(0,1), 135:(1,1),
+        180:(1,0), 225:(1,-1), 270:(0,-1), 315:(-1,-1)}
+         # this multiplier scales the magnitude of collision-bumping to the magnitude of the player's movement
+        a = self.model.player.cont.v_max
+
+        for group in self.model.obstacles:
+            collision = pygame.sprite.spritecollide(self.model.player, group, dokill = False)   # creates list of all obstacles that the player is colliding with
+
+            if len(collision) > 0:      # if the sprite is colliding with any obstacles
+                self.model.player.position_c[0] += angle_bumps[self.model.player.cont.angle][0]*a      # moves the sprite in the opposite direction of their facing
+                self.model.player.position_c[1] += angle_bumps[self.model.player.cont.angle][1]*a
+
+
+    def check_color_collision(self):
+        """Returns sprite collided with, of color objects,
+        or None if no collisions. Keeps track of what collisions
+        have already happened, and does not repeat collisions"""
+        color_objs = self.model.color_objs
+        self.model.player.update_rect() # MAYBE MOVE
+        collision = pygame.sprite.spritecollideany(self, color_objs)
+        if collision:
+            if collision not in self.model.player.collided_with:
+                self.model.player.collided_with.append(collision)
+                return collision
 
     def check_screen_edge(self):
         """Prevents the player from leaving any edge of the screen
