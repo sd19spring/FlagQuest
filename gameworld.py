@@ -25,6 +25,8 @@ class Model(object):
 
         self.cell_size = cell_size
         self.grid_size = grid_size
+        self.screen_size = (self.cell_size[0]*self.grid_size[0],
+        self.cell_size[1]*self.grid_size[1]+160)
         self.endgame = False
         self.make_grid()
         self.choose_flag()
@@ -115,8 +117,8 @@ class Model(object):
 
     def make_player(self):
         """Instantiate Player object"""
-        coord = (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[1]+160)
-        self.player = actors.Player((400, 400), coord, self.obstacles, self.color_objs)
+        self.player = actors.Player((400, 400), self.screen_size,
+        self.obstacles, self.color_objs)
 
     def make_darkness(self):
         """Instantiate Darkness object"""
@@ -201,3 +203,41 @@ class View():
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
         pygame.display.update()
+
+class Collision():
+    """
+    Class to handle collision of obstacles, screen edge, and colors with the player
+    """
+    def __init__(self, model):
+        """Initialize the Collision model.
+
+        model: Model object"""
+        pass
+
+    def update(self):
+        """Check the collisions for one tick and return if
+        there is a collision and what type"""
+        self.check_obstacle_collision()
+        self.check_color_collision()
+        self.check_screen_edge()
+
+    def screen_wall(self):
+        """Prevents the player from leaving any edge of the screen
+            switch with screen_wrap based on design preference"""
+        if self.model.player.position_c[0] >= self.model.screen_size[0]: # if player's center goes past max x-dimension of screen, they cannot go further
+            self.model.player.position_c[0] = self.model.screen_size[0]
+        elif self.model.player.position_c[1] >= self.model.screen_size[1]: # if player's center goes past max y-dimension of screen, they cannot go further
+            self.model.player.position_c[1] = self.model.screen_size[1]
+        elif self.model.player.position_c[0] <= 0: # if player's center goes past min x-dimension of screen, they cannot go further
+            self.model.player.position_c[0] = 0
+        elif self.model.player.position_c[1] <= 0: # if player's center goes past min y-dimension of screen, they cannot go further
+            self.model.player.position_c[1] = 0
+
+    # check collision
+    # update?
+
+    # obstacle
+
+    # flag
+
+    # screen
