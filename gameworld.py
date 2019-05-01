@@ -2,7 +2,6 @@ import pygame
 import random
 import actors
 from flag import Flag
-from obstacles import *
 from education_screen import *
 
 class Cell(object):
@@ -94,7 +93,7 @@ class Model(object):
 
             coord = self.grid_cells[(x_cell,y_cell)].cell_coord
             type = random.choice(obstacle_types)            # randomly chooses this obstacle's type
-            obstacle = Obstacle((self.cell_size),coord,type)
+            obstacle = actors.Obstacle((self.cell_size),coord,type)
 
             obstacle.make_groups(obstacle, self.obstacles)    # add obstacle to group based on what the obstacle's type is
 

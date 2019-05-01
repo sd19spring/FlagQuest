@@ -3,7 +3,6 @@ import time
 import gameworld
 from pygame.locals import *
 from controller import *
-from obstacles import *
 from flag import Flag
 from level_generation import *
 
