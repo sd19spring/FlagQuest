@@ -20,8 +20,7 @@ class Cell(object):
 class Model(object):
     """ Class that holds the state of the entire game """
     def __init__(self, cell_size = (40, 40), grid_size = (46, 23)):
-        """
-        Initialize the model.
+        """Initialize the model.
 
         cell_size: Tuple of the dimension of each cell in pixels
         grid_size: Tuple of the dimensions of the grid in cells"""
@@ -95,14 +94,7 @@ class Model(object):
             self.grid_cells[(x_cell,y_cell)].type = 'obstacle'
 
     def erase_obstacles(self, key = pygame.K_SPACE):
-        """
-        while spacebar is held, all obstacles corresponding to all collided_with colors are removed from self.model.obstacles, therefor erased from screen
-        if/when spacebar is released, all obstacles are added back to self.model.obstacles and reappear on the screen
-
-        erased obstacles do not block movement; it is as if the obstacles don't exist. once they re-appear, they act like normal obstacles again
-
-        this method erases obstacles corresponding with ALL colors in self.model.player.collided_with
-        """
+        """Removes obstacles from self.model.obstacles while spacebar is held"""
         if pygame.key.get_pressed()[key] == 1:
             for color in self.player.collided_with:   # iterates through list of colors that have been collided with
                 for group in self.obstacles:        # iterates through all groups of obstacles
@@ -115,17 +107,16 @@ class Model(object):
                 self.obstacles.append(group)
 
     def make_player(self):
-        """ Instantiate Player object """
+        """Instantiate Player object"""
         coord = (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[1]+160)
         self.player = actors.Player((400, 400), coord, self.obstacles, self.color_objs)
-        # should just pass WORLD
 
     def make_darkness(self):
-        """ Instantiate Darkness object"""
+        """Instantiate Darkness object"""
         self.darkness = Darkness(self.player, (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[0]))
 
     def make_endscreen(self):
-        """ Instantiate Endscreen object"""
+        """Instantiate Endscreen object"""
         self.endscreen = EndScreen(self.flag.name, (1920, 1080))
 
 class View():
@@ -133,19 +124,17 @@ class View():
     Instantiates model and draws the state of every object on the game screen
     """
     def __init__(self, screen_size, filling, model):
-        """ Initialize model and make game screen """
+        """Initialize model and make game screen"""
         self.model = model
-        self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN)  # sets screen dimensions
+        self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
         self.fill_color = filling
-        self.screen.fill(self.fill_color)        # sets background color
-        pygame.display.set_caption('Window Viewer')             # sets window caption
+        self.screen.fill(self.fill_color) # sets background color
+        pygame.display.set_caption('Window Viewer') # sets window caption
 
     def draw_player(self):
-        """Blits the screen with the player_actor at its position (i.e. x_pos,y_pos)"""
+        """Draw the player at its draw position"""
         self.model.player.update_position()
-        # position = get draw position
         self.screen.blit(self.model.player.image, self.model.player.get_draw_position())   # places image of player_actor
-        # print(self.model.player.grid_cell)
 
     def draw_colors(self):
         """Draw the flag colors onto the display"""
@@ -186,7 +175,7 @@ class View():
 
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
-        self.screen.fill(self.fill_color) # can you fill with an image?
+        self.screen.fill(self.fill_color)
         if self.model.endgame == False:
             self.draw_player()
             self.draw_colors()
