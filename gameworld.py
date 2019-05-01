@@ -212,16 +212,16 @@ class Collision():
         """Initialize the Collision model.
 
         model: Model object"""
-        pass
+        self.model = model
 
     def update(self):
         """Check the collisions for one tick and return if
         there is a collision and what type"""
-        self.check_obstacle_collision()
-        self.check_color_collision()
+        # self.check_obstacle_collision()
+        # self.check_color_collision()
         self.check_screen_edge()
 
-    def screen_wall(self):
+    def check_screen_edge(self):
         """Prevents the player from leaving any edge of the screen
             switch with screen_wrap based on design preference"""
         if self.model.player.position_c[0] >= self.model.screen_size[0]: # if player's center goes past max x-dimension of screen, they cannot go further

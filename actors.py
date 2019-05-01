@@ -111,7 +111,7 @@ class Player(Actor):
         image: the image file for the player
         screen_size: a tuple of the screen dimensions
         obstacles: brings in a list of all obstacles on map
-        """
+        """ # JUST PASS MODEL?
         super(Player, self).__init__(image, size)
         self.get_rotations()
 
@@ -136,13 +136,13 @@ class Player(Actor):
         """Prevents the player from leaving any edge of the screen
             switch with screen_wrap based on design preference
             """
-        if self.position_c[0] >= self.screen_size[0]:   # if player's center goes past max x-dimension of screen, they cannot go further
+        if self.position_c[0] >= self.screen_size[0]: # if player's center goes past max x-dimension of screen, they cannot go further
             self.position_c[0] = self.screen_size[0]
-        elif self.position_c[1] >= self.screen_size[1]:   # if player's center goes past max y-dimension of screen, they cannot go further
+        elif self.position_c[1] >= self.screen_size[1]: # if player's center goes past max y-dimension of screen, they cannot go further
             self.position_c[1] = self.screen_size[1]
-        elif self.position_c[0] <= 0:              # if player's center goes past min x-dimension of screen, they cannot go further
+        elif self.position_c[0] <= 0: # if player's center goes past min x-dimension of screen, they cannot go further
             self.position_c[0] = 0
-        elif self.position_c[1] <= 0:              # if player's center goes past min y-dimension of screen, they cannot go further
+        elif self.position_c[1] <= 0: # if player's center goes past min y-dimension of screen, they cannot go further
             self.position_c[1] = 0
 
 
@@ -150,7 +150,7 @@ class Player(Actor):
         """Moves the player."""
         self.position_c[0] += self.cont.v_x
         self.position_c[1] += self.cont.v_y
-        self.screen_wall()  # for this version, we implimented the screen_wall function, which prevents the player from exiting the on-screen map
+        # self.screen_wall()  # for this version, we implimented the screen_wall function, which prevents the player from exiting the on-screen map
 
     def get_draw_position(self):
         """Finds the position to draw the player at. Based on if moving at a 45 or 90 degree angle"""
