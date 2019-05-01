@@ -80,15 +80,11 @@ class Player(Actor):
         """
         super(Player, self).__init__(image, size, pos)
         # pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
-
-        # self.size = self.image.get_size()    # size is a tuple representing the image's dimensions
         self.get_rotations()
+
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
         self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
         self.screen_size = screen_size   # refers to screen size
-        # self.rect = pygame.Rect(self.position_c[0] - self.size[0]/2,
-        #             self.position_c[1] - self.size[1]/2,
-        #             self.size[0], self.size[1])
 
         self.cont = controller(max_velocity = 10)       # initialize velocity of player
 
@@ -115,23 +111,9 @@ class Player(Actor):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
         self.cont.pressed(pygame.key.get_pressed())
 
-    def screen_wrap(self):
-        """If player has left one edge of screen, they appear on the other edge
-            switch with screen_wall based on design preference"""
-        if self.position_c[0] > self.screen_size[0]:   # if player's center goes past max x-dimension of screen, wrap to the min x-dimension of screen
-            self.position_c[0] = 0
-        elif self.position_c[1] > self.screen_size[1]:   # if player's center goes past max y-dimension of screen, wrap to the min y-dimension of screen
-            self.position_c[1] = 0
-        elif self.position_c[0] < 0:              # if player's center goes past min x-dimension of screen, wrap to the max x-dimension of screen
-            self.position_c[0] = self.screen_size[0]
-        elif self.position_c[1] < 0:              # if player's center goes past min y-dimension of screen, wrap to the max y-dimension of screen
-            self.position_c[1] = self.screen_size[1]
-
     def screen_wall(self):
         """Prevents the player from leaving any edge of the screen
             switch with screen_wrap based on design preference
-
-            BUG: player can escape through the corners of screen!!
             """
         if self.position_c[0] >= self.screen_size[0]:   # if player's center goes past max x-dimension of screen, they cannot go further
             self.position_c[0] = self.screen_size[0]
