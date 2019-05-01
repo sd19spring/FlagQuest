@@ -150,10 +150,18 @@ class View():
                 self.screen.blit(piece.image, piece.position)
 
     def draw_obstacles(self):
-        """Draw the obstacles on the display"""
+        """
+        Draw the obstacles on the display
+
+        Ideally the group.draw(self.screen) function would draw both the colored square and the obstacle.png overlay
+        """
         for group in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
-            group.draw(self.screen)
-        self.model.erase_obstacles()        # runs method that allows player to erase colored obstacles by holding spacebar. change key argument to change the trigger key
+            for obstacle in group:
+                color = obstacle.type
+                rectangle = pygame.Rect(obstacle.position, self.model.cell_size)
+                pygame.draw.rect(self.screen, color, rectangle)     # drawns foundation square of the obstacle's color
+            group.draw(self.screen)        # overlays the shaded "spike"
+        self.model.erase_obstacles()        # runs method that allows player to erase colored obstacles by holding spacebar
 
     def draw_grid(self):
         """Draw the grid on the display"""

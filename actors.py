@@ -202,7 +202,7 @@ class Obstacle(Actor, pygame.sprite.Sprite):
     """
     Obstacle class to block off possible paths of travel
     """
-    def __init__(self, cell_size, position, type, image = pygame.image.load('./images/obstacle.jpg')):
+    def __init__(self, cell_size, position, type, image = pygame.image.load('./images/obstacle_shading.png')):
         """Initialize the obstacle.
 
         cell_size: Tuple of the dimensions of each world map cell
