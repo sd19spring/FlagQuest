@@ -82,8 +82,9 @@ class Player(Actor, pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
 
         # self.image = image
-        self.image_orig = self.image # sets an original copy of the image to reference later
+        # self.image_orig = self.image # sets an original copy of the image to reference later
         self.player_size = self.image.get_size()    # player_size is a tuple representing the image's dimensions
+        self.get_rotations()
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
         self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
         self.screen_size = screen_size   # refers to screen size
@@ -99,6 +100,18 @@ class Player(Actor, pygame.sprite.Sprite):
 
     def __str__(self):
         return "Player centered at location %s with a %d-degree heading. The sprite's dimensions are %dx%d" % (self.position_c, self.cont.angle, self.player_size[0], self.player_size[1])
+
+    def get_rotations(self):
+        """Get all the rotations for the player image"""
+        self.rotations = {
+        0:transform.rotate(self.image, 0),
+        45:transform.rotate(self.image, 45),
+        90:transform.rotate(self.image, 90),
+        135:transform.rotate(self.image, 135),
+        180:transform.rotate(self.image, 180),
+        225:transform.rotate(self.image, 225),
+        270:transform.rotate(self.image, 270),
+        315:transform.rotate(self.image, 315)}
 
     def get_keypress(self):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
@@ -151,7 +164,7 @@ class Player(Actor, pygame.sprite.Sprite):
         self.move()
         self.check_obstacle_collision()     # bumps player if they hit an obstacle
         self.cont.facing()          # Updates the facing postition
-        self.image = transform.rotate(self.image_orig, self.cont.angle) # rotates the image
+        self.image = self.rotations[self.cont.angle] # grabs the rotated imagex
         self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
 
 
