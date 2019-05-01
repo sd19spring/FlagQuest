@@ -4,7 +4,7 @@ class Obstacle(pygame.sprite.Sprite):
     """
     Obstacle class to block off possible paths of travel
     """
-    def __init__(self, cell_size, position, type):
+    def __init__(self, cell_size, position, type, image = pygame.image.load('./images/obstacle.jpg')):
         """Initialize the obstacle.
 
         cell_size: Tuple of the dimensions of each world map cell
@@ -18,7 +18,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.position = position
         self.type = type
 
-        self.image = pygame.transform.scale(pygame.image.load('./images/obstacle.jpg'), (40,40))   # creates a simple rectangle for the Obstacle
+        self.image = pygame.transform.scale(image, self.size)
         self.rect = pygame.Rect(self.position, self.size)
 
     def __str__(self):
