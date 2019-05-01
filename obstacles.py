@@ -16,7 +16,7 @@ class Obstacle(pygame.sprite.Sprite):
         self.position = position
         self.type = type
 
-        self.image = pygame.transform.scale(pygame.image.load('./spike.jpg'), (40,40))   # creates a simple rectangle for the Obstacle
+        self.image = pygame.transform.scale(pygame.image.load('./images/obstacle.jpg'), (40,40))   # creates a simple rectangle for the Obstacle
         self.rect = pygame.Rect(self.position, self.size)
 
     def __str__(self):
