@@ -68,8 +68,8 @@ class Player(Actor):
     The Player class contains methods specific
     to the playable character.
     """
-    def __init__(self, pos, screen_size, obstacles, color_objs, size = (40, 40),
-    image = pygame.image.load('./images/character.png')):
+    def __init__(self, pos, screen_size, obstacles, color_objs,
+    size = (30, 30), image = pygame.image.load('./images/character.png')):
         """
         Initialize the player
 
@@ -146,7 +146,6 @@ class Player(Actor):
         self.cont.facing()          # Updates the facing postition
         self.image = self.rotations[self.cont.angle] # grabs the rotated imagex
         self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
-
 
     def update_rect(self):
         """Updates rect boundary, for use in collision detection"""
