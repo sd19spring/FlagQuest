@@ -6,32 +6,24 @@ from obstacles import *
 from darkness import *
 from education_screen import *
 
-# def random_coord(min_coord, max_coord):
-#     """Find a random coordinate.
+# def pixels(coord):
+#     """Get the pixel coordinates of a cell_coordinates.
 #
-#     draw_area: Tuple of the eligible screen area to draw in
+#     coord: Tuple of the cell coordinates
 #
-#     returns: Tuple"""
-#     x_cell = random.randint(min_coord[0], max_coord[0])
-#     y_cell = random.randint(min_coord[1], max_coord[1])
-#     return (x_cell, y_cell)
-
-def pixels(coord):
-    """Get the pixel coordinates of a cell_coordinates.
-
-    coord: Tuple of the cell coordinates
-
-    returns: Tuple of the pixel coordinates"""
+#     returns: Tuple of the pixel coordinates"""
 
 
 class Cell(object):
     """ This is an object for each grid cell """
-    def __init__(self, cell_coord, grid_coord, occupied, type, label):
+    def __init__(self, cell_coord, grid_coord):
+        """Initialize the cell object.
+
+        cell_coord: Tuple of coordinate in pixels
+        grid_coord: TUple of coordinate in cells"""
         self.cell_coord = cell_coord # coordinates of upper left corner of cell in pixels, tuple
-        self.grid_coord = grid_coord # coordinates of cell in terms of position in grid, tuple
-        self.occupied = occupied
-        self.type = type
-        self.label = label
+        self.grid_coord = grid_coord # coordinates of cell in terms of position in grid, tuplel
+        self.occupied = False
 
 class Model(object):
     """ Class that holds the state of the entire game """
@@ -51,6 +43,7 @@ class Model(object):
         self.make_obstacles()
         self.make_player()
         self.make_darkness()
+        # border offset
 
     def make_grid(self):
         """Instantiate grid cells for game map.
@@ -61,8 +54,8 @@ class Model(object):
         cell_size = (self.cell_size) # cell size in pixels
         for i in range(self.grid_size[0]): # for the x cells
             for j in range(self.grid_size[1]): # for the y cells
-                cell_coord = (i*self.cell_size[0], 160+j*self.cell_size[1])
-                self.grid_cells[(i,j)] = Cell(cell_coord, (i, j), False, 'none', (i,j))
+                cell_coord = (i*self.cell_size[0], j*self.cell_size[1]+160)
+                self.grid_cells[(i,j)] = Cell(cell_coord, (i, j))
 
     def choose_flag(self):
         """Randomly choose which flag to play the game with."""

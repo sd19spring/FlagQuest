@@ -60,9 +60,6 @@ class Color(Actor):
         self.exists = True      # used in make_model to make actor disappear if collided with
         self.color = color
 
-# SCREEN EDGES SHOULD BE HANDLED ELSEWHERE
-# OBSTACLE COLLISION SHOULD BE HANDLED LSEWHERE
-# COLOR COLLISION SHOULD BE HANDLED ELSEWHEER
 class Player(Actor):
     """
     The Player class contains methods specific

@@ -6,7 +6,6 @@
 * Endscreen code should not be a hardcoded resolution
 
 ### Organizational
-* screen.py?
 * Actors
   * Player
     * Make depend on actor
