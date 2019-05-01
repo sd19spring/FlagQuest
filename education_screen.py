@@ -2,12 +2,18 @@ import pygame
 
 class Page():
     def __init__(self, image_loc, size, page_number):
+        """Initialize the Page.
+
+        image_loc: string of the location of the image
+        size: tuple of the page size
+        page_number: int of the page number"""
         self.image = pygame.transform.scale(pygame.image.load(image_loc), size)
         self.page_number = page_number
 
 class Book():
     def __init__(self, flag_name, size):
-        """
+        """Initialize the book
+
         flag_name: string of the flag name
         size: tuple of the book dimensions
         """
@@ -43,21 +49,24 @@ class Book():
 
 class EndScreen():
     def __init__(self, flag_name, screen_size):
+        """Initialize the endscreen.
+
+        flag_name: String of the name of the flag
+        screen_size: Tuple of the screen dimensions in pixels"""
         self.flag = flag_name
         self.screen_size = screen_size
         self.book = Book(self.flag, self.screen_size) # create a book to fill the screen
 
     def pressed(self, key):
+        """Check the key press to flip pages.
+
+        key: String of the key pressed"""
         self.move_left = [pygame.K_LEFT, pygame.K_a]
         self.move_right = [pygame.K_RIGHT, pygame.K_d, pygame.K_e]
         if key in self.move_left:
             self.book.flip_page('left')
         if key in self.move_right:
             self.book.flip_page('right')
-        # if key[self.move_left[0]] == 1 or key[self.move_left[1]] == 1 == 1:
-        #     self.book.flip_page('left')
-        # elif key[self.move_right[0]] == 1 or key[self.move_right[1]] == 1 or key[self.move_right[2]] == 1:
-        #     self.book.flip_page('right')
 
 if __name__ == '__main__':
     EndScreen('trans', (1920, 1080))
