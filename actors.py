@@ -36,12 +36,19 @@ class Actor():
         self.size = size
         self.image = pygame.transform.scale(image, self.size)
         self.position = position
-        self.get_rect()
-
-
-    def get_rect(self):
-        """Get the rectangle for the Actor"""
         self.rect = self.image.get_rect(topleft = self.position)
+
+    def get_rotations(self):
+        """Get all the rotations for the actor image"""
+        self.rotations = {
+        0:transform.rotate(self.image, 0),
+        45:transform.rotate(self.image, 45),
+        90:transform.rotate(self.image, 90),
+        135:transform.rotate(self.image, 135),
+        180:transform.rotate(self.image, 180),
+        225:transform.rotate(self.image, 225),
+        270:transform.rotate(self.image, 270),
+        315:transform.rotate(self.image, 315)}
 
 class Color(Actor):
     """
@@ -91,18 +98,6 @@ class Player(Actor):
 
     def __str__(self):
         return "Player centered at location %s with a %d-degree heading. The sprite's dimensions are %s" % (self.position_c, self.cont.angle, str(self.size))
-
-    def get_rotations(self):
-        """Get all the rotations for the player image"""
-        self.rotations = {
-        0:transform.rotate(self.image, 0),
-        45:transform.rotate(self.image, 45),
-        90:transform.rotate(self.image, 90),
-        135:transform.rotate(self.image, 135),
-        180:transform.rotate(self.image, 180),
-        225:transform.rotate(self.image, 225),
-        270:transform.rotate(self.image, 270),
-        315:transform.rotate(self.image, 315)}
 
     def get_keypress(self):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
