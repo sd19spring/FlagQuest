@@ -132,25 +132,10 @@ class Player(Actor):
         """Adjusts the player_actor's velocity depending on which arrowkeys are pressed"""
         self.cont.pressed(pygame.key.get_pressed())
 
-    def screen_wall(self):
-        """Prevents the player from leaving any edge of the screen
-            switch with screen_wrap based on design preference
-            """
-        if self.position_c[0] >= self.screen_size[0]: # if player's center goes past max x-dimension of screen, they cannot go further
-            self.position_c[0] = self.screen_size[0]
-        elif self.position_c[1] >= self.screen_size[1]: # if player's center goes past max y-dimension of screen, they cannot go further
-            self.position_c[1] = self.screen_size[1]
-        elif self.position_c[0] <= 0: # if player's center goes past min x-dimension of screen, they cannot go further
-            self.position_c[0] = 0
-        elif self.position_c[1] <= 0: # if player's center goes past min y-dimension of screen, they cannot go further
-            self.position_c[1] = 0
-
-
     def move(self):      # step size adjusts how many pixels the player_actor moves at a time
         """Moves the player."""
         self.position_c[0] += self.cont.v_x
         self.position_c[1] += self.cont.v_y
-        # self.screen_wall()  # for this version, we implimented the screen_wall function, which prevents the player from exiting the on-screen map
 
     def get_draw_position(self):
         """Finds the position to draw the player at. Based on if moving at a 45 or 90 degree angle"""
@@ -175,8 +160,10 @@ class Player(Actor):
                     self.size[0], self.size[1])
 
     def check_obstacle_collision(self):
-        """Returns sprite collided with, of obstacle objects, or None if no collisions."""
-        angle_bumps = {0:(-1,0), 45:(-1,1), 90:(0,1), 135:(1,1), 180:(1,0), 225:(1,-1), 270:(0,-1), 315:(-1,-1)}
+        """Returns sprite collided with, of obstacle objects,
+        or None if no collisions."""
+        angle_bumps = {0:(-1,0), 45:(-1,1), 90:(0,1), 135:(1,1),
+        180:(1,0), 225:(1,-1), 270:(0,-1), 315:(-1,-1)}
 
         a = self.cont.v_max      # this multiplier scales the magnitude of collision-bumping to the magnitude of the player's movement
 
@@ -188,8 +175,9 @@ class Player(Actor):
                 self.position_c[1] += angle_bumps[self.cont.angle][1]*a
 
     def check_color_collision(self, color_objs):
-        """Returns sprite collided with, of color objects, or None if no collisions.
-        Keeps track of what collisions have already happened, and does not repeat collisions"""
+        """Returns sprite collided with, of color objects,
+        or None if no collisions. Keeps track of what collisions
+        have already happened, and does not repeat collisions"""
         self.update_rect()
 
         collision = pygame.sprite.spritecollideany(self, color_objs)

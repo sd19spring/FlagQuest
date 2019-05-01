@@ -14,3 +14,4 @@
 * Press space to begin the gam
 * Make it esc to toggle fullscreen, but it starts on windowed mode
 * Fix not being able to go up and left while holding space
+* Change flag colors
