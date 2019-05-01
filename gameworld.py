@@ -3,7 +3,6 @@ import random
 import actors
 from flag import Flag
 from obstacles import *
-from darkness import *
 from education_screen import *
 
 class Cell(object):
@@ -113,7 +112,7 @@ class Model(object):
 
     def make_darkness(self):
         """Instantiate Darkness object"""
-        self.darkness = Darkness(self.player, (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[0]))
+        self.darkness = actors.Darkness(self.player, (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[0]))
 
     def make_endscreen(self):
         """Instantiate Endscreen object"""
@@ -181,7 +180,7 @@ class View():
             self.draw_colors()
             self.draw_obstacles()
             self.draw_grid() # TEMPORARY
-            # self.draw_darkness()
+            self.draw_darkness()
             self.draw_flag()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()

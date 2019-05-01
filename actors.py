@@ -25,7 +25,7 @@ class Actor():
     """
     The Actor class contains generic information which can be inherinted by all actors.
     """
-    def __init__(self, image, size, position):
+    def __init__(self, image, size, position = (0, 0)):
         """Initialize the actor.
 
         image: image file of the actor
@@ -67,6 +67,41 @@ class Color(Actor):
         self.exists = True      # used in make_model to make actor disappear if collided with
         self.color = color
 
+class Darkness(Actor):
+    """
+    Creates a black cover up to cover the screen
+    """
+    def __init__(self, player, screen_size,
+    image = pygame.image.load('./images/flashlight.png')):
+        """Initialize the darkness
+
+        player: a player object
+        screen_size: a tuple of the screen dimensions
+        image: image file of the darkness
+        """
+        size = (int(screen_size[0]*2.5), int(screen_size[1]*2.5))
+        super(Darkness, self).__init__(image, size)
+        self.player = player
+        self.get_rotations()
+
+    def __str__(self):
+        return "Darkness origin at location %s." % (self.player.position_c)
+
+    def rotate(self):
+        """Rotates the darkness to match the player"""
+        angle = self.player.cont.angle
+        self.image = self.rotations[angle] # overlay image of darkess that points in same direction as player
+
+    def draw_position(self):
+        """Finds the draw position for the darkness based on player position"""
+        player_c = self.player.position_c
+        if self.player.cont.angle%90 == 0: # if on 90 degree increments
+            return (player_c[0]-self.size[0]/2, player_c[1]-self.size[1]/2)
+        else: # if on 45 degree increments
+            a = .21
+            return (player_c[0]-self.size[0]/2-self.size[0]*a, player_c[1]-self.size[1]/2-self.size[1]*a)
+
+
 class Player(Actor):
     """
     The Player class contains methods specific
@@ -82,7 +117,7 @@ class Player(Actor):
         screen_size: a tuple of the screen dimensions
         obstacles: brings in a list of all obstacles on map
         """
-        super(Player, self).__init__(image, size, pos)
+        super(Player, self).__init__(image, size)
         # pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
         self.get_rotations()
 
