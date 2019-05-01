@@ -20,8 +20,15 @@ class Darkness():
         self.image = image
         self.image_orig = image # original image to base rotation on
 
-        # sorry this is so long, idk how to break up the line in python
-        self.rotations = {0:transform.rotate(self.image_orig, 0), 45:transform.rotate(self.image_orig, 45), 90:transform.rotate(self.image_orig, 90), 135:transform.rotate(self.image_orig, 135), 180:transform.rotate(self.image_orig, 180), 225:transform.rotate(self.image_orig, 225), 270:transform.rotate(self.image_orig, 270), 315:transform.rotate(self.image_orig, 315)}
+        self.rotations = {
+        0:transform.rotate(self.image_orig, 0),
+        45:transform.rotate(self.image_orig, 45),
+        90:transform.rotate(self.image_orig, 90),
+        135:transform.rotate(self.image_orig, 135),
+        180:transform.rotate(self.image_orig, 180),
+        225:transform.rotate(self.image_orig, 225),
+        270:transform.rotate(self.image_orig, 270),
+        315:transform.rotate(self.image_orig, 315)}
         # self.rotations is loading all of the darkness rotations, so that they can be called without causing lag
 
     def __str__(self):
