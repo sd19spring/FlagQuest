@@ -236,7 +236,7 @@ class Obstacle(Actor, pygame.sprite.Sprite):
 
 class Obstacle_group(pygame.sprite.Group):
     """
-    makes a group to hold all obstacles of the same type
+    Makes a group to hold all obstacles of the same type
     """
     def __init__(self, type):
         pygame.sprite.Group.__init__(self)
