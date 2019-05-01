@@ -20,6 +20,13 @@ class Game():
         self.view = view = gameworld.View(size, self.fill_color, self.model)
         self.running = True
 
+    def update(self):
+        """Updates the game for one tick"""
+            game.check_events()
+            game.check_collision()
+            game.view.update()
+            time.sleep(0.01)
+            
     def check_events(self):
         """Check the events"""
         for event in pygame.event.get():
@@ -30,9 +37,6 @@ class Game():
                 self.model.endscreen.pressed(event.key)
             if event.type == KEYDOWN and event.key == pygame.K_ESCAPE: # if escape is pressed
                 pygame.display.set_mode((1880, 1080), pygame.RESIZABLE)
-
-    def check_movement():
-        pass
 
     def check_collision(self):
         # touched_piece is a piece of the flag that the player just collided with (if they even did)
@@ -45,25 +49,12 @@ class Game():
                 self.model.endgame = True
                 self.fill_color=(255, 255, 255)
 
-    # def choose_flag(self, n = RANDOMNUMBEr):
-    #     """Choose a flag"""
-
-    def endgame():
-        pass
-
 def play_game():
-    # pygame.init() # necessary?
-
 
     game = Game()
-    # print(get_zigzag_path(game.model, game.model.grid_cells[(3,3)], game.model.grid_cells[(20,20)], 2))
-
 
     while game.running:
-        game.check_events()
-        game.check_collision()
-        game.view.update()
-        time.sleep(0.01)
+        game.update()
 
 if __name__ == '__main__':
 
