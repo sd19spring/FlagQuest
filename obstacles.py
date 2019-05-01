@@ -2,13 +2,15 @@ import pygame
 
 class Obstacle(pygame.sprite.Sprite):
     """
-    allows you to make an obstacle to block off possible paths of travel
+    Obstacle class to block off possible paths of travel
     """
     def __init__(self, cell_size, position, type):
-        """
-        grid size refers to the dimensions of each grid square on the world map
-        position refers to the x,y coordinates of the Obstacle
-        type refers to the group characteristics of the obstacle (s/a color)
+        """Initialize the obstacle.
+
+        cell_size: Tuple of the dimensions of each world map cell
+        position: Tuple of the coordinates of the Obstacle in pixels
+        Type: Tuple of an RGB color code to correspond the obstacle
+        with a certain color
         """
         pygame.sprite.Sprite.__init__(self)
 
@@ -22,17 +24,21 @@ class Obstacle(pygame.sprite.Sprite):
     def __str__(self):
         return "Obstacle, type %s at location (%r)" % (self.type, self.position)
 
-    def make_groups(self, obstacle, type, list):
-        """
-        this method is used to sort an obstacle into a group based off of its type
+    def make_groups(self, obstacle, list):
+        """Sorts obstacles into groups based off types.
+
+        obstacle: Obstacle object of the obstacle being sorted
+        list: Current list of obstacle groups
+
         make_groupes creates a sprite group named after each obstacle type, then adds that group to the model's obstacles list
         """
-        if type not in list:        # if there isn't already a group corresponding to this obstacle's type...
-            type = Obstacle_group(type)    # ... make a group for that particular type...
-            type.add(obstacle)        # ... add this obstacle to that group...
-            list.append(type)       # ... and add this group to the model's obstacles list
+        type = obstacle.type
+        if type not in list: # if there isn't already a group corresponding to this obstacle's type...
+            type = Obstacle_group(type) # ... make a group for that particular type...
+            type.add(obstacle) # ... add this obstacle to that group...
+            list.append(type) # ... and add this group to the model's obstacles list
         if type in list:
-            type.add(obstacle)        # if a corresponding group already exists, simply add this obstacle to the group
+            type.add(obstacle) # if a corresponding group already exists, simply add this obstacle to the group
 
 class Obstacle_group(pygame.sprite.Group):
     """

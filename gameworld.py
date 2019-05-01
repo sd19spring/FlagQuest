@@ -96,7 +96,7 @@ class Model(object):
             type = random.choice(obstacle_types)            # randomly chooses this obstacle's type
             obstacle = Obstacle((self.cell_size),coord,type)
 
-            obstacle.make_groups(obstacle, type, self.obstacles)    # add obstacle to group based on what the obstacle's type is
+            obstacle.make_groups(obstacle, self.obstacles)    # add obstacle to group based on what the obstacle's type is
 
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'obstacle'
