@@ -34,8 +34,8 @@ class Game():
         # touched_piece is a piece of the flag that the player just collided with (if they even did)
         touched_piece = self.model.player.check_color_collision(self.model.color_objs)
         if touched_piece:
-            touched_piece.exists = False          # makes the touched piece disappear
-            self.model.flag.add_color(touched_piece)     # add stripe to the flag graphic
+            touched_piece.exists = False # makes the touched piece disappear
+            self.model.flag.add_color(touched_piece) # add stripe to the flag graphic
             if self.model.flag.complete() == True:
                 self.model.make_endscreen()
                 self.model.endgame = True
