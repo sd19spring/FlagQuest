@@ -16,11 +16,6 @@ def make_image(color, size):
     image.fill(color)
     return image
 
-def cell_to_pixel():
-    """Converts cell coordinates to pixel coordinates"""
-    # this could be used for drawing stuff
-    pass
-
 class Actor():
     """
     The Actor class contains generic information which can be inherinted by all actors.
@@ -204,5 +199,3 @@ class Player(Actor):
                 self.collided_with.append(collision)
                 print(collision)
                 return collision
-
-#class Darkness(Actor)
