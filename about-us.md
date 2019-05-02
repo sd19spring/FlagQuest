@@ -3,7 +3,7 @@ We are a group of students at Olin College of Engineering students who worked on
 
 ## Griffith they/them
 
-<img src="./images/griffith.jpg" alt="Picture of Griffith" width="300"/>
+<img src="./images/griffith.jpg" alt="Picture of Griffith" width="300"/ class="center">
 
 I am an Electrical and Computer Engineering major, class of 2022.
 
@@ -28,18 +28,18 @@ Visit my personal website: [griffithstites.com](https://www.griffithstites.com/)
 
 ## Lauren she/her
 
-![Picture of Lauren](images/lauren.jpg =300x)
+<img src="./images/lauren.jpg" alt="Picture of Lauren" width="300"/ class="center">
 
 Major Contributions:
 
 ## David he/him
 
-![Picture of David](images/david.jpg =300x)
+<img src="./images/david.jpg" alt="Picture of David" width="300"/ class="center">
 
 Major Contributions:
 
 ## Emma she/her
 
-![Picture of Emma](images/emma.jpg =300x)
+<img src="./images/emma.jpg" alt="Picture of Emma" width="300"/ class="center">
 
 Major Contributions:
