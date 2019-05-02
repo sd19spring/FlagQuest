@@ -3,7 +3,7 @@ We are a group of students at Olin College of Engineering students who worked on
 
 ## Griffith they/them
 
-![Picture of Griffith](images/griffith.jpg =300x)
+<img src="./images/griffith.jpg" alt="Picture of Griffith" width="300"/>
 
 I am an Electrical and Computer Engineering major, class of 2022.
 
