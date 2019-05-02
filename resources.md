@@ -1,6 +1,6 @@
 # Resources
 We used a variety of sources to work on the educational aspects of our game to ensure accuracy.
-Thanks to the creators and contributors of these resources. 
+Thanks to the creators and contributors of these resources.
 * [Beyond the Rainbow: Your Guide to LGBT Flags](http://www.newnownext.com/guide-lgbt-flags/07/2017/)
 * [The Complete Guide to Queer Pride Flags](https://www.pride.com/pride/2018/6/13/complete-guide-queer-pride-flags-0#media-gallery-media-11)
 * [PFLAG National Glossary of Terms](https://pflag.org/glossary)
@@ -17,3 +17,5 @@ Thanks to the creators and contributors of these resources.
 * [Wikipedia Lesbian Page](https://en.wikipedia.org/wiki/Lesbian)
 * [Color Meaning in Pride Flag](https://www.bustle.com/articles/167177-what-do-the-colors-in-the-gay-pride-flag-stand-for-its-a-beautiful-and-inspiring)
 * [Wikipedia Rainbow Flag](https://en.wikipedia.org/wiki/Rainbow_flag_(LGBT_movement))
+
+[Return to Home](https://sd19spring.github.io/FlagQuest/)
