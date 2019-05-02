@@ -3,7 +3,7 @@ We are a group of students at Olin College of Engineering students who worked on
 
 ## Griffith they/them
 
-<img src="./images/griffith.jpg" alt="Picture of Griffith" class="center" width="300"/>
+<img src="./images/griffith.jpg" alt="Picture of Griffith" width="300"/>
 
 I am an Electrical and Computer Engineering major, class of 2022.
 
@@ -28,18 +28,20 @@ Visit my personal website: [griffithstites.com](https://www.griffithstites.com/)
 
 ## Lauren she/her
 
-<img src="./images/lauren.jpg" alt="Picture of Lauren" class="center" width="300"/>
+<img src="./images/lauren.jpg" alt="Picture of Lauren" width="300"/>
 
 Major Contributions:
 
 ## David he/him
 
-<img src="./images/david.jpg" alt="Picture of David" class="center" width="300"/>
+<img src="./images/david.jpg" alt="Picture of David" width="300"/>
 
 Major Contributions:
 
 ## Emma she/her
 
-<img src="./images/emma.jpg" alt="Picture of Emma" class="center" width="300"/>
+<img src="./images/emma.jpg" alt="Picture of Emma" width="300"/>
 
 Major Contributions:
+
+[Return to Home](https://sd19spring.github.io/FlagQuest/)
