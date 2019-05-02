@@ -4,11 +4,11 @@ import random
 
 class Frontier:
     """Outwardly expanding edge of flood fill for search algorithm"""
-    def __init__(self, start, model):
+    def __init__(self, start, grid_cells):
         """Start is a cell, members are cells in frontier"""
         self.members = [start]
         self.current = start
-        self.grid_dict = model.grid_cells
+        self.grid_dict = grid_cells
 
     def put(self, cell):
         self.members.append(cell)
@@ -34,7 +34,7 @@ class Frontier:
         return next_list
 
 
-def get_valid_path(model, start_cell, end_cell):
+def get_valid_path(grid_cells, start_cell, end_cell):
     """Uses simple breadth-first pathfinding algorithm to generate path from one
     cell to another.
     Based on https://www.redblobgames.com/pathfinding/a-star/introduction.html
@@ -42,7 +42,7 @@ def get_valid_path(model, start_cell, end_cell):
 
 
     # sweep through all coordinates to get all paths to start
-    frontier = Frontier(start_cell, model)
+    frontier = Frontier(start_cell, grid_cells)
     came_from = {}
     came_from[start_cell] = None
 
@@ -66,30 +66,34 @@ def get_valid_path(model, start_cell, end_cell):
 
     path.reverse()
     path_coords.reverse()
+    print(path_coords)
 
     return path
 
-def get_zigzag_path(model, start_cell, end_cell, num_stops):
+def get_zigzag_path(grid_cells, start_cell, end_cell, num_stops):
     """Returns valid path with specified number of random stops along the way
     Includes start and end cells. (but if that turned out to be bad later, easy
     to change. Remove end cell here, remove start cell in get_valid_path)"""
 
     cells = [start_cell]
     for stop in list(range(num_stops)):
-        cells.append(get_random_cell(model))
-    cells.append(end_cell)
+        cells.append(get_random_cell(grid_cells))
+    cells.extend(end_cell)
 
     path = []
-    for i in list(range(num_stops+1)):
-        segment = get_valid_path(model, cells[i], cells[i+1])
-        path.append(segment)
-    path.append(end_cell)
+    for i in list(range(num_stops)):
+        segment = get_valid_path(grid_cells, cells[i], cells[i+1])
+        path.extend(segment)
+    path.extend(end_cell)
 
     return path
 
-def get_random_cell(model):
+def get_random_cell(grid_cells):
     random_coord = (random.randint(1,45),random.randint(1,22))
-    return model.grid_cells[random_coord]
+    if not grid_cells[random_coord].occupied:
+        return grid_cells[random_coord]
+    else:
+        return get_random_cell(grid_cells)
 
 def place_colors(model):
     """ Instantiate Color_Actor objects for each color in the chosen flag """
@@ -189,11 +193,10 @@ class Test_Model():
         for i in range(self.grid_size[0]):
             for j in range(self.grid_size[1]):
                 cell_coord = (i*self.cell_size, 160+j*self.cell_size)
-                self.grid_cells[(i,j)] = Cell(cell_coord, (i, j), False, 'none', (i,j))
+                self.grid_cells[(i,j)] = Cell(cell_coord, (i, j), False, 'none')
 
 
     def generate_level(model):
-
         while retry:
             curr_pos = model.player.position_c
             place_colors(model)
@@ -228,3 +231,4 @@ class Test_View():
 
 if __name__ == "__main__":
     model = Test_Model()
+    view = Test_View(model)

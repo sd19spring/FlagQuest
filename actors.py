@@ -51,7 +51,7 @@ class Color(Actor):
     The Color class contains the state and sprite
     of each color of the flag.
     """
-    def __init__(self, color, size, position):
+    def __init__(self, color, size, position, grid_cell):
         """Initialize the Color_Actor object
 
         color: Tuple of the RGB color code
@@ -62,6 +62,7 @@ class Color(Actor):
         super(Color, self).__init__(image, size, position)
         self.exists = True      # used in make_model to make actor disappear if collided with
         self.color = color
+        self.label = grid_cell
 
 class Darkness(Actor):
     """

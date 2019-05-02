@@ -3,6 +3,7 @@ import random
 import actors
 from flag import Flag
 from education_screen import *
+from level_generation import *
 
 class Cell(object):
     """ This is an object for each grid cell """
@@ -12,7 +13,7 @@ class Cell(object):
         cell_coord: Tuple of coordinate in pixels
         grid_coord: TUple of coordinate in cells"""
         self.cell_coord = cell_coord # coordinates of upper left corner of cell in pixels, tuple
-        self.grid_coord = grid_coord # coordinates of cell in terms of position in grid, tuplel
+        self.label = grid_coord # coordinates of cell in terms of position in grid, tuple
         self.occupied = False
 
 class Model(object):
@@ -28,10 +29,12 @@ class Model(object):
         self.screen_size = (self.cell_size[0]*self.grid_size[0],
         self.cell_size[1]*self.grid_size[1]+160)
         self.endgame = False
+        self.obstacles = []
         self.make_grid()
         self.choose_flag()
         self.make_colors()
-        self.make_obstacles()
+        self.generate_level()
+        #self.make_obstacles()
         self.make_player()
         self.make_darkness()
 
@@ -72,11 +75,16 @@ class Model(object):
             y_cell = random.randint(0, self.grid_size[1]-1)
             # coord = self.grid_cells[random_coord]
             # coord = random_coord((0, 0), (self.grid_size))
-            coord = self.grid_cells[(x_cell,y_cell)].cell_coord
+            cell_coord = self.grid_cells[(x_cell,y_cell)].cell_coord
+            grid_coord = self.grid_cells[(x_cell,y_cell)].label
             # coord = (x_cell, y_cell)
-            self.color_objs.append(actors.Color(color, self.cell_size, coord))
+            self.color_objs.append(actors.Color(color, self.cell_size, cell_coord, grid_coord))
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'color'
+
+    def generate_level(self):
+        self.path = get_zigzag_path(self.grid_cells, self.grid_cells[(1, 1)], self.color_objs[0].label, 1)
+        pass
 
 
     def make_obstacles(self):
@@ -190,16 +198,24 @@ class View():
         # draw the current page in the book
         self.screen.blit(self.model.endscreen.book.pages[self.model.endscreen.book.current_page].image, (0, 0))
 
+    def draw_path(self):
+        """Draw a created path"""
+        for step in self.model.path:
+            print(step.cell_coord)
+
+
+
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.screen.fill(self.fill_color)
         if self.model.endgame == False:
             self.draw_player()
             self.draw_colors()
-            self.draw_obstacles()
+            #self.draw_obstacles()
             self.draw_grid() # TEMPORARY
-            self.draw_darkness()
+            #self.draw_darkness()
             self.draw_flag()
+            self.draw_path()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
         pygame.display.update()
