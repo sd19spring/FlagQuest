@@ -7,16 +7,16 @@ obstacles to collect the different colors of your identity.
 As you collect each color, you’ll learn more about the
 history of the flag and the identity that it represents.
 
-![Gameplay GIF](gameplay.gif)
+![Gameplay GIF](images/gameplay.gif)
 
 ## Usage
 For instructions on how to download, install, and get started with the game,
 view the [README](https://sd19spring.github.io/FlagQuest/usage).
 
 ## Code
-![Architecture Diagram](architecture_diagram.png)
+![Architecture Diagram](images/architecture_diagram.png)
 
-![Architecture Diagram](level_generation_algorithm.png)
+![Architecture Diagram](images/level_generation_algorithm.png)
 
 Our plan for level generation algorithm.
 
@@ -126,8 +126,10 @@ analyze his random world generation code for inspiration. Thanks
 to Arwen Sadler for letting us use their modified trans terminology
 paper (Originally from TSER).
 
-We used a variety of online resources during the creation of our game, see more [here](https://sd19spring.github.io/FlagQuest/resources).
+We used a variety of online resources during the creation of our game, see more
+[here](https://sd19spring.github.io/FlagQuest/resources).
 
 ## Authors
 This game was created, designed, and coded by Lauren Anfenson,
-David Freeman, Emma Mack, and Griffith Stites.
+David Freeman, Emma Mack, and Griffith Stites. See more about us and our
+contributions [here](https://sd19spring.github.io/FlagQuest/about-us).
