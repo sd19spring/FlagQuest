@@ -137,6 +137,22 @@ class Player(Actor):
         """Moves the player."""
         self.position_c[0] += self.cont.v_x
         self.position_c[1] += self.cont.v_y
+        self.screen_wall()
+
+    def screen_wall(self):
+        """
+        Prevents the player from leaving any edge of the screen
+        switch with screen_wrap based on design preference
+        BUG: player can escape through the corners of screen!!
+        """
+        if self.position_c[0] >= self.screen_size[0]:   # if player's center goes past max x-dimension of screen, they cannot go further
+            self.position_c[0] = self.screen_size[0]
+        elif self.position_c[1] >= self.screen_size[1]:   # if player's center goes past max y-dimension of screen, they cannot go further
+            self.position_c[1] = self.screen_size[1]
+        elif self.position_c[0] <= 0:              # if player's center goes past min x-dimension of screen, they cannot go further
+            self.position_c[0] = 0
+        elif self.position_c[1] <= 0:              # if player's center goes past min y-dimension of screen, they cannot go further
+            self.position_c[1] = 0
 
     def get_draw_position(self):
         """Finds the position to draw the player at. Based on if moving at a 45 or 90 degree angle"""
