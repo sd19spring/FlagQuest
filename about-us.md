@@ -42,6 +42,16 @@ Major Contributions:
 
 <img src="./images/emma.jpg" alt="Picture of Emma" width="300"/>
 
-Major Contributions:
+I was enthusiastic about the potential that educational games have to remove the dreary stigma from learning. One of my main goals was to design the game to make it as inclusive to all identities as possible.
+
+Major contributions:
+
+* Playable level generation work
+  * Path planning
+  * Process flow
+* Flag display module
+* Flag images 
+* Flag stripe collision
+
 
 [Return to Home](https://sd19spring.github.io/FlagQuest/)
