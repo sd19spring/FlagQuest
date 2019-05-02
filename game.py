@@ -17,7 +17,7 @@ class Game():
         self.fill_color = fill
         self.model = gameworld.Model()
         self.view = gameworld.View(size, self.fill_color, self.model)
-        self.collision = gameworld.Collision(self.model)
+        # self.collision = gameworld.Collision(self.model)
         self.running = True
 
     def check_events(self):
@@ -42,7 +42,7 @@ class Game():
                 self.model.endgame = True
                 self.fill_color=(255, 255, 255)
         # MOVE THIS TO COLLISION CLASS
-        self.collision.update()
+        # self.collision.update()
 
 
     def update(self):

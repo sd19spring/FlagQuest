@@ -29,9 +29,10 @@ class Actor():
         """
         # pygame.sprite.Sprite.__init__(self) # set up the actor's spriteness
         self.size = size
-        self.image = pygame.transform.scale(image, self.size)
         self.position = position
-        self.rect = self.image.get_rect(topleft = self.position)
+        if type(image) != list:     # this exception is to leave room for obstacle class to define its own self.image and self.rect
+            self.image = pygame.transform.scale(image, self.size)
+            self.rect = self.image.get_rect(topleft = self.position)
 
     def get_rotations(self):
         """Get all the rotations for the actor image"""
@@ -190,7 +191,7 @@ class Obstacle(Actor, pygame.sprite.Sprite):
     """
     Obstacle class to block off possible paths of travel
     """
-    def __init__(self, cell_size, position, type, image = pygame.image.load('./images/obstacle_shading.png')):
+    def __init__(self, cell_size, position, type, image = [pygame.image.load('./images/obstacle_spike_light.png'),pygame.image.load('./images/obstacle_spike_dark.png')]):
         """Initialize the obstacle.
 
         cell_size: Tuple of the dimensions of each world map cell
@@ -201,7 +202,13 @@ class Obstacle(Actor, pygame.sprite.Sprite):
         super(Obstacle, self).__init__(image, cell_size, position)
         pygame.sprite.Sprite.__init__(self)
 
+        if type[0] > 200 or type[1] > 200 or type[2] > 200:         # overlays a shadow spike layer if the obstacle color is too bright
+            self.image = pygame.transform.scale(image[1], self.size)
+        else:                                                       # overlays a highlight spike layer if obstacle color is dark enough
+            self.image = pygame.transform.scale(image[0], self.size)
+
         self.type = type
+        self.rect = self.image.get_rect(topleft = self.position)    # defines its own self.rect b/c it's dependent on self.image
 
     def __str__(self):
         return "Obstacle, type %s at location (%r)" % (self.type, self.position)

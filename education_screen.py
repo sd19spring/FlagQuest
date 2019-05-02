@@ -33,9 +33,9 @@ class Book():
         while searching:
             try:
                 page = Page('./images/books/' + self.flag + '/' + str(n) + '.png', self.size, n)
+                self.pages.append(page)
             except pygame.error: # if reached the end
                 searching = False
-            self.pages.append(page)
             n += 1 # advance to next page
 
     def flip_page(self, direction):
