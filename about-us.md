@@ -5,9 +5,11 @@ We are a group of students at Olin College of Engineering students who worked on
 
 ![Picture of Griffith](images/griffith.jpg =300x)
 
-I am an Electrical and Computer Engineering major, class of 2022. I am non-binary and I was most excited to
+I am an Electrical and Computer Engineering major, class of 2022.
 
-I was excited to work on this project because I am trans and I wanted to raise more awareness about the LGBT community.
+I was excited to work on this project because I am trans and I wanted to raise more awareness about the LGBT community. My main goal was to make the game spur interest in learning more about the LGBT community. I wanted to make sure the educational aspects in the game were approachable and enjoyable.
+
+I am also an organization freak - I was jumping up and down since week one of the project about wanting to do code organization.
 
 Major Contributions:
 * Educational End Screen Books
