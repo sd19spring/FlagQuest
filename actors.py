@@ -140,18 +140,17 @@ class Player(Actor):
         self.screen_wall()
 
     def screen_wall(self):
-        """
+        """Check
         Prevents the player from leaving any edge of the screen
         switch with screen_wrap based on design preference
-        BUG: player can escape through the corners of screen!!
         """
-        if self.position_c[0] >= self.screen_size[0]:   # if player's center goes past max x-dimension of screen, they cannot go further
+        if self.position_c[0] >= self.screen_size[0]: # if player's center goes past max x-dimension of screen, they cannot go further
             self.position_c[0] = self.screen_size[0]
-        elif self.position_c[1] >= self.screen_size[1]:   # if player's center goes past max y-dimension of screen, they cannot go further
+        elif self.position_c[1] >= self.screen_size[1]: # if player's center goes past max y-dimension of screen, they cannot go further
             self.position_c[1] = self.screen_size[1]
-        elif self.position_c[0] <= 0:              # if player's center goes past min x-dimension of screen, they cannot go further
+        elif self.position_c[0] <= 0: # if player's center goes past min x-dimension of screen, they cannot go further
             self.position_c[0] = 0
-        elif self.position_c[1] <= 0:              # if player's center goes past min y-dimension of screen, they cannot go further
+        elif self.position_c[1] <= 0: # if player's center goes past min y-dimension of screen, they cannot go further
             self.position_c[1] = 0
 
     def get_draw_position(self):
@@ -165,7 +164,7 @@ class Player(Actor):
         """Update the image based on the facing of the player"""
         self.get_keypress()         # recieve keyboard input
         self.move()
-        # self.check_obstacle_collision()     # bumps player if they hit an obstacle
+        self.check_obstacle_collision()     # bumps player if they hit an obstacle
         self.cont.facing()          # Updates the facing postition
         self.image = self.rotations[self.cont.angle] # grabs the rotated imagex
         self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
@@ -176,20 +175,20 @@ class Player(Actor):
                     self.position_c[1] - self.size[1]/2,
                     self.size[0], self.size[1])
 
-    # def check_obstacle_collision(self):
-    #     """Returns sprite collided with, of obstacle objects,
-    #     or None if no collisions."""
-    #     angle_bumps = {0:(-1,0), 45:(-1,1), 90:(0,1), 135:(1,1),
-    #     180:(1,0), 225:(1,-1), 270:(0,-1), 315:(-1,-1)}
-    #
-    #     a = self.cont.v_max      # this multiplier scales the magnitude of collision-bumping to the magnitude of the player's movement
-    #
-    #     for group in self.obstacles:
-    #         collision = pygame.sprite.spritecollide(self, group, dokill = False)   # creates list of all obstacles that the player is colliding with
-    #
-    #         if len(collision) > 0:      # if the sprite is colliding with any obstacles
-    #             self.position_c[0] += angle_bumps[self.cont.angle][0]*a      # moves the sprite in the opposite direction of their facing
-    #             self.position_c[1] += angle_bumps[self.cont.angle][1]*a
+    def check_obstacle_collision(self):
+        """Returns sprite collided with, of obstacle objects,
+        or None if no collisions."""
+        angle_bumps = {0:(-1,0), 45:(-1,1), 90:(0,1), 135:(1,1),
+        180:(1,0), 225:(1,-1), 270:(0,-1), 315:(-1,-1)}
+
+        a = self.cont.v_max      # this multiplier scales the magnitude of collision-bumping to the magnitude of the player's movement
+
+        for group in self.obstacles:
+            collision = pygame.sprite.spritecollide(self, group, dokill = False)   # creates list of all obstacles that the player is colliding with
+
+            if len(collision) > 0:      # if the sprite is colliding with any obstacles
+                self.position_c[0] += angle_bumps[self.cont.angle][0]*a      # moves the sprite in the opposite direction of their facing
+                self.position_c[1] += angle_bumps[self.cont.angle][1]*a
 
     def check_color_collision(self, color_objs):
         """Returns sprite collided with, of color objects,

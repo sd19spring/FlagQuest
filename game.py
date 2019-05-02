@@ -17,7 +17,6 @@ class Game():
         self.fill_color = fill
         self.model = gameworld.Model()
         self.view = gameworld.View(size, self.fill_color, self.model)
-        # self.collision = gameworld.Collision(self.model)
         self.running = True
 
     def check_events(self):
