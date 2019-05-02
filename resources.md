@@ -18,5 +18,6 @@ Thanks to the creators and contributors of these resources.
 * [Color Meaning in Pride Flag](https://www.bustle.com/articles/167177-what-do-the-colors-in-the-gay-pride-flag-stand-for-its-a-beautiful-and-inspiring)
 * [Wikipedia Rainbow Flag](https://en.wikipedia.org/wiki/Rainbow_flag_(LGBT_movement))
 * [Intersex Human Rights Australia](https://ihra.org.au/)
+* [Planned Parenthood Intersex](https://www.plannedparenthood.org/learn/sexual-orientation-gender/gender-gender-identity/whats-intersex)
 
 [Return to Home](https://sd19spring.github.io/FlagQuest/)
