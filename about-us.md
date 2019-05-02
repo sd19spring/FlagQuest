@@ -3,7 +3,7 @@ We are a group of students at Olin College of Engineering students who worked on
 
 ## Griffith they/them
 
-![Picture of Griffith](images/griffith.jpg)
+![Picture of Griffith](images/griffith.jpg =300x)
 
 I am an Electrical and Computer Engineering major, class of 2022. I am non-binary and I was most excited to
 
@@ -26,18 +26,18 @@ Visit my personal website: [griffithstites.com](https://www.griffithstites.com/)
 
 ## Lauren she/her
 
-![Picture of Lauren](images/lauren.jpg)
+![Picture of Lauren](images/lauren.jpg =300x)
 
 Major Contributions:
 
 ## David he/him
 
-![Picture of David](images/david.jpg)
+![Picture of David](images/david.jpg =300x)
 
 Major Contributions:
 
 ## Emma she/her
 
-![Picture of Emma](images/emma.jpg)
+![Picture of Emma](images/emma.jpg =300x)
 
 Major Contributions:
