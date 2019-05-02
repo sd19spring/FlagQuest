@@ -6,3 +6,4 @@ A to do list for the website.
 * Organize sections in a way that makes the most sense
 * Add photos, videos, and diagrams
 * Team photo
+* Spell check
