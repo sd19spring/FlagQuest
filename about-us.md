@@ -48,6 +48,7 @@ I’m in the Class of 2021 and I am really drawn to creative, thoughtful experie
 
 Major Contributions:
 
+* Player actor
 * Player movement
 * Obstacle generation, visualization, and manipulation
 
