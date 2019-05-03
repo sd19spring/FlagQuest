@@ -33,6 +33,7 @@ class Model(object):
         self.cell_size[1]*self.grid_size[1]+160)
         self.endgame = False
         self.obstacles = []
+        self.cleared_obstacles = []
         self.make_grid()
         self.choose_flag()
         self.make_colors()
@@ -104,12 +105,38 @@ class Model(object):
         self.path = []
         ind = 0
         for i in list(range(len(path_order)-1)):
-
+        #for i in range(2):
             zigzag_path = get_zigzag_path(self.grid_cells, path_order[ind], path_order[ind+1], 3)
-            # place_obstacles(self, zigzag_path, 3)
+            self.place_obstacles(zigzag_path, ind)
+
+            for cell in zigzag_path:
+                cell.type == 'none'
 
             self.path.extend(zigzag_path)
             ind += 1
+
+    def place_obstacles(self, path, ind):
+        """ Generate obstacles in the grid """
+        #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
+        #TODO: place lines of objects so as to have barriers.
+        #Also, place more so as to be more challenging. (Lauren
+
+        obstacle_types = self.flag.colors[:ind+1]
+        for i in range(round(400/(len(self.flag.colors)))):
+            x_cell = random.randint(0, self.grid_size[0]-1)
+            y_cell = random.randint(0, self.grid_size[1]-1)
+            while self.grid_cells[(x_cell, y_cell)].type == 'obstacle' or self.grid_cells[(x_cell, y_cell)].type == 'path':
+                x_cell = random.randint(0, self.grid_size[0]-1)
+                y_cell = random.randint(0, self.grid_size[1]-1)
+
+            coord = self.grid_cells[(x_cell,y_cell)].cell_coord
+            type = random.choice(obstacle_types)            # randomly chooses this obstacle's type
+            obstacle = actors.Obstacle((self.cell_size),coord,type)
+
+            obstacle.make_groups(obstacle, self.obstacles)    # add obstacle to group based on what the obstacle's type is
+
+            self.grid_cells[(x_cell,y_cell)].occupied = True
+            self.grid_cells[(x_cell,y_cell)].type = 'obstacle'
 
     # def generate_level(self):
     #     while retry:
@@ -252,12 +279,12 @@ class View():
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.screen.fill(self.fill_color)
         if self.model.endgame == False:
-            self.draw_path()
+            #self.draw_path()
             self.draw_player()
             self.draw_colors()
-            #self.draw_obstacles()
-            self.draw_grid() # TEMPORARY
-            #self.draw_darkness()
+            self.draw_obstacles()
+            #self.draw_grid() # TEMPORARY
+            self.draw_darkness()
             self.draw_flag()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
