@@ -67,6 +67,8 @@ def get_valid_path(grid_cells, start_cell, end_cell):
     path.reverse()
     path_coords.reverse()
 
+    print(path_coords)
+
     return path
 
 def get_zigzag_path(grid_cells, start_cell, end_cell, num_stops):

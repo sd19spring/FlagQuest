@@ -84,13 +84,19 @@ class Model(object):
             self.grid_cells[(x_cell,y_cell)].type = 'color'
 
     def generate_level(self):
-        path_order = copy.copy(self.color_objs)
+        #path_order = copy.copy(self.color_objs)
+        path_order = self.color_objs
         print(path_order)
-        random.shuffle(path_order)
+        #random.shuffle(path_order)
         self.path = []
-        for color_obj in path_order:
-            zigzag_path = get_zigzag_path(self.grid_cells, self.grid_cells[(1, 1)], self.color_objs[0].cell_in, 1)
+        ind = 0
+        for i in list(range(len(path_order)-1)):
+            print(path_order[ind].label)
+            print(path_order[ind+1].label)
+            # zigzag_path = get_valid_path(self.grid_cells, path_order[ind].cell_in, path_order[ind+1].cell_in)
+            zigzag_path = get_zigzag_path(self.grid_cells, path_order[ind].cell_in, path_order[ind+1].cell_in, 1)
             self.path.extend(zigzag_path)
+            ind += 1
 
     # def generate_level(self):
     #     while retry:
@@ -223,8 +229,9 @@ class View():
 
     def draw_path(self):
         """Draw a created path"""
+        #colors = [(255, 255, 255), (255, 0, 0), ( 0, 255, 0), ( 0, 0, 255), (255, 255, 0)]
         for step in self.model.path:
-            pygame.draw.rect(self.screen, pygame.Color(255, 255, 255),
+            pygame.draw.rect(self.screen, (255, 255, 255),
                     [step.cell_coord[0], step.cell_coord[1],self.model.cell_size[0],
                     self.model.cell_size[1]])
 
