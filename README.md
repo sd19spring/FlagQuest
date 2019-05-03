@@ -26,6 +26,8 @@ Our plan for level generation algorithm.
       for direction in poss_directions:
           model.grid_cells[model.player.grid_cell]
 ```
+
+### Obstacle visualization
 The method below is used in our Model class, allowing the player to make obstacles disappear when they have the corresponding flag pieces. ```self.obstacles``` is a list used to place all obstacles on the map, so when an obstacle is removed from that list it no longer gets placed on the map.
 
 ```python
