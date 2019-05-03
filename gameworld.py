@@ -5,6 +5,7 @@ from flag import Flag
 from education_screen import *
 from level_generation import *
 import copy
+import math
 
 class Cell(object):
     """ This is an object for each grid cell """
@@ -16,6 +17,7 @@ class Cell(object):
         self.cell_coord = cell_coord # coordinates of upper left corner of cell in pixels, tuple
         self.label = grid_coord # coordinates of cell in terms of position in grid, tuple
         self.occupied = False
+        self.type = "nothing"
 
 class Model(object):
     """ Class that holds the state of the entire game """
@@ -34,9 +36,9 @@ class Model(object):
         self.make_grid()
         self.choose_flag()
         self.make_colors()
-        self.generate_level()
         #self.make_obstacles()
         self.make_player()
+        self.generate_level()
         self.make_darkness()
 
     def make_grid(self):
@@ -84,17 +86,28 @@ class Model(object):
             self.grid_cells[(x_cell,y_cell)].type = 'color'
 
     def generate_level(self):
-        #path_order = copy.copy(self.color_objs)
-        path_order = self.color_objs
-        print(path_order)
-        #random.shuffle(path_order)
+        """Generates playable level"""
+
+        #gets position of player for play path
+        player_pos = self.player.position_c
+        player_grid_pos = (math.floor((player_pos[0]-40)/self.cell_size[0]), math.floor((player_pos[1] - 160)/self.cell_size[1]))
+        player_cell = self.grid_cells[(player_grid_pos)]
+
+        #initializes order of goals for random playable path
+        path_order_colors = self.color_objs
+        random.shuffle(path_order_colors)
+        path_order = [color.cell_in for color in path_order_colors]
+        path_order.insert(0,player_cell)
+        print("Path order is " + str(path_order))
+
+        #generates path, places obstacles accordingly
         self.path = []
         ind = 0
         for i in list(range(len(path_order)-1)):
-            print(path_order[ind].label)
-            print(path_order[ind+1].label)
-            # zigzag_path = get_valid_path(self.grid_cells, path_order[ind].cell_in, path_order[ind+1].cell_in)
-            zigzag_path = get_zigzag_path(self.grid_cells, path_order[ind].cell_in, path_order[ind+1].cell_in, 1)
+
+            zigzag_path = get_zigzag_path(self.grid_cells, path_order[ind], path_order[ind+1], 3)
+            # place_obstacles(self, zigzag_path, 3)
+
             self.path.extend(zigzag_path)
             ind += 1
 

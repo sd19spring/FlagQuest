@@ -28,7 +28,8 @@ class Frontier:
         for direction in poss_directions:
             coord = (cell.label[0] + direction[0],
                         cell.label[1] + direction[1])
-            if coord in self.grid_dict and coord not in self.get_all_member_coords() and not self.grid_dict[coord].occupied:
+            if (coord in self.grid_dict and coord not in self.get_all_member_coords()
+                    and not self.grid_dict[coord].type == 'obstacle'):
                 next_list.append(self.grid_dict[coord])
                 coord_list.append(coord)
         return next_list
@@ -39,7 +40,6 @@ def get_valid_path(grid_cells, start_cell, end_cell):
     cell to another.
     Based on https://www.redblobgames.com/pathfinding/a-star/introduction.html
     Includes start cell but not end cell."""
-
 
     # sweep through all coordinates to get all paths to start
     frontier = Frontier(start_cell, grid_cells)
@@ -67,8 +67,6 @@ def get_valid_path(grid_cells, start_cell, end_cell):
     path.reverse()
     path_coords.reverse()
 
-    print(path_coords)
-
     return path
 
 def get_zigzag_path(grid_cells, start_cell, end_cell, num_stops):
@@ -83,7 +81,7 @@ def get_zigzag_path(grid_cells, start_cell, end_cell, num_stops):
     cells.append(end_cell)
 
     path = []
-    for i in list(range(num_stops)):
+    for i in list(range(num_stops + 1)):
         segment = get_valid_path(grid_cells, cells[i], cells[i+1])
         path.extend(segment)
     path.append(end_cell)
