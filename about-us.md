@@ -51,6 +51,7 @@ Major Contributions:
 * Player actor
 * Player movement
 * Obstacle generation, visualization, and manipulation
+* Obstacle and background visuals
 
 ## Emma she/her
 
