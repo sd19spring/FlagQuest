@@ -44,7 +44,12 @@ Major Contributions:
 
 <img src="./images/david.jpg" alt="Picture of David" width="300"/>
 
+I’m in the Class of 2021 and I am really drawn to creative, thoughtful experiences. It’s been wonderful for me to learn how to make creative stuff with a computer (i.e. Python programming). This project has served as a good opportunity to practice the creation of fun and expressive work within a team environment.
+
 Major Contributions:
+
+* Player movement
+* Obstacle generation, visualization, and manipulation
 
 ## Emma she/her
 
