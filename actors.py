@@ -239,13 +239,13 @@ class Obstacle(Actor, pygame.sprite.Sprite):
         """
         type = obstacle.type
         if type not in list: # if there isn't already a group corresponding to this obstacle's type...
-            type = Obstacle_group(type) # ... make a group for that particular type...
+            type = Obstacle_Group(type) # ... make a group for that particular type...
             type.add(obstacle) # ... add this obstacle to that group...
             list.append(type) # ... and add this group to the model's obstacles list
         if type in list:
             type.add(obstacle) # if a corresponding group already exists, simply add this obstacle to the group
 
-class Obstacle_group(pygame.sprite.Group):
+class Obstacle_Group(pygame.sprite.Group):
     """
     Makes a group to hold all obstacles of the same type
     """
