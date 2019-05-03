@@ -51,7 +51,15 @@ class Flag:
         self.images_dict = {}
         # run for the number of colors on the flag
         for i in range(len(self.colors)):
-            self.images_dict[self.colors[i]] = images[i]
+            image = self.resize_image(images[i])
+            self.images_dict[self.colors[i]] = image
+
+    def resize_image(self, image):
+        # for i in list(range(len(self.image_pieces))):
+        #     image_piece = self.image_pieces[i]
+        current_size = image.get_size()
+        resized = pygame.transform.scale(image, (180, (int(180*current_size[1]/current_size[0]))))
+        return resized
 
     def add_color(self, actor = None):
         """Adds the appropriate image to the colors_up list."""
