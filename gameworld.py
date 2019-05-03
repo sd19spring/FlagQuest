@@ -235,7 +235,7 @@ class View():
         Ideally the group.draw(self.screen) function would draw both the colored square and the obstacle.png overlay
         """
         for group in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
-            for obstacle in group:      # COMMENT OUT THIS FOR LOOP TO TAKE AWAY COLORATION
+            for obstacle in group: 
                 color = obstacle.type
                 rectangle = pygame.Rect(obstacle.position, self.model.cell_size)
                 pygame.draw.rect(self.screen, color, rectangle)     # drawns foundation square of the obstacle's color

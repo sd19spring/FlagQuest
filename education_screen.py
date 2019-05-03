@@ -65,7 +65,7 @@ class EndScreen():
         self.move_right = [pygame.K_RIGHT, pygame.K_d, pygame.K_e]
         if key in self.move_left:
             self.book.flip_page('left')
-        if key in self.move_right:
+        elif key in self.move_right:
             self.book.flip_page('right')
 
 if __name__ == '__main__':
