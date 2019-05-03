@@ -30,7 +30,15 @@ Visit my personal website: [griffithstites.com](https://www.griffithstites.com/)
 
 <img src="./images/lauren.jpg" alt="Picture of Lauren" width="300"/>
 
+I'm an Electrical and Computer Engineering major in my second year. In this project I was most excited about diving deep into code architecture, exploring algorithms for level generation, and expanding my own knowledge of the meanings and histories of LGBT pride flags!
+
 Major Contributions:
+
+* Level generation
+  * Obstacle generation from paths
+  * Integrating level generation with the rest of the game
+* Color Actor module
+* Code architecture planning
 
 ## David he/him
 
