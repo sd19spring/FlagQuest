@@ -209,12 +209,11 @@ class View():
     """
     Instantiates model and draws the state of every object on the game screen
     """
-    def __init__(self, screen_size, filling, model):
+    def __init__(self, screen_size, image, model):
         """Initialize model and make game screen"""
         self.model = model
         self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
-        self.fill_color = filling
-        self.screen.fill(self.fill_color) # sets background color
+        self.image = image.convert() # convert makes the image smaller
         pygame.display.set_caption('Window Viewer') # sets window caption
 
     def draw_player(self):
@@ -235,7 +234,7 @@ class View():
         Ideally the group.draw(self.screen) function would draw both the colored square and the obstacle.png overlay
         """
         for group in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
-            for obstacle in group: 
+            for obstacle in group:
                 color = obstacle.type
                 rectangle = pygame.Rect(obstacle.position, self.model.cell_size)
                 pygame.draw.rect(self.screen, color, rectangle)     # drawns foundation square of the obstacle's color
@@ -277,7 +276,7 @@ class View():
 
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
-        self.screen.fill(self.fill_color)
+        self.screen.blit(self.image, (0, 0)) # sets background
         if self.model.endgame == False:
             #self.draw_path()
             self.draw_player()
