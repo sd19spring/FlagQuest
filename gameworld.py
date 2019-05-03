@@ -4,6 +4,7 @@ import actors
 from flag import Flag
 from education_screen import *
 from level_generation import *
+import copy
 
 class Cell(object):
     """ This is an object for each grid cell """
@@ -78,13 +79,35 @@ class Model(object):
             cell_coord = self.grid_cells[(x_cell,y_cell)].cell_coord
             grid_coord = self.grid_cells[(x_cell,y_cell)].label
             # coord = (x_cell, y_cell)
-            self.color_objs.append(actors.Color(color, self.cell_size, cell_coord, grid_coord))
+            self.color_objs.append(actors.Color(color, self.cell_size, cell_coord, grid_coord, self.grid_cells[grid_coord]))
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'color'
 
     def generate_level(self):
-        self.path = get_zigzag_path(self.grid_cells, self.grid_cells[(1, 1)], self.color_objs[0].label, 1)
-        pass
+        path_order = copy.copy(self.color_objs)
+        print(path_order)
+        random.shuffle(path_order)
+        self.path = []
+        for color_obj in path_order:
+            zigzag_path = get_zigzag_path(self.grid_cells, self.grid_cells[(1, 1)], self.color_objs[0].cell_in, 1)
+            self.path.extend(zigzag_path)
+
+    # def generate_level(self):
+    #     while retry:
+    #         curr_pos = model.player.position_c
+    #         place_colors(model)
+    #         path_order = random.shuffle(model.color_objs)
+    #         ind = 0
+    #         for color_obj in path_order:
+    #             path = get_zigzag_path(model, curr_pos, color_obj.position)
+    #             if path:
+    #                 retry = False
+    #             place_colors(model)
+    #             curr_pos = color_obj.positions
+    #
+    #         #check if final segment is playable
+    #         if get_valid_path:
+    #             retry = False
 
 
     def make_obstacles(self):
@@ -201,21 +224,21 @@ class View():
     def draw_path(self):
         """Draw a created path"""
         for step in self.model.path:
-            print(step.cell_coord)
-
-
+            pygame.draw.rect(self.screen, pygame.Color(255, 255, 255),
+                    [step.cell_coord[0], step.cell_coord[1],self.model.cell_size[0],
+                    self.model.cell_size[1]])
 
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.screen.fill(self.fill_color)
         if self.model.endgame == False:
+            self.draw_path()
             self.draw_player()
             self.draw_colors()
             #self.draw_obstacles()
             self.draw_grid() # TEMPORARY
             #self.draw_darkness()
             self.draw_flag()
-            self.draw_path()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
         pygame.display.update()

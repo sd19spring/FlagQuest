@@ -66,7 +66,6 @@ def get_valid_path(grid_cells, start_cell, end_cell):
 
     path.reverse()
     path_coords.reverse()
-    print(path_coords)
 
     return path
 
@@ -77,14 +76,15 @@ def get_zigzag_path(grid_cells, start_cell, end_cell, num_stops):
 
     cells = [start_cell]
     for stop in list(range(num_stops)):
-        cells.append(get_random_cell(grid_cells))
-    cells.extend(end_cell)
+        random_cell = get_random_cell(grid_cells)
+        cells.append(random_cell)
+    cells.append(end_cell)
 
     path = []
     for i in list(range(num_stops)):
         segment = get_valid_path(grid_cells, cells[i], cells[i+1])
         path.extend(segment)
-    path.extend(end_cell)
+    path.append(end_cell)
 
     return path
 
@@ -100,7 +100,7 @@ def place_colors(model):
     #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
 
     model.color_objs = []
-    for i in range(len(model.flag.colors)):
+    for i in list(range(len(model.flag.colors))):
         x_cell = random.randint(0, model.grid_x_size-1)
         y_cell = random.randint(0, model.grid_y_size-1)
         coord = model.grid_cells[(x_cell,y_cell)].cell_coord
