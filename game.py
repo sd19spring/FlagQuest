@@ -27,7 +27,7 @@ class Game():
                 self.model.endscreen.pressed(event.key) # flip pages
                 if event.key is pygame.K_SPACE: # if space pressed
                     self.running = False # close the game
-            if event.type == KEYDOWN and event.key == pygame.K_ESCAPE: # if escape is pressed
+            if event.type == KEYDOWN and event.key is pygame.K_ESCAPE: # if escape is pressed
                 pygame.display.set_mode((1880, 1080), pygame.RESIZABLE)
 
     def check_collision(self):
@@ -47,25 +47,37 @@ class Game():
         self.view.update()
         time.sleep(0.01)
 
-# class Screen():
-#     """Class to manage the start screen"""
-#     def __init__(self, size = (1920, 1080), image = ):
-#         self.size =
-#         self.image =
-#         self.running = True
-#
-#     def check_events(self):
-#         """Check
-#
-# def start_game():
-#     screen = Screen()
-#         while screen.running:
-#             screen.update()
-#             screen.check_events()
-#             if game_start:
-#                 screen.running = False
-#                 game_start = False
-#                 play_game()
+class StartScreen():
+    """Class to manage the start screen"""
+    def __init__(self, screen_size=(1880, 1080), image=pygame.image.load('images/background.png')):
+        self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
+        self.image = image.convert() # convert makes the image smaller
+        self.running = True
+        self.game_start = False
+
+    def check_events(self):
+        """Check for key presses"""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False # close the game
+            if event.type == KEYDOWN and event.key is pygame.K_SPACE: # if space pressed
+                self.game_start = True # close the game
+            if event.type == KEYDOWN and event.key is pygame.K_ESCAPE: # if escape is pressed
+                pygame.display.set_mode((1880, 1080), pygame.RESIZABLE)
+
+    def update(self):
+        """Update the start screen"""
+        self.screen.blit(self.image, (0, 0)) # sets background
+
+def start_game():
+    menu = StartScreen()
+    while menu.running:
+        menu.update()
+        menu.check_events()
+        if menu.game_start:
+            menu.running = False
+            menu.game_start = False
+            play_game()
 
 def play_game():
     game = Game()
@@ -73,4 +85,5 @@ def play_game():
         game.update()
 
 if __name__ == '__main__':
-    play_game() # start running game
+    start_game()
+    # play_game() # start running game
