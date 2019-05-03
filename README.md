@@ -26,34 +26,46 @@ Our plan for level generation algorithm.
       for direction in poss_directions:
           model.grid_cells[model.player.grid_cell]
 ```
-
-Level Generation method to find the open squares.
-
-```python
-  def get_open_squares(model):
-      poss_directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1,1), (-1,1), (1,-1), (-1,-1)]
-      for direction in poss_directions:
-          model.grid_cells[model.player.grid_cell]
-```
+The method below is used in our Model class, allowing the player to make obstacles disappear when they have the corresponding flag pieces. ```self.obstacles``` is a list used to place all obstacles on the map, so when an obstacle is removed from that list it no longer gets placed on the map.
 
 ```python
-  def rotate(self):
-        """Rotates the darkness to match the player"""
-        angle = self.player.cont.angle
-        self.image = self.rotations[angle]      # overlay image of darkness that points in same direction as
-
-  def draw_position(self):
-      """Finds the draw position for the darkness based on player position"""
-      player_c = self.player.position_c
-      if self.player.cont.angle%90 == 0: # if on 90 degree increments
-          return (player_c[0]-self.size[0]/2, player_c[1]-self.size[1]/2)
-      else: # if on 45 degree increments
-          a = .21
-          return (player_c[0]-self.size[0]/2-self.size[0]*a, player_c[1]-self.size[1]/2-self.size[1]*a)
+  def erase_obstacles(self, key = pygame.K_SPACE):
+          """Removes obstacles from self.model.obstacles while spacebar is held"""
+          if pygame.key.get_pressed()[key] == 1:
+              for color in self.player.collided_with:   # iterates through list of colors that have been collided with
+                  for group in self.obstacles:        # iterates through all groups of obstacles
+                      if group.type == color.color:      # finds group that corresponds to color that was just touched
+                          self.obstacles.remove(group)
+                          self.cleared_obstacles.append(group)
+          else:
+              for group in self.cleared_obstacles:
+                  self.cleared_obstacles.remove(group)
+                  self.obstacles.append(group)
 ```
+To talk about obstacles a little bit more, the draw_obstacle method uses a nifty little trick to make the obstacles look nice and pretty. Within the ```for obstacle in group``` loop, pygame makes a rectangle for each obstacle and fills it with that obstacle's assigned ```type``` color. The first box of code below shows how there are two different images (```image[1]``` and ```image[0]```) that are assigned based off of the obstacle's ```type``` values. That way, if the obstacle is a light-toned color it gets overlayed with a shadowed spike, whereas a dark-toned color gets overlayed with a highlighted spike
 
-Code for rotating the darkness, which is what creates the flashlight effect.
-The draw position is based on the player center with considerations for the flashlight image size.
+```python
+    
+    if type[0] > 200 or type[1] > 200 or type[2] > 200:      # overlays a shadow spike layer if the obstacle color is too bright
+            self.image = pygame.transform.scale(image[1], self.size)
+        else:                                                # overlays a highlight spike layer if obstacle color is dark enough
+            self.image = pygame.transform.scale(image[0], self.size)
+```
+```python
+    def draw_obstacles(self):
+        """
+        Draw the obstacles on the display
+
+        Ideally the group.draw(self.screen) function would draw both the colored square and the obstacle.png overlay
+        """
+        for group in self.model.obstacles:       # places image of obstacle for each obstacle created in Model
+            for obstacle in group:
+                color = obstacle.type
+                rectangle = pygame.Rect(obstacle.position, self.model.cell_size)
+                pygame.draw.rect(self.screen, color, rectangle)     # drawns foundation square of the obstacle's color
+            group.draw(self.screen)        # overlays the shaded "spike"
+        self.model.erase_obstacles()        # runs method that allows player to erase colored obstacles by holding spacebar
+```
 
 ## Project Evolution
 Architecture Review 1
