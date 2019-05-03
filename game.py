@@ -8,14 +8,14 @@ from level_generation import *
 
 class Game():
     """Class to manage the actor and gameworld classes"""
-    def __init__(self, size=(1880,1080), fill=(0, 0, 0)):
+    def __init__(self, size=(1880,1080), image=pygame.image.load('images/background.png')):
         """Create the world.
 
         size: Tuple of the window dimensions
-        fill: Tuple of the RGB color"""
-        self.fill_color = fill
+        image: Background image"""
+        self.image = pygame.transform.scale(image, size)
         self.model = gameworld.Model()
-        self.view = gameworld.View(size, self.fill_color, self.model)
+        self.view = gameworld.View(size, self.image, self.model)
         self.running = True
 
     def check_events(self):
@@ -39,7 +39,6 @@ class Game():
             if self.model.flag.complete() == True:
                 self.model.make_endscreen()
                 self.model.endgame = True
-                self.fill_color=(255, 255, 255)
 
     def update(self):
         """Updates the game for one tick"""
