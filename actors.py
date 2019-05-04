@@ -34,17 +34,31 @@ class Actor():
             self.image = pygame.transform.scale(image, self.size)
             self.rect = self.image.get_rect(topleft = self.position)
 
-    def get_rotations(self):
-        """Get all the rotations for the actor image"""
-        self.rotations = {
-        0:transform.rotate(self.image, 0),
-        45:transform.rotate(self.image, 45),
-        90:transform.rotate(self.image, 90),
-        135:transform.rotate(self.image, 135),
-        180:transform.rotate(self.image, 180),
-        225:transform.rotate(self.image, 225),
-        270:transform.rotate(self.image, 270),
-        315:transform.rotate(self.image, 315)}
+    def get_rotations(self, image_flipped=None):
+        """Get all the rotations for the actor image
+
+        image_flipped: Optional Image file for a flipped
+        version"""
+        if image_flipped != None: # if image_flipped exists
+            self.rotations = {
+            0:transform.rotate(self.image, 0),
+            45:transform.rotate(self.image, 45),
+            90:transform.rotate(self.image, 90),
+            135:transform.rotate(image_flipped, 315),
+            180:transform.rotate(image_flipped, 0),
+            225:transform.rotate(image_flipped, 45),
+            270:transform.rotate(image_flipped, 90),
+            315:transform.rotate(self.image, 315)}
+        else:
+            self.rotations = {
+            0:transform.rotate(self.image, 0),
+            45:transform.rotate(self.image, 45),
+            90:transform.rotate(self.image, 90),
+            135:transform.rotate(self.image, 135),
+            180:transform.rotate(self.image, 180),
+            225:transform.rotate(self.image, 225),
+            270:transform.rotate(self.image, 270),
+            315:transform.rotate(self.image, 315)}
 
 class Color(Actor):
     """
@@ -106,7 +120,8 @@ class Player(Actor):
     to the playable character.
     """
     def __init__(self, pos, screen_size, obstacles, color_objs,
-    size = (30, 30), image = pygame.image.load('./images/character.png')):
+    size = (30, 30), image = pygame.image.load('./images/character.png'),
+    image_flipped = pygame.image.load('./images/character_flipped.png')):
         """
         Initialize the player
 
@@ -114,10 +129,9 @@ class Player(Actor):
         image: the image file for the player
         screen_size: a tuple of the screen dimensions
         obstacles: brings in a list of all obstacles on map
-        """ # JUST PASS MODEL?
+        """
         super(Player, self).__init__(image, size)
-        self.get_rotations()
-
+        self.get_rotations(pygame.transform.scale(image_flipped, self.size))
         self.position_c = [pos[0] + pos[0]/2, pos[1] + pos[1]/2] # find the center of the image
         self.grid_cell = (numpy.rint(self.position_c[0]/40), numpy.rint(self.position_c[1]/40))
         self.screen_size = screen_size   # refers to screen size

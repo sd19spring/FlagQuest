@@ -86,4 +86,3 @@ def play_game():
 
 if __name__ == '__main__':
     start_game()
-    # play_game() # start running game
