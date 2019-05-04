@@ -49,9 +49,9 @@ class Game():
 
 class StartScreen():
     """Class to manage the start screen"""
-    def __init__(self, screen_size=(1880, 1080), image=pygame.image.load('images/background.png')):
-        self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
-        self.image = image.convert() # convert makes the image smaller
+    def __init__(self, image=pygame.image.load('images/menu.png')):
+        self.screen = pygame.display.set_mode(image.get_size(), pygame.RESIZABLE) # sets screen dimensions
+        self.image = image.convert() # convert makes the image easier to draw smaller
         self.running = True
         self.game_start = False
 
@@ -62,18 +62,18 @@ class StartScreen():
                 self.running = False # close the game
             if event.type == KEYDOWN and event.key is pygame.K_SPACE: # if space pressed
                 self.game_start = True # close the game
-            if event.type == KEYDOWN and event.key is pygame.K_ESCAPE: # if escape is pressed
-                pygame.display.set_mode((1880, 1080), pygame.RESIZABLE)
 
     def update(self):
         """Update the start screen"""
+        self.check_events()
         self.screen.blit(self.image, (0, 0)) # sets background
+        pygame.display.update()
+        time.sleep(0.01)
 
 def start_game():
     menu = StartScreen()
     while menu.running:
         menu.update()
-        menu.check_events()
         if menu.game_start:
             menu.running = False
             menu.game_start = False
