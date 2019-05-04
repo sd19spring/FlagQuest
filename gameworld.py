@@ -66,7 +66,8 @@ class Model(object):
             7:"pan",
             8:"poc",
             9:"pride",
-            10:"trans"
+            10:"trans",
+            11:"gqueer"
             }[random.randint(1, 10)])
         print("You are playing with the " + self.flag.name + " flag")
 
