@@ -213,7 +213,7 @@ class View():
     def __init__(self, screen_size, image, model):
         """Initialize model and make game screen"""
         self.model = model
-        self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
+        self.screen = pygame.display.set_mode(screen_size, pygame.RESIZABLE) # sets screen dimensions
         self.image = image.convert() # convert makes the image smaller
         pygame.display.set_caption('Window Viewer') # sets window caption
 

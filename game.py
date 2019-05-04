@@ -28,7 +28,7 @@ class Game():
                 if event.key is pygame.K_SPACE: # if space pressed
                     self.running = False # close the game
             if event.type == KEYDOWN and event.key is pygame.K_ESCAPE: # if escape is pressed
-                pygame.display.set_mode((1880, 1080), pygame.RESIZABLE)
+                pygame.display.toggle_fullscreen()
 
     def check_collision(self):
         """Check for collisions between the player and screen objects"""
