@@ -2,9 +2,9 @@
 Flag Quest is a rogue like game created to spread
 awareness of LGBTQ+ identities by integrating the elements
 of LGBTQ+ flags into fun puzzles. As the game’s player, you
-wander through the dark woods, navigating around or overcoming
+wander through the dark, navigating around or overcoming
 obstacles to collect the different colors of your identity.
-As you collect each color, you’ll learn more about the
+When you collect all the colors to make a flag, you’ll learn more about the
 history of the flag and the identity that it represents.
 
 ## Authors
