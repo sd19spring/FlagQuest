@@ -19,5 +19,7 @@ Thanks to the creators and contributors of these resources.
 * [Wikipedia Rainbow Flag](https://en.wikipedia.org/wiki/Rainbow_flag_(LGBT_movement))
 * [Intersex Human Rights Australia](https://ihra.org.au/)
 * [Planned Parenthood Intersex](https://www.plannedparenthood.org/learn/sexual-orientation-gender/gender-gender-identity/whats-intersex)
+* [Genderqueer Wikipedia](https://en.wikipedia.org/wiki/Genderqueer)
+* [Genderqueerid Flag Info](https://genderqueerid.com/about-flag)
 
 [Return to Home](https://sd19spring.github.io/FlagQuest/)
