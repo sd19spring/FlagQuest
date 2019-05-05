@@ -224,9 +224,19 @@ class View():
 
     def draw_colors(self):
         """Draw the flag colors onto the display"""
+        flag_image = pygame.transform.scale(pygame.image.load('./images/flag_piece_mask.png'), (40,40))
         for piece in self.model.color_objs:
             if piece.exists:
                 self.screen.blit(piece.image, piece.position)
+                self.screen.blit(flag_image, piece.position)
+
+    def draw_sparkles(self):
+        """ draw sparkles to indicate position of flag colors """
+        sparkles_image = pygame.transform.scale(pygame.image.load('./images/sparkles.png'), (40,40))
+        for piece in self.model.color_objs:
+            if piece.exists:
+                self.screen.blit(sparkles_image, piece.position)
+
 
     def draw_obstacles(self):
         """
@@ -286,6 +296,7 @@ class View():
             #self.draw_grid() # TEMPORARY
             self.draw_darkness()
             self.draw_flag()
+            self.draw_sparkles()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
         pygame.display.update()
