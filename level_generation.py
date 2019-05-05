@@ -90,7 +90,7 @@ def get_zigzag_path(grid_cells, start_cell, end_cell, num_stops):
     return path
 
 def get_random_cell(grid_cells):
-    random_coord = (random.randint(1,45),random.randint(1,22))
+    random_coord = (random.randint(1,45),random.randint(1,19))
     if not grid_cells[random_coord].occupied:
         return grid_cells[random_coord]
     else:

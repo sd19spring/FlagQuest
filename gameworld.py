@@ -21,7 +21,7 @@ class Cell(object):
 
 class Model(object):
     """ Class that holds the state of the entire game """
-    def __init__(self, cell_size = (40, 40), grid_size = (46, 23)):
+    def __init__(self, cell_size = (40, 40), grid_size = (46, 20)):
         """Initialize the model.
 
         cell_size: Tuple of the dimension of each cell in pixels
