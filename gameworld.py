@@ -126,7 +126,7 @@ class Model(object):
         for i in range(round(400/(len(self.flag.colors)))):
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
-            while self.grid_cells[(x_cell, y_cell)].type == 'obstacle' or self.grid_cells[(x_cell, y_cell)].type == 'path':
+            while self.grid_cells[(x_cell, y_cell)].type == 'obstacle' or self.grid_cells[(x_cell, y_cell)].type == 'path' or self.grid_cells[(x_cell, y_cell)].type == 'color':
                 x_cell = random.randint(0, self.grid_size[0]-1)
                 y_cell = random.randint(0, self.grid_size[1]-1)
 
