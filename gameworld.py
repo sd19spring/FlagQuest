@@ -235,12 +235,12 @@ class View():
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.screen.blit(self.image, (0, 0)) # sets background
         if self.model.endgame == False:
-            self.draw_path()
+            # self.draw_path()
             self.draw_player()
             self.draw_colors()
             self.draw_obstacles()
-            #self.draw_darkness()
-            #self.draw_flag()
+            self.draw_darkness()
+            self.draw_flag()
             self.draw_sparkles()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
