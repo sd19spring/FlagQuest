@@ -55,7 +55,7 @@ Major Contributions:
 
 ## Emma she/her
 
-<img src="./images/emma.jpg" alt="Picture of Emma" width="300"/>
+<img src="./images/emma.png" alt="Picture of Emma" width="300"/>
 
 I was enthusiastic about the potential that educational games have to remove the dreary stigma from learning. One of my main goals was to design the game to make it as inclusive to all identities as possible.
 
