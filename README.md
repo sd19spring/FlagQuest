@@ -128,7 +128,7 @@ Architecture Review 1
 * General idea validated
 * LGBT Representation
   * People were excited for representation
-  * Talk to Rame
+  * Talk to Rame - our Diversity and Inclusion Director
   * Do not make large generalizations
   * Careful about implementing real world challenges, do not want to trivialize them
   * Get more members of the LGBT+ community to test the game
@@ -192,7 +192,8 @@ and Olin community who contributed their thoughts and examples
 for our learning. Special thanks to Dieter Brehm for letting us
 analyze his random world generation code for inspiration. Thanks
 to Arwen Sadler for letting us use their modified trans terminology
-paper (Originally from TSER).
+paper (Originally from TSER). Thanks to Alex Hindelang for creation
+of our game's character.
 
 We used a variety of online resources during the creation of our game, see more
 [here](https://sd19spring.github.io/FlagQuest/resources).
