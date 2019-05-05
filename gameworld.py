@@ -106,9 +106,9 @@ class Model(object):
         #for i in range(2):
             zigzag_path = get_zigzag_path(self.grid_cells, path_order[ind], path_order[ind+1], 3)
             self.place_obstacles(zigzag_path, ind)
-
-            for cell in zigzag_path:
-                cell.type == 'none'
+            if not ind == 0:
+                for cell in zigzag_path:
+                    cell.type == 'none'
 
             self.path.extend(zigzag_path)
             ind += 1
@@ -235,12 +235,12 @@ class View():
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.screen.blit(self.image, (0, 0)) # sets background
         if self.model.endgame == False:
-            #self.draw_path()
+            self.draw_path()
             self.draw_player()
             self.draw_colors()
             self.draw_obstacles()
-            self.draw_darkness()
-            self.draw_flag()
+            #self.draw_darkness()
+            #self.draw_flag()
             self.draw_sparkles()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
