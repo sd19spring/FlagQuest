@@ -15,8 +15,7 @@ view the [README](https://sd19spring.github.io/FlagQuest/usage).
 
 ## Code
 ![Architecture Diagram](images/architecture_diagram.png)
-
-![Architecture Diagram](images/level_generation_algorithm.png)
+Architecture diagrom of how our various classes and modules interact.
 
 Our code in the level_generation module for finding a path. 
 It returns a valid path with a specified number of random stops
