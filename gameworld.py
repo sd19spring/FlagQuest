@@ -37,7 +37,6 @@ class Model(object):
         self.make_grid()
         self.choose_flag()
         self.make_colors()
-        #self.make_obstacles()
         self.make_player()
         self.generate_level()
         self.make_darkness()
@@ -69,7 +68,6 @@ class Model(object):
             10:"trans",
             11:"gqueer"
             }[random.randint(1, 10)])
-        print("You are playing with the " + self.flag.name + " flag")
 
     def make_colors(self):
         """Instantiate Color objects for each color in the chosen flag."""
@@ -100,7 +98,6 @@ class Model(object):
         random.shuffle(path_order_colors)
         path_order = [color.cell_in for color in path_order_colors]
         path_order.insert(0,player_cell)
-        print("Path order is " + str(path_order))
 
         #generates path, places obstacles accordingly
         self.path = []
@@ -117,57 +114,15 @@ class Model(object):
             ind += 1
 
     def place_obstacles(self, path, ind):
-        """ Generate obstacles in the grid """
-        #MAY BE WRONG. COPY-PASTED FROM ANOTHER MODULE.
-        #TODO: place lines of objects so as to have barriers.
-        #Also, place more so as to be more challenging. (Lauren
+        """ Generate obstacles in the grid
+        Path: path between two color stripes on which to only place certain colors
+        of obstacles"""
 
         obstacle_types = self.flag.colors[:ind+1]
         for i in range(round(400/(len(self.flag.colors)))):
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
             while self.grid_cells[(x_cell, y_cell)].type == 'obstacle' or self.grid_cells[(x_cell, y_cell)].type == 'path' or self.grid_cells[(x_cell, y_cell)].type == 'color':
-                x_cell = random.randint(0, self.grid_size[0]-1)
-                y_cell = random.randint(0, self.grid_size[1]-1)
-
-            coord = self.grid_cells[(x_cell,y_cell)].cell_coord
-            type = random.choice(obstacle_types)            # randomly chooses this obstacle's type
-            obstacle = actors.Obstacle((self.cell_size),coord,type)
-
-            obstacle.make_groups(obstacle, self.obstacles)    # add obstacle to group based on what the obstacle's type is
-
-            self.grid_cells[(x_cell,y_cell)].occupied = True
-            self.grid_cells[(x_cell,y_cell)].type = 'obstacle'
-
-    # def generate_level(self):
-    #     while retry:
-    #         curr_pos = model.player.position_c
-    #         place_colors(model)
-    #         path_order = random.shuffle(model.color_objs)
-    #         ind = 0
-    #         for color_obj in path_order:
-    #             path = get_zigzag_path(model, curr_pos, color_obj.position)
-    #             if path:
-    #                 retry = False
-    #             place_colors(model)
-    #             curr_pos = color_obj.positions
-    #
-    #         #check if final segment is playable
-    #         if get_valid_path:
-    #             retry = False
-
-
-    def make_obstacles(self):
-        """Generate obstacles in the grid"""
-        self.obstacles = []              # instantiates a list of all obstacle sprite groups
-        self.cleared_obstacles = []
-
-        obstacle_types = self.flag.colors      # makes list of possible obstacle types based off of the flag's colors
-
-        for i in range(200):     # 10 is arbitrary, we should replace with intentional number later
-            x_cell = random.randint(0, self.grid_size[0]-1)        # randomizes location of obstacle
-            y_cell = random.randint(0, self.grid_size[1]-1)
-            while self.grid_cells[(x_cell, y_cell)].occupied == True:   # re-randomizes location if the location is occupied by a color_obj
                 x_cell = random.randint(0, self.grid_size[0]-1)
                 y_cell = random.randint(0, self.grid_size[1]-1)
 
@@ -252,15 +207,6 @@ class View():
             group.draw(self.screen)        # overlays the shaded "spike"
         self.model.erase_obstacles()        # runs method that allows player to erase colored obstacles by holding spacebar
 
-    def draw_grid(self):
-        """Draw the grid on the display"""
-        for i in range(self.model.grid_size[0]):
-            for j in range(self.model.grid_size[1]):
-                    pygame.draw.circle(self.screen,
-                                       pygame.Color(255, 255, 255),
-                                       [self.model.grid_cells[(i, j)].cell_coord[0], self.model.grid_cells[(i, j)].cell_coord[1]],
-                                       5)
-
     def draw_flag(self):
         """Draw the flag onto the display"""
         if self.model.flag.colors_up:
@@ -293,7 +239,6 @@ class View():
             self.draw_player()
             self.draw_colors()
             self.draw_obstacles()
-            #self.draw_grid() # TEMPORARY
             self.draw_darkness()
             self.draw_flag()
             self.draw_sparkles()
