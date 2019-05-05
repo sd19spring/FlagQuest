@@ -40,4 +40,4 @@ License v3.0 - see the [LICENSE.md](https://github.com/sd19spring/final-project-
   * Add flags
   * Simplify code to make it more readable
   * Make code more efficient
-* Submit a pull request to our repository with our edits
+* Submit a pull request to our repository with your edits
