@@ -14,10 +14,10 @@ For instructions on how to download, install, and get started with the game,
 view the [README](https://sd19spring.github.io/FlagQuest/usage).
 
 ## Code
-![Architecture Diagram](images/architecture_diagram.png)
 Architecture diagrom of how our various classes and modules interact.
+![Architecture Diagram](images/architecture_diagram.png)
 
-Our code in the level_generation module for finding a path. 
+Below is our code in the level_generation module for finding a path. 
 It returns a valid path with a specified number of random stops
 along the way. This keeps the path from being the shortest 
 optimized path, but also makes it so the path is not completely random.
