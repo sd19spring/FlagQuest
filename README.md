@@ -18,13 +18,68 @@ view the [README](https://sd19spring.github.io/FlagQuest/usage).
 
 ![Architecture Diagram](images/level_generation_algorithm.png)
 
-Our plan for level generation algorithm.
+Our code in the level_generation module for finding a path. 
+It returns a valid path with a specified number of random stops
+along the way. This keeps the path from being the shortest 
+optimized path, but also makes it so the path is not completely random.
 
 ```python
-  def get_open_squares(model):
-      poss_directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1,1), (-1,1), (1,-1), (-1,-1)]
-      for direction in poss_directions:
-          model.grid_cells[model.player.grid_cell]
+def get_zigzag_path(grid_cells, start_cell, end_cell, num_stops):
+    """Returns valid path with specified number of random stops along the way
+    Includes start and end cells. (but if that turned out to be bad later, easy
+    to change. Remove end cell here, remove start cell in get_valid_path)"""
+
+    cells = [start_cell]
+    for stop in list(range(num_stops)):
+        random_cell = get_random_cell(grid_cells)
+        cells.append(random_cell)
+    cells.append(end_cell)
+
+    path = []
+    for i in list(range(num_stops + 1)):
+        segment = get_valid_path(grid_cells, cells[i], cells[i+1])
+        path.extend(segment)
+    path.append(end_cell)
+
+    return path
+```
+
+The code for finding a valid path (used by get_zig_zag):
+
+```python
+def get_valid_path(grid_cells, start_cell, end_cell):
+    """Uses simple breadth-first pathfinding algorithm to generate path from one
+    cell to another.
+    Based on https://www.redblobgames.com/pathfinding/a-star/introduction.html
+    Includes start cell but not end cell."""
+
+    # sweep through all coordinates to get all paths to start
+    frontier = Frontier(start_cell, grid_cells)
+    came_from = {}
+    came_from[start_cell] = None
+
+    while end_cell not in frontier.members:     #goes until hits end cell
+        current = frontier.members[0]
+        for next in frontier.neighbors(current):
+            if next not in came_from:
+                frontier.put(next)
+                came_from[next] = current
+        del frontier.members[0]
+
+    # trace back through sweep to find path
+    current_check = end_cell
+    path = []
+    path_coords = []  #Not currently in use. For debugging purposes
+    while current_check != start_cell:
+       current_check.type = 'path'
+       path.append(current_check)
+       current_check = came_from[current_check]
+       path_coords.append(current_check.label)
+
+    path.reverse()
+    path_coords.reverse()
+
+    return path
 ```
 
 ### Obstacle visualization
