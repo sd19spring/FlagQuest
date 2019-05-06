@@ -1,10 +1,15 @@
 import pygame
+import gameworld
 
 class Banner():
 
-    def __init__(self, name, colors, size = (1880,160)):
+    def __init__(self, name, colors, screen, screen_size):
         self.name = name
         self.colors = colors
+        self.screen = screen
+
+        self.size = (screen_size[0],160)
+        self.logo = pygame.image.load('./images/FlagQuest.png')
 
         self.titles = {
             "ace":'ASEXUAL PRIDE FLAG',
@@ -21,17 +26,17 @@ class Banner():
             }
 
         self.purple = (10, 94, 200)
-        self.size = size
 
-        self.piece_mask = pygame.image.load('./images/flag_piece_mask.png')
-
-    def make_rectangle(self):
+    def draw_rectangle(self):
         """ Return the banner's outline and background """
-        border = Rect(0, 0, self.size[0], self.size[1])
-        box = Rect(10, 10, self.size[0]-20, self.size[1]-20)
-        return pygame.draw.rect(border, (0,0,0), box, width=0)
+        box = pygame.Rect(0, 0, self.size[0], self.size[1])
+        pygame.draw.rect(self.screen, (0,0,0), box)     # draws black rectangle as background for banner contents
 
-    def make_type(self):
+    def draw_logo(self):
+        """ places FlagQuest logo at top-left corner of make_rectangle box """
+        self.screen.blit(self.logo, (10,10))
+
+    def draw_type(self):
         """ Return text object for the banner's text """
         pygame.font.init()
         font_size = 5
@@ -41,4 +46,8 @@ class Banner():
             font_size +=2
             font = pygame.font.Font("./fonts.RAILWAY.OTF", font_size)
         text = font.render(text, True, (255,255,255), background=None)
-        return text
+
+    def make_banner(self):
+        self.draw_rectangle()
+        self.draw_logo()
+        # self.draw_type()

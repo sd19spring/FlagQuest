@@ -1,6 +1,7 @@
 import pygame
 import random
 import actors
+from banner import Banner
 from flag import Flag
 from education_screen import *
 from level_generation import *
@@ -171,7 +172,6 @@ class View():
         self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
         self.image = image.convert() # convert makes the image smaller
         pygame.display.set_caption('Window Viewer') # sets window caption
-        self.banner_size = (self.model.screen_size[0],160)
 
     def draw_player(self):
         """Draw the player at its draw position"""
@@ -192,7 +192,6 @@ class View():
         for piece in self.model.color_objs:
             if piece.exists:
                 self.screen.blit(sparkles_image, piece.position)
-
 
     def draw_obstacles(self):
         """
@@ -233,13 +232,12 @@ class View():
                     self.model.cell_size[1]])
 
     def draw_banner(self):
-        "Draw banner associated with flag"
-        box = pygame.Rect(0, 0, self.banner_size[0], self.banner_size[1])
-        pygame.draw.rect(self.screen, (0,0,0), box)
+        colors = self.model.flag.colors
+        screen = self.screen
+        screen_size = self.model.screen_size
 
-    def draw_banner_line(self):
-        purple = (36,15,32)
-        pygame.draw.line(self.screen, purple, (0,self.banner_size[1]), (self.banner_size[0],self.banner_size[1]), 5)
+        banner = Banner('sample', colors, screen, screen_size)
+        banner.make_banner()
 
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
@@ -251,9 +249,9 @@ class View():
             self.draw_obstacles()
             # self.draw_banner_line()
             self.draw_darkness()
-            self.draw_flag()
             self.draw_sparkles()
-            # self.draw_banner()
+            self.draw_banner()
+            self.draw_flag()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
         pygame.display.update()
