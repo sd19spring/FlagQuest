@@ -4,7 +4,7 @@ awareness of LGBTQ+ identities by integrating the elements
 of LGBTQ+ flags into fun puzzles. As the game’s player, you
 wander through the dark, navigating around or overcoming
 obstacles to collect the different colors of your identity.
-When you collect all the colors to make a flag, you’ll learn more about the
+As you collect each color, you’ll learn more about the
 history of the flag and the identity that it represents.
 
 ## Authors
@@ -40,4 +40,4 @@ License v3.0 - see the [LICENSE.md](https://github.com/sd19spring/final-project-
   * Add flags
   * Simplify code to make it more readable
   * Make code more efficient
-* Submit a pull request to our repository with our edits
+* Submit a pull request to our repository with your edits

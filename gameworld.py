@@ -1,6 +1,7 @@
 import pygame
 import random
 import actors
+from banner import Banner
 from flag import Flag
 from education_screen import *
 from level_generation import *
@@ -21,7 +22,7 @@ class Cell(object):
 
 class Model(object):
     """ Class that holds the state of the entire game """
-    def __init__(self, cell_size = (40, 40), grid_size = (46, 23)):
+    def __init__(self, cell_size = (40, 40), grid_size = (46, 20)):
         """Initialize the model.
 
         cell_size: Tuple of the dimension of each cell in pixels
@@ -106,9 +107,9 @@ class Model(object):
         #for i in range(2):
             zigzag_path = get_zigzag_path(self.grid_cells, path_order[ind], path_order[ind+1], 3)
             self.place_obstacles(zigzag_path, ind)
-
-            for cell in zigzag_path:
-                cell.type == 'none'
+            if not ind == 0:
+                for cell in zigzag_path:
+                    cell.type == 'none'
 
             self.path.extend(zigzag_path)
             ind += 1
@@ -122,7 +123,7 @@ class Model(object):
         for i in range(round(400/(len(self.flag.colors)))):
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
-            while self.grid_cells[(x_cell, y_cell)].type == 'obstacle' or self.grid_cells[(x_cell, y_cell)].type == 'path' or self.grid_cells[(x_cell, y_cell)].type == 'color':
+            while self.grid_cells[(x_cell, y_cell)].occupied:
                 x_cell = random.randint(0, self.grid_size[0]-1)
                 y_cell = random.randint(0, self.grid_size[1]-1)
 
@@ -153,6 +154,10 @@ class Model(object):
         self.player = actors.Player((400, 400), self.screen_size,
         self.obstacles, self.color_objs)
 
+        for i in range(14, 16):     # range of x_coord cells where the player spawns
+            for j in range(10,12):  # range of y_coord cells where player spawns
+                self.grid_cells[(i,j)].occupied = True      # marks cells as occupied so that nothing else spawns there
+
     def make_darkness(self):
         """Instantiate Darkness object"""
         self.darkness = actors.Darkness(self.player, (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[0]))
@@ -168,7 +173,7 @@ class View():
     def __init__(self, screen_size, image, model):
         """Initialize model and make game screen"""
         self.model = model
-        self.screen = pygame.display.set_mode(screen_size, pygame.RESIZABLE) # sets screen dimensions
+        self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
         self.image = image.convert() # convert makes the image smaller
         pygame.display.set_caption('Window Viewer') # sets window caption
 
@@ -191,7 +196,6 @@ class View():
         for piece in self.model.color_objs:
             if piece.exists:
                 self.screen.blit(sparkles_image, piece.position)
-
 
     def draw_obstacles(self):
         """
@@ -231,17 +235,27 @@ class View():
                     [step.cell_coord[0], step.cell_coord[1],self.model.cell_size[0],
                     self.model.cell_size[1]])
 
+    def draw_banner(self):
+        colors = self.model.flag.colors
+        screen = self.screen
+        screen_size = self.model.screen_size
+
+        banner = Banner('sample', colors, screen, screen_size)
+        banner.make_banner()
+
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.screen.blit(self.image, (0, 0)) # sets background
         if self.model.endgame == False:
-            #self.draw_path()
+            # self.draw_path()
             self.draw_player()
             self.draw_colors()
             self.draw_obstacles()
+            # self.draw_banner_line()
             self.draw_darkness()
-            self.draw_flag()
             self.draw_sparkles()
+            self.draw_banner()
+            self.draw_flag()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
         pygame.display.update()

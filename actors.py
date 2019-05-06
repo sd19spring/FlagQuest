@@ -166,8 +166,8 @@ class Player(Actor):
             self.position_c[1] = self.screen_size[1]
         elif self.position_c[0] <= 0: # if player's center goes past min x-dimension of screen, they cannot go further
             self.position_c[0] = 0
-        elif self.position_c[1] <= 0: # if player's center goes past min y-dimension of screen, they cannot go further
-            self.position_c[1] = 0
+        elif self.position_c[1] <= 160: # if player's center goes past min y-dimension of screen, they cannot go further
+            self.position_c[1] = 160
 
     def get_draw_position(self):
         """Finds the position to draw the player at. Based on if moving at a 45 or 90 degree angle"""
@@ -199,12 +199,15 @@ class Player(Actor):
 
         a = self.cont.v_max      # this multiplier scales the magnitude of collision-bumping to the magnitude of the player's movement
 
+        full_obstacle_group = Obstacle_Group('ALL_HERE')    # makes an obstacle group containing all obstacle groups
         for group in self.obstacles:
-            collision = pygame.sprite.spritecollide(self, group, dokill = False)   # creates list of all obstacles that the player is colliding with
+            full_obstacle_group.add(group)
 
-            if len(collision) > 0:      # if the sprite is colliding with any obstacles
-                self.position_c[0] += angle_bumps[self.cont.angle][0]*a      # moves the sprite in the opposite direction of their facing
-                self.position_c[1] += angle_bumps[self.cont.angle][1]*a
+        collision = pygame.sprite.spritecollide(self, full_obstacle_group, dokill = False)   # creates list of all obstacles that the player is colliding with
+
+        if len(collision) > 0:      # if the sprite is colliding with any obstacles
+            self.position_c[0] += angle_bumps[self.cont.angle][0]*a   # moves the sprite in the opposite direction of their facing
+            self.position_c[1] += angle_bumps[self.cont.angle][1]*a
 
     def check_color_collision(self, color_objs):
         """Returns sprite collided with, of color objects,
