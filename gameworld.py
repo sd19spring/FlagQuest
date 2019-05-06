@@ -171,6 +171,7 @@ class View():
         self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
         self.image = image.convert() # convert makes the image smaller
         pygame.display.set_caption('Window Viewer') # sets window caption
+        self.banner_size = (self.model.screen_size[0],160)
 
     def draw_player(self):
         """Draw the player at its draw position"""
@@ -231,6 +232,15 @@ class View():
                     [step.cell_coord[0], step.cell_coord[1],self.model.cell_size[0],
                     self.model.cell_size[1]])
 
+    def draw_banner(self):
+        "Draw banner associated with flag"
+        box = pygame.Rect(0, 0, self.banner_size[0], self.banner_size[1])
+        pygame.draw.rect(self.screen, (0,0,0), box)
+
+    def draw_banner_line(self):
+        purple = (36,15,32)
+        pygame.draw.line(self.screen, purple, (0,self.banner_size[1]), (self.banner_size[0],self.banner_size[1]), 5)
+
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
         self.screen.blit(self.image, (0, 0)) # sets background
@@ -239,9 +249,11 @@ class View():
             self.draw_player()
             self.draw_colors()
             self.draw_obstacles()
+            # self.draw_banner_line()
             self.draw_darkness()
             self.draw_flag()
             self.draw_sparkles()
+            # self.draw_banner()
         else: # if it is the end, just draw the endscreen
             self.draw_endscreen()
         pygame.display.update()

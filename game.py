@@ -8,11 +8,12 @@ from level_generation import *
 
 class Game():
     """Class to manage the actor and gameworld classes"""
-    def __init__(self, size=(1880,960), image=pygame.image.load('images/background.png')):
+    def __init__(self, size=(1840,960), image=pygame.image.load('images/background.png')):
         """Create the world.
 
         size: Tuple of the window dimensions
         image: Background image"""
+
         self.image = pygame.transform.scale(image, size)
         self.model = gameworld.Model()
         self.view = gameworld.View(size, self.image, self.model)
