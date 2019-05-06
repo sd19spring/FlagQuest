@@ -73,6 +73,9 @@ class StartScreen():
 
 def start_game():
     menu = StartScreen()
+    pygame.mixer.init()
+    pygame.mixer.music.load('background_music.wav')
+    pygame.mixer.music.play(-1)
     while menu.running:
         menu.update()
         if menu.game_start:
