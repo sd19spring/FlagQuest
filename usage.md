@@ -24,11 +24,12 @@ directory and using the command "sudo pip install -r requirements.txt"
   using pip install pygame
 
 ## Usage
-* Run play_game.py using python
+* Run game.py using python
   * This should generate a game window
 * Game play
-  * Use the arrow keys, WASD, or ,AOE to move around
-  * Gather different flag stripes to make the flag appear
+  * View the instructions on the menu screen
+   * Use the arrow keys, WASD, or ,AOE to move around
+   * Gather different flag stripes to make the flag appear
 
 ## License
 This project is licensed under the GNU General Public
@@ -40,4 +41,4 @@ License v3.0 - see the [LICENSE.md](https://github.com/sd19spring/final-project-
   * Add flags
   * Simplify code to make it more readable
   * Make code more efficient
-* Submit a pull request to our repository with our edits
+* Submit a pull request to our repository with your edits
