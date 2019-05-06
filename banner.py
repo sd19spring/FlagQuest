@@ -25,7 +25,7 @@ class Banner():
             "gqueer":'GENDERQUEER PRIDE FLAG'
             }
 
-        self.purple = (10, 94, 200)
+        self.purple = (92,39,81)
 
     def draw_rectangle(self):
         """ Return the banner's outline and background """
