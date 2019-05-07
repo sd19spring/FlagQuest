@@ -88,6 +88,8 @@ def play_game():
     game = Game()
     while game.running:
         game.update()
+    if game.running == False:
+        start_game()
 
 if __name__ == '__main__':
     start_game()
