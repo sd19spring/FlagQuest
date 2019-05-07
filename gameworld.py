@@ -41,6 +41,7 @@ class Model(object):
         self.make_player()
         self.generate_level()
         self.make_darkness()
+        self.make_banner()
 
     def make_grid(self):
         """Instantiate grid cells for game map.
@@ -162,6 +163,13 @@ class Model(object):
         """Instantiate Darkness object"""
         self.darkness = actors.Darkness(self.player, (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[0]))
 
+    def make_banner(self):
+        """Instatiate Banner object"""
+        colors = self.flag.colors
+        screen_size = self.screen_size
+
+        self.banner = Banner(self.flag.name, screen_size)
+
     def make_endscreen(self):
         """Instantiate Endscreen object"""
         self.endscreen = EndScreen(self.flag.name, (1920, 1080))
@@ -236,12 +244,15 @@ class View():
                     self.model.cell_size[1]])
 
     def draw_banner(self):
-        colors = self.model.flag.colors
-        screen = self.screen
-        screen_size = self.model.screen_size
+        """Draw banner at top of screen"""
+        banner = self.model.banner
 
-        banner = Banner('sample', colors, screen, screen_size)
-        banner.make_banner()
+        box = pygame.Rect(0, 0, banner.size[0], banner.size[1])
+        pygame.draw.rect(self.screen, (0,0,0), box)     # draws black rectangle as background for banner contents
+
+        self.screen.blit(banner.text, (banner.x_pos,banner.y_pos))     # blits text that says the level's flag
+        # self.screen.blit(banner.logo, (10,10))                       # blits image of FlagQuest logo
+
 
     def update(self):
         """Update the draw positons of player, color_actors, obstacles, grid, and the flag"""
