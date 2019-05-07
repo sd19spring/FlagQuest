@@ -169,6 +169,10 @@ class Model(object):
         screen_size = self.screen_size
 
         self.banner = Banner(self.flag.name, screen_size)
+        self.banner.scale_text(40)      # we want the text to be 40 pixels tall
+        self.banner.scale_logo(100)     # and we want the logo to be 100 pixels tall
+
+        self.banner.center_text()
 
     def make_endscreen(self):
         """Instantiate Endscreen object"""
@@ -251,7 +255,8 @@ class View():
         pygame.draw.rect(self.screen, (0,0,0), box)     # draws black rectangle as background for banner contents
 
         self.screen.blit(banner.text, (banner.x_pos,banner.y_pos))     # blits text that says the level's flag
-        # self.screen.blit(banner.logo, (10,10))                       # blits image of FlagQuest logo
+
+        self.screen.blit(banner.logo, (10,10))                       # blits image of FlagQuest logo
 
 
     def update(self):
@@ -262,7 +267,6 @@ class View():
             self.draw_player()
             self.draw_colors()
             self.draw_obstacles()
-            # self.draw_banner_line()
             self.draw_darkness()
             self.draw_sparkles()
             self.draw_banner()
