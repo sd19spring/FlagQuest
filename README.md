@@ -9,7 +9,7 @@ history of the flag and the identity that it represents.
 
 ![Gameplay GIF](images/gameplay.gif)
 
-[![](images/flag_thumbnail.jpg)](https://youtu.be/yAhY30pc9ok)
+[![click here](images/flag_thumbnail.jpg)](https://youtu.be/yAhY30pc9ok)
 
 ## Usage
 For instructions on how to download, install, and get started with the game,
