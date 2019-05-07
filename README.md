@@ -7,9 +7,9 @@ obstacles to collect the different colors of your identity.
 As you collect each color, you’ll learn more about the
 history of the flag and the identity that it represents.
 
-![Gameplay GIF](images/gameplay.gif)
+[![Demo Video](images/flag_thumbnail.jpg)](https://youtu.be/yAhY30pc9ok)
 
-[![click here](images/flag_thumbnail.jpg)](https://youtu.be/yAhY30pc9ok)
+![Gameplay GIF](images/gameplay.gif)
 
 ## Usage
 For instructions on how to download, install, and get started with the game,
@@ -199,6 +199,8 @@ of our game's character.
 
 We used a variety of online resources during the creation of our game, see more
 [here](https://sd19spring.github.io/FlagQuest/resources).
+
+Game music attribution to DL sounds https://www.dl-sounds.com/royalty-free/brave-world/ 
 
 ## Authors
 This game was created, designed, and coded by Lauren Anfenson,
