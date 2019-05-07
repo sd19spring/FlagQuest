@@ -7,7 +7,7 @@ obstacles to collect the different colors of your identity.
 As you collect each color, you’ll learn more about the
 history of the flag and the identity that it represents.
 
-[![Demo Video](images/flag_thumbnail.jpg)](https://www.youtube.com/watch?v=yAhY30pc9ok&feature=youtu.be)
+[![Demo Video](images/flag_thumbnail.png)](https://www.youtube.com/watch?v=yAhY30pc9ok&feature=youtu.be)
 
 ## Usage
 For instructions on how to download, install, and get started with the game,
