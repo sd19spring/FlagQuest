@@ -1,3 +1,4 @@
+""" this file contains the Game class to run and update the game. RUN THIS FILE TO PLAY. """
 import pygame
 import time
 import gameworld

@@ -1,3 +1,5 @@
+""" This file contains the class to hold the information of all the pride flags. """
+
 import pygame
 
 class Flag:

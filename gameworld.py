@@ -1,3 +1,5 @@
+""" This file contains the classes for creating a model of the game state and generating the view of the game. """
+
 import pygame
 import random
 import actors
@@ -35,6 +37,7 @@ class Model(object):
         self.endgame = False
         self.obstacles = []
         self.cleared_obstacles = []
+
         self.make_grid()
         self.choose_flag()
         self.make_colors()
@@ -72,26 +75,25 @@ class Model(object):
             }[random.randint(1, 10)])
 
     def make_colors(self):
-        """Instantiate Color objects for each color in the chosen flag."""
+        """Instantiate Color objects for each color in the chosen flag and place in random cells """
         self.color_objs = []
+
         for color in self.flag.colors:
-            # could we have a get random coord method?
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
-            # coord = self.grid_cells[random_coord]
-            # coord = random_coord((0, 0), (self.grid_size))
+
             cell_coord = self.grid_cells[(x_cell,y_cell)].cell_coord
             grid_coord = self.grid_cells[(x_cell,y_cell)].label
-            # coord = (x_cell, y_cell)
+
             self.color_objs.append(actors.Color(color, self.cell_size, cell_coord, grid_coord, self.grid_cells[grid_coord]))
             self.grid_cells[(x_cell,y_cell)].occupied = True
             self.grid_cells[(x_cell,y_cell)].type = 'color'
 
     def generate_level(self):
-        """Generates playable level"""
+        """ Generates playable level """
 
         #gets position of player for play path
-        player_pos = self.player.position_c
+        player_pos = self.player.get_draw_position()
         player_grid_pos = (math.floor((player_pos[0]-40)/self.cell_size[0]), math.floor((player_pos[1] - 160)/self.cell_size[1]))
         player_cell = self.grid_cells[(player_grid_pos)]
 
@@ -117,14 +119,14 @@ class Model(object):
 
     def place_obstacles(self, path, ind):
         """ Generate obstacles in the grid
-        Path: path between two color stripes on which to only place certain colors
-        of obstacles"""
+        path = list of Cell objects that comprise a path through the grid
+        ind = number path that is currently being generated """
 
         obstacle_types = self.flag.colors[:ind+1]
-        for i in range(round(400/(len(self.flag.colors)))):
+        for i in range(round(350/(len(self.flag.colors)))): # always place 350 obstacles
             x_cell = random.randint(0, self.grid_size[0]-1)
             y_cell = random.randint(0, self.grid_size[1]-1)
-            while self.grid_cells[(x_cell, y_cell)].occupied:
+            while self.grid_cells[(x_cell, y_cell)].occupied: # re-randomize cells if chosen ones are occupied
                 x_cell = random.randint(0, self.grid_size[0]-1)
                 y_cell = random.randint(0, self.grid_size[1]-1)
 
@@ -138,7 +140,7 @@ class Model(object):
             self.grid_cells[(x_cell,y_cell)].type = 'obstacle'
 
     def erase_obstacles(self, key = pygame.K_SPACE):
-        """Removes obstacles from self.model.obstacles while spacebar is held"""
+        """ Removes obstacles from self.model.obstacles while spacebar is held """
         if pygame.key.get_pressed()[key] == 1:
             for color in self.player.collided_with:   # iterates through list of colors that have been collided with
                 for group in self.obstacles:        # iterates through all groups of obstacles
@@ -151,7 +153,7 @@ class Model(object):
                 self.obstacles.append(group)
 
     def make_player(self):
-        """Instantiate Player object"""
+        """ Instantiate Player object """
         self.player = actors.Player((400, 400), self.screen_size,
         self.obstacles, self.color_objs)
 
@@ -160,11 +162,11 @@ class Model(object):
                 self.grid_cells[(i,j)].occupied = True      # marks cells as occupied so that nothing else spawns there
 
     def make_darkness(self):
-        """Instantiate Darkness object"""
+        """ Instantiate Darkness object """
         self.darkness = actors.Darkness(self.player, (self.cell_size[0]*self.grid_size[0], self.cell_size[1]*self.grid_size[0]))
 
     def make_banner(self):
-        """Instatiate Banner object"""
+        """ Instatiate Banner object """
         colors = self.flag.colors
         screen_size = self.screen_size
 
@@ -175,7 +177,7 @@ class Model(object):
         self.banner.center_text()
 
     def make_endscreen(self):
-        """Instantiate Endscreen object"""
+        """ Instantiate Endscreen object """
         self.endscreen = EndScreen(self.flag.name, (1920, 1080))
 
 class View():
@@ -183,7 +185,9 @@ class View():
     Instantiates model and draws the state of every object on the game screen
     """
     def __init__(self, screen_size, image, model):
-        """Initialize model and make game screen"""
+        """Initialize model and make game screen
+        screen_size = size of the game window in pixels
+        model = game model objects"""
         self.model = model
         self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
         self.image = image.convert() # convert makes the image smaller

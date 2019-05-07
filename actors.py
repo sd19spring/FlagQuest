@@ -1,3 +1,5 @@
+""" This file has the classes for Color, Player, and Obstacle actors """
+
 import pygame
 from pygame import transform
 import time

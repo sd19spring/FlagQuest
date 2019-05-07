@@ -1,3 +1,5 @@
+""" This file handles the creation and display of the educational endscreen. """
+
 import pygame
 
 class Page():
