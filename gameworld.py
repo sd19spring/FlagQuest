@@ -190,6 +190,7 @@ class View():
         model = game model objects"""
         self.model = model
         self.screen = pygame.display.set_mode(screen_size, pygame.FULLSCREEN) # sets screen dimensions
+        self.fullscreen = True
         self.image = image.convert() # convert makes the image smaller
         pygame.display.set_caption('Window Viewer') # sets window caption
 

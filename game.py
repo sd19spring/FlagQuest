@@ -18,6 +18,7 @@ class Game():
         self.image = pygame.transform.scale(image, size)
         self.model = gameworld.Model()
         self.view = gameworld.View(size, self.image, self.model)
+        self.size = size
         self.running = True
 
     def check_events(self):
@@ -30,7 +31,12 @@ class Game():
                 if event.key is pygame.K_SPACE: # if space pressed
                     self.running = False # close the game
             if event.type == KEYDOWN and event.key is pygame.K_ESCAPE: # if escape is pressed
-                pygame.display.toggle_fullscreen()
+                if self.view.fullscreen:
+                    pygame.display.set_mode(self.size, pygame.RESIZABLE)
+                    self.view.fullscreen = False
+                else:
+                    pygame.display.set_mode(self.size, pygame.FULLSCREEN)
+                    self.view.fullscreen = True
 
     def check_collision(self):
         """Check for collisions between the player and screen objects"""
