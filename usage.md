@@ -4,7 +4,7 @@ awareness of LGBTQ+ identities by integrating the elements
 of LGBTQ+ flags into fun puzzles. As the game’s player, you
 wander through the dark, navigating around or overcoming
 obstacles to collect the different colors of your identity.
-As you collect each color, you’ll learn more about the
+As you collect each flag, you’ll learn more about the
 history of the flag and the identity that it represents.
 
 ## Authors
