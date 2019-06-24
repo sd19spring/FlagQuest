@@ -198,7 +198,7 @@ of our game's character.
 We used a variety of online resources during the creation of our game, see more
 [here](https://sd19spring.github.io/FlagQuest/resources).
 
-Game music attribution to DL sounds https://www.dl-sounds.com/royalty-free/brave-world/ 
+Game music attribution to [DL sounds](https://www.dl-sounds.com/royalty-free/brave-world/).
 
 ## Authors
 
