@@ -205,5 +205,5 @@ Game music attribution to [DL sounds](https://www.dl-sounds.com/royalty-free/bra
 ![Group photo](images/team_photo.jpg)
 
 This game was created, designed, and coded by Lauren Anfenson,
-David Freeman, Emma Mack, and Griffith Stites. See more about us and our
+David Freeman, Emma Mack, and Maeve Stites. See more about us and our
 contributions [here](https://sd19spring.github.io/FlagQuest/about-us).
