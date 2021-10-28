@@ -9,7 +9,7 @@ history of the flag and the identity that it represents.
 
 ## Authors
 This game was created, designed, and coded by Lauren Anfenson,
-David Freeman, Emma Mack, and Griffith Stites. Thank you to
+David Freeman, Emma Mack, and Maeve Stites. Thank you to
 Gilbert Baker, Monica Helms, Michael Page, and all other
 creators of the various LGBTQ+ flags that we based this game
 around. Thank you as well to all the people of the internet
